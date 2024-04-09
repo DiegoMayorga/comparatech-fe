@@ -1,5 +1,6 @@
 import { useState } from "react";
-import Google from "../img/google.png";
+import Google from "../../assest/google.png";
+import Button from "../../atoms/Button";
 
 const Login = () => {
   const google = () => {
@@ -57,10 +58,10 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <button className="button submit">Iniciar sesión</button>
+            <Button text="Iniciar sesión" />
           </form>
           <a href="http://localhost:3000/signup">
-            <button className="button login-sign-up">Registrarse</button>
+            <Button text="Registrarse" margin={"10px 0 0 0"}/>
           </a>
         <p>o</p>
           <div className="loginButton google" onClick={google}>

@@ -1,8 +1,8 @@
-import Card from "../components/Card";
-import ProductFilter from "../components/ProductFilter";
-import Search from "../components/Search";
+import Card from "../../components/Card";
+import ProductFilter from "../../components/ProductFilter";
+import Search from "../../components/Search";
 
-import { posts } from "../data";
+import { posts } from "../../data";
 
 const Home = () => {
   return (
@@ -19,8 +19,13 @@ const Home = () => {
         ))}
       </div>
       <div className="center">
-        <div className="or">Ofertas del día</div>
+        <div className="or">Historial</div>
         <div className="line" />
+      </div>
+      <div className="home">
+        {posts.map((post) => (
+          <Card key={post.id} post={post} />
+        ))}
       </div>
     </div>
   );

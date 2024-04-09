@@ -12,6 +12,25 @@
   justify-content: space-around;
 }
 
+.footer {
+  height: 50px;
+  width: 100%;
+  background-color: rgba(2, 0, 128, 0.671);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  bottom: 0;
+  position: fixed;
+}
+
+.about-us {
+  font-family: cursive;
+  font-size: 20px;
+  margin: 20px 80px;
+  text-align: center;
+}
+
 .logo {
   font-size: 20px;
   font-weight: bold;
@@ -49,14 +68,60 @@
   display: flex;
 }
 
-.search-input {
+form > .search-input {
   border-radius: 50px;
   width: 50%;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+}
+
+.login-form > input,
+.signup-form > input {
+  width: 200px;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  border-radius: 10%;
+}
+
+.cellphones {
+  display: flex;
+}
+
+.cellphone-cards {
+  margin-left: 20%;
+  display: flex;
+  padding: 50px 100px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.filter-by {
+  margin: 50px 0 0 100px;
+  width: 10%;
+  padding: 30px;
+  border-radius: 20px;
+  -webkit-box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);
+  box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);
+  position: absolute;
+}
+
+.form-check {
+  margin: 5px;
+}
+
+.form-check > input {
+  margin-right: 10px;
 }
 
 .product-filter {
   border-radius: 50px;
   margin-bottom: 50px;
+}
+
+.cellphone-filter {
+  text-decoration: none;
+  color: white;
 }
 
 .center {
@@ -248,23 +313,6 @@
   margin-right: 10px;
 }
 
-input {
-  width: 200px;
-  padding: 15px 20px;
-  margin-bottom: 20px;
-}
-
-.button {
-  width: 200px;
-  background-color: rgba(2, 0, 128, 0.671);
-  color: white;
-  font-weight: bold;
-  border: none;
-  padding: 15px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
 .submit-sign-up {
   align-self: center;
   color: white;
@@ -319,7 +367,7 @@ input {
     width: 60%;
     justify-self: center;
   }
-  
+
   .product-filter > ul > li {
     margin: 2px;
     cursor: pointer;
@@ -339,7 +387,7 @@ input {
     border-bottom-left-radius: 50px;
     padding: 20px;
   }
-  
+
   .product-filter > ul > li:last-child {
     border-top-right-radius: 50px;
     border-bottom-right-radius: 50px;

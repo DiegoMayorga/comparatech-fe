@@ -1,11 +1,16 @@
 import Navbar from "./components/Navbar";
-import "./app.css";
-import Home from "./pages/Home";
-import Post from "./pages/Post";
-import Login from "./pages/Login";
+import "./styles/app.css";
+import Home from "./pages/home/Home";
+import Post from "./pages/posts/Post";
+import Login from "./pages/auth/Login";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import SignUp from "./pages/Signup";
+import SignUp from "./pages/auth/Signup";
+import Cellphones from "./pages/sections/Cellphones";
+import Others from "./pages/sections/Others";
+import Computers from "./pages/sections/Computers";
+import Footer from "./components/Footer";
+import AboutUs from "./pages/about-us/AboutUs";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -53,7 +58,24 @@ const App = () => {
             path="/post/:id"
             element={user ? <Post /> : <Navigate to="/login" />}
           />
+          <Route
+            path="/cellphones"
+            element={user ? <Cellphones /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/computers"
+            element={user ? <Computers /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/others"
+            element={user ? <Others /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/aboutus"
+            element={user ? <AboutUs /> : <Navigate to="/aboutus" />}
+          />
         </Routes>
+        <Footer />
       </div>
     </BrowserRouter>
   );

@@ -1,11 +1,11 @@
 import { useState } from "react";
+import Button from "../../atoms/Button";
 
 const SignUp = () => {
-  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  
+
   const handleSignup = async (e) => {
     console.log("This is signup button.");
     e.preventDefault();
@@ -21,7 +21,7 @@ const SignUp = () => {
       if (response.ok) {
         //Aquí redirigir cuando ya logremos tener el usuario y contraseña
         window.location.href = "/home"; // Es con el <Link> pero hay que hacerlo desde la vista que es.
-        alert("Usuario creado exitosamente.")
+        alert("Usuario creado exitosamente.");
       } else {
         // El inicio de sesión falló, muestra un mensaje de error al usuario
         alert("Registro fallido.");
@@ -66,7 +66,12 @@ const SignUp = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
-          <button className="button submit-sign-up">Registrarse</button>
+          <Button
+            className="button login-sign-up"
+            text="Registrarse"
+            margin={"10px 0"}
+            height={"50px"}
+          />
         </form>
       </div>
     </div>
