@@ -1,8 +1,10 @@
 import Navbar from "./components/Navbar";
-import "./styles/app.css";
+import "./styles/app.css"
+import "./assest/check.png";
 import Home from "./pages/home/Home";
 import Post from "./pages/posts/Post";
 import Login from "./pages/auth/Login";
+import ForgotPassword from "./pages/auth/ForgotPassword";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import SignUp from "./pages/auth/Signup";
@@ -51,8 +53,16 @@ const App = () => {
             element={user ? <Navigate to="/" /> : <Login />}
           />
           <Route
+            path="/login"
+            element={user ? <Navigate to="/" /> : <Login />}
+          />
+          <Route
             path="/signup"
             element={user ? <Navigate to="/" /> : <SignUp />}
+          />
+          <Route
+            path="/forgot-password"
+            element={user ? <Navigate to="/" /> : <ForgotPassword />}
           />
           <Route
             path="/post/:id"
@@ -70,10 +80,7 @@ const App = () => {
             path="/others"
             element={user ? <Others /> : <Navigate to="/login" />}
           />
-          <Route
-            path="/aboutus"
-            element={user ? <AboutUs /> : <Navigate to="/aboutus" />}
-          />
+          <Route path="/aboutus" element={<AboutUs />} />
         </Routes>
         <Footer />
       </div>
