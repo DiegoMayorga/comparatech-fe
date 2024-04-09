@@ -1,8 +1,9 @@
 import Navbar from "./components/Navbar";
-import "./app.css";
+import "./App.css";
 import Home from "./pages/Home";
 import Post from "./pages/Post";
 import Login from "./pages/Login";
+import ForgotPassword from "./pages/ForgotPassword";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import SignUp from "./pages/Signup";
@@ -48,6 +49,10 @@ const App = () => {
           <Route
             path="/signup"
             element={user ? <Navigate to="/" /> : <SignUp />}
+          />
+          <Route
+            path="/forgot-password"
+            element={user ? <Navigate to="/" /> : <ForgotPassword />}
           />
           <Route
             path="/post/:id"

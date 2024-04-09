@@ -62,11 +62,12 @@ const Login = () => {
           <a href="http://localhost:3000/signup">
             <button className="button login-sign-up">Registrarse</button>
           </a>
-        <p>o</p>
+          <p>o</p>
           <div className="loginButton google" onClick={google}>
             <img src={Google} alt="" className="icon" />
             Ingresa con Google
           </div>
+          <a href="http://localhost:3000/forgot-password">¿Olvidaste tu contraseña?</a>
         </div>
       </div>
     </div>
