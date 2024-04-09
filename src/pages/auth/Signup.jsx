@@ -71,6 +71,7 @@ const SignUp = () => {
             text="Registrarse"
             margin={"10px 0"}
             height={"50px"}
+            width={"244px"}
           />
         </form>
       </div>

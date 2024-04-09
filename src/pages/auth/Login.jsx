@@ -58,16 +58,17 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <Button text="Iniciar sesión" />
+            <Button text="Iniciar sesión" width={"244px"}/>
           </form>
           <a href="http://localhost:3000/signup">
-            <Button text="Registrarse" margin={"10px 0 0 0"}/>
+            <Button text="Registrarse" margin={"10px 0 0 0"} width={"244px"}/>
           </a>
-        <p>o</p>
+          <p>o</p>
           <div className="loginButton google" onClick={google}>
             <img src={Google} alt="" className="icon" />
             Ingresa con Google
           </div>
+          <a className="forgot-pw" href="http://localhost:3000/forgot-password">¿Olvidaste tu contraseña?</a>
         </div>
       </div>
     </div>

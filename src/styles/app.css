@@ -80,7 +80,7 @@ form > .search-input {
   width: 200px;
   padding: 15px 20px;
   margin-bottom: 20px;
-  border-radius: 10%;
+  border-radius: 10px;
 }
 
 .cellphones {
@@ -151,31 +151,31 @@ form > .search-input {
   font-size: 20px;
 }
 
-.product-filter > ul {
+.product-filter {
   display: flex;
   list-style: none;
   justify-content: center;
 }
 
-.product-filter > ul > li {
+.product-filter > .cellphone-filter {
   padding: 20px 30px;
   cursor: pointer;
   background-color: rgba(2, 0, 128, 0.671);
   color: white;
 }
 
-.product-filter > ul > li:hover {
+.product-filter > .cellphone-filter:hover {
   background-color: rgba(2, 0, 128, 0.596);
   color: white;
 }
 
-.product-filter > ul > li:first-child {
+.product-filter > .cellphone-filter:first-child {
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
   padding-left: 60px;
 }
 
-.product-filter > ul > li:last-child {
+.product-filter > .cellphone-filter:last-child {
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
   padding-right: 60px;
@@ -242,7 +242,8 @@ form > .search-input {
 }
 
 .login,
-.signup {
+.signup,
+.forgot-password {
   height: calc(100vh - 50px);
   display: flex;
   align-items: center;
@@ -260,6 +261,31 @@ form > .search-input {
   justify-content: center;
 }
 
+.forgot-password-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.forgot-password-text {
+  width: 350px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.forgot-pw {
+  text-decoration: none;
+  color: #020080ab;
+  font-weight: bold;
+}
+
+.forgot-pw-input {
+  width: 200px;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
 .label {
   margin-bottom: 10px;
 }
@@ -272,8 +298,20 @@ form > .search-input {
 }
 
 .wrapper {
-  width: 25%;
-  height: 50%;
+  width: 300px;
+  height: 450px;
+  -webkit-box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);
+  box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+  justify-content: center;
+}
+
+.forgot-password-wrapper {
+  width: 300px;
+  height: 250px;
   -webkit-box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);
   -moz-box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);
   box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);
@@ -326,6 +364,18 @@ form > .search-input {
   background-color: white;
   color: rgba(2, 0, 128, 0.671);
   text-decoration: none;
+}
+
+.submit-forgot-password {
+  align-self: center;
+  color: white;
+  text-decoration: none;
+}
+
+.mail-send-check-img {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 20px;
 }
 
 .submit {
