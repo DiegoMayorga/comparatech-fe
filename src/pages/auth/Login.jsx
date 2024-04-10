@@ -12,28 +12,39 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
+    fetch("http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/auth", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        correoElectronico: email,
+        contrasena: password,
+      }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          alert("Error al iniciar sesión.");
+        }
+      })
+      .then((data) => {
+        localStorage.setItem("isAuthenticated", true);
+        localStorage.setItem("token", data.accessToken);
+        localStorage.setItem("refreshToken", data.refreshToken);
+        if (data.rol === "CLIENTE") {
+          window.location.href = "/home";
+        } else if (data.rol === "ADMIN") {
+          window.location.href = "/admin-home";
+        } else {
+          alert("Rol desconocido: " + data.rol);
+        }
+      })
+      .catch((error) => {
+        console.error("Error al iniciar sesión:", error);
+        alert("Error al iniciar sesión.");
       });
-
-      if (response.ok) {
-        //Aquí redirigir cuando ya logremos tener el usuario y contraseña
-        window.location.href = "/home"; // Es con el <Link> pero hay que hacerlo desde la vista que es.
-      } else {
-        // El inicio de sesión falló, muestra un mensaje de error al usuario
-        alert("Inicio de sesión fallido. Verifica tus credenciales.");
-      }
-    } catch (error) {
-      console.error("Error al iniciar sesión:", error);
-      alert(
-        "Hubo un problema al iniciar sesión. Por favor, inténtalo de nuevo más tarde."
-      );
-    }
   };
 
   return (
@@ -58,17 +69,19 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <Button text="Iniciar sesión" width={"244px"}/>
+            <Button text="Iniciar sesión" width={"244px"} />
           </form>
           <a href="http://localhost:3000/signup">
-            <Button text="Registrarse" margin={"10px 0 0 0"} width={"244px"}/>
+            <Button text="Registrarse" margin={"10px 0 0 0"} width={"244px"} />
           </a>
           <p>o</p>
           <div className="loginButton google" onClick={google}>
             <img src={Google} alt="" className="icon" />
             Ingresa con Google
           </div>
-          <a className="forgot-pw" href="http://localhost:3000/forgot-password">¿Olvidaste tu contraseña?</a>
+          <a className="forgot-pw" href="http://localhost:3000/forgot-password">
+            ¿Olvidaste tu contraseña?
+          </a>
         </div>
       </div>
     </div>

@@ -1,10 +1,14 @@
 import CardPost from "../../components/card-post/CardPost";
 import ProductFilter from "../../components/product-filter/ProductFilter";
 import Search from "../../components/search/Search";
+import { validateRoleFromToken } from "../../utilities/jwt-utilities.js";
 
-import { posts } from "../../data";
+import { posts } from "../../data.js";
 
 const Home = () => {
+
+  validateRoleFromToken("CLIENTE");
+
   return (
     <div className="homepage">
       <Search />
