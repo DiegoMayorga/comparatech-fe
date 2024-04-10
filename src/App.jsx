@@ -6,7 +6,7 @@ import AdminHome from "./pages/home/AdminHome";
 import Post from "./pages/posts/Post";
 import Login from "./pages/auth/Login";
 import ForgotPassword from "./pages/auth/ForgotPassword";
-import RestartPassword from "./pages/auth/RestartPassword";
+import RestarPassword from "./pages/auth/RestarPassword";
 import { useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import SignUp from "./pages/auth/Signup";
@@ -26,7 +26,10 @@ const App = () => {
       <div>
         <Navbar user={isAuthenticated} />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route
+            path="/"
+            element={isAuthenticated ? <Navigate to="/home" /> : <Navigate to="/login" />}
+          />
           <Route
             path="/login"
             element={isAuthenticated ? <Navigate to="/home" /> : <Login />}
@@ -37,15 +40,11 @@ const App = () => {
           />
           <Route
             path="/forgot-password"
-            element={
-              isAuthenticated ? <Navigate to="/home" /> : <ForgotPassword />
-            }
+            element={isAuthenticated ? <Navigate to="/home" /> : <ForgotPassword />}
           />
           <Route
             path="/reset-password"
-            element={
-              isAuthenticated ? <Navigate to="/home" /> : <RestartPassword />
-            }
+            element={isAuthenticated ? <Navigate to="/home" /> : <RestarPassword />}
           />
           <Route
             path="/home"
