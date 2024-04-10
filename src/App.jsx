@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Post from "./pages/Post";
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
+import RestarPassword from "./pages/RestarPassword";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
 import SignUp from "./pages/Signup";
@@ -32,6 +33,10 @@ const App = () => {
           <Route
             path="/forgot-password"
             element={isAuthenticated ? <Navigate to="/home" /> : <ForgotPassword/>}
+          />
+          <Route
+            path="/reset-password"
+            element={isAuthenticated ? <Navigate to="/home" /> : <RestarPassword/>}
           />
           <Route
             path="/home"
