@@ -1,4 +1,4 @@
-import { validateRoleFromToken } from '../utilities/validate-role.js';
+import { validateRoleFromToken } from '../utilities/jwtUtilities.js';
 
 const AdminHome = () => {
 

@@ -1,5 +1,6 @@
 import Navbar from "./components/Navbar";
 import "./App.css";
+import "./restar-password.css";
 import Home from "./pages/Home";
 import Post from "./pages/Post";
 import Login from "./pages/Login";

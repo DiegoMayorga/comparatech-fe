@@ -1,7 +1,7 @@
 import Card from "../components/Card";
 import ProductFilter from "../components/ProductFilter";
 import Search from "../components/Search";
-import { validateRoleFromToken } from '../utilities/validate-role.js';
+import { validateRoleFromToken } from '../utilities/jwtUtilities.js';
 
 import { posts } from "../data";
 
