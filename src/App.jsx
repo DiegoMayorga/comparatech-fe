@@ -10,7 +10,7 @@ import SignUp from "./pages/Signup";
 import AdminHome from "./pages/AdminHome";
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem("isAuthenticated") || false);
+  const [isAuthenticated] = useState(localStorage.getItem("isAuthenticated") || false);
 
   return (
     <BrowserRouter>
@@ -23,7 +23,7 @@ const App = () => {
           />
           <Route
             path="/login"
-            element={isAuthenticated ? <Navigate to="/home" /> : <Login setIsAuthenticated={ setIsAuthenticated } />}
+            element={isAuthenticated ? <Navigate to="/home" /> : <Login/>}
           />
           <Route
             path="/signup"

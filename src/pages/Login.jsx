@@ -29,7 +29,6 @@ const Login = () => {
     })
     .then(data => {
       localStorage.setItem("isAuthenticated", true);
-      localStorage.setItem("userRole", data.rol);
       localStorage.setItem("token", data.accessToken);
       localStorage.setItem("refreshToken", data.refreshToken);
       if (data.rol === "CLIENTE") {

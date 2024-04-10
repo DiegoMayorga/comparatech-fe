@@ -1,8 +1,8 @@
-import { validateRole } from '../utilities/validate-role.js';
+import { validateRoleFromToken } from '../utilities/validate-role.js';
 
 const AdminHome = () => {
 
-  if(!validateRole("ADMIN")){
+  if(!validateRoleFromToken("ADMIN")){
     window.location.href = "/home";
   }
 
