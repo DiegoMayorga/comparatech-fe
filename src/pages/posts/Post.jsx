@@ -9,12 +9,19 @@ const Post = () => {
 
   console.log(location);
   return (
-    <div className="post">
-      <img src={post.img} alt="" className="postImg" />
-      <h1 className="postTitle">{post.title}</h1>
-      <p className="postDesc">{post.desc}</p>
-      <p className="postLongDesc">{post.longDesc}</p>
-    </div>
+    <>
+      <div className="center">
+        <br />
+        <div className="or"><h1 className="postTitle">{post.title}</h1></div>
+        <br />
+        <div className="line" />
+      </div>
+      <div className="post">
+        <img src={post.img} alt="" className="postImg" />
+        <p className="postDesc">{post.desc}</p>
+        <p className="postLongDesc">{post.longDesc}</p>
+      </div>
+    </>
   );
 };
 

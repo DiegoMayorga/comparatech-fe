@@ -4,7 +4,7 @@ import Button from "../../atoms/Button";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
-  const [emailSent, setEmailSent] = useState(true);
+  const [emailSent, setEmailSent] = useState(false);
 
   const handleForgotPassword = async (e) => {
     console.log("this is the forgot password button");
@@ -13,7 +13,7 @@ const ForgotPassword = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:8080/umb/v1/user/forgot-password?correoElectronico=${email}`,
+        `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/user/forgot-password?correoElectronico=${email}`,
         {
           method: "POST",
           headers: {
@@ -21,7 +21,6 @@ const ForgotPassword = () => {
           },
         }
       );
-
       if (response.ok) {
         console.log("correo enviado");
         setEmailSent(true);
