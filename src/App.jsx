@@ -1,12 +1,14 @@
 import Navbar from "./components//navbar/Navbar";
-import "./styles/app.css"
+import "./styles/app.css";
 import "./assest/check.png";
 import Home from "./pages/home/Home";
+import AdminHome from "./pages/home/AdminHome";
 import Post from "./pages/posts/Post";
 import Login from "./pages/auth/Login";
 import ForgotPassword from "./pages/auth/ForgotPassword";
+import RestartPassword from "./pages/auth/RestartPassword";
+import { useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 import SignUp from "./pages/auth/Signup";
 import Cellphones from "./pages/sections/Cellphones";
 import Others from "./pages/sections/Others";
@@ -15,70 +17,61 @@ import Footer from "./components/footer/Footer";
 import AboutUs from "./pages/about-us/AboutUs";
 
 const App = () => {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const getUser = () => {
-      fetch("http://localhost:5000/auth/login/success", {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true,
-        },
-      })
-        .then((response) => {
-          if (response.status === 200) return response.json();
-          throw new Error("authentication has been failed!");
-        })
-        .then((resObject) => {
-          setUser(resObject.user);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-    getUser();
-  }, []);
+  const [isAuthenticated] = useState(
+    localStorage.getItem("isAuthenticated") || false
+  );
 
   return (
     <BrowserRouter>
       <div>
-        <Navbar user={user} />
+        <Navbar user={isAuthenticated} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
             path="/login"
-            element={user ? <Navigate to="/" /> : <Login />}
-          />
-          <Route
-            path="/login"
-            element={user ? <Navigate to="/" /> : <Login />}
+            element={isAuthenticated ? <Navigate to="/home" /> : <Login />}
           />
           <Route
             path="/signup"
-            element={user ? <Navigate to="/" /> : <SignUp />}
+            element={isAuthenticated ? <Navigate to="/home" /> : <SignUp />}
           />
           <Route
             path="/forgot-password"
-            element={user ? <Navigate to="/" /> : <ForgotPassword />}
+            element={
+              isAuthenticated ? <Navigate to="/home" /> : <ForgotPassword />
+            }
+          />
+          <Route
+            path="/reset-password"
+            element={
+              isAuthenticated ? <Navigate to="/home" /> : <RestartPassword />
+            }
+          />
+          <Route
+            path="/home"
+            element={isAuthenticated ? <Home /> : <Navigate to="/login" />}
           />
           <Route
             path="/post/:id"
-            element={user ? <Post /> : <Navigate to="/login" />}
+            element={isAuthenticated ? <Navigate to="/home" /> : <Post />}
+          />
+          <Route
+            path="/admin-home"
+            element={isAuthenticated ? <AdminHome /> : <Navigate to="/login" />}
           />
           <Route
             path="/cellphones"
-            element={user ? <Cellphones /> : <Navigate to="/login" />}
+            element={
+              isAuthenticated ? <Cellphones /> : <Navigate to="/login" />
+            }
           />
           <Route
             path="/computers"
-            element={user ? <Computers /> : <Navigate to="/login" />}
+            element={isAuthenticated ? <Computers /> : <Navigate to="/login" />}
           />
           <Route
             path="/others"
-            element={user ? <Others /> : <Navigate to="/login" />}
+            element={isAuthenticated ? <Others /> : <Navigate to="/login" />}
           />
           <Route path="/aboutus" element={<AboutUs />} />
         </Routes>
