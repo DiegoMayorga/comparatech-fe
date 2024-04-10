@@ -7,9 +7,7 @@ import { posts } from "../data";
 
 const Home = () => {
 
-  if(!validateRoleFromToken("CLIENTE")){
-    window.location.href = "/admin-home";
-  }
+  validateRoleFromToken("CLIENTE");
 
   return (
     <div className="homepage">

@@ -2,9 +2,7 @@ import { validateRoleFromToken } from '../utilities/validate-role.js';
 
 const AdminHome = () => {
 
-  if(!validateRoleFromToken("ADMIN")){
-    window.location.href = "/home";
-  }
+  validateRoleFromToken("ADMIN")
 
   return (
     <div className="homepage">
