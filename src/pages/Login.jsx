@@ -9,30 +9,41 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
+    fetch("http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/auth", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        correoElectronico: email,
+        contrasena: password
+      }),
+    }).then(response => {
       if (response.ok) {
-        //Aquí redirigir cuando ya logremos tener el usuario y contraseña
-        window.location.href = "/home"; // Es con el <Link> pero hay que hacerlo desde la vista que es.
+        return response.json();
       } else {
-        // El inicio de sesión falló, muestra un mensaje de error al usuario
-        alert("Inicio de sesión fallido. Verifica tus credenciales.");
+        alert("Error al iniciar sesión.");
       }
-    } catch (error) {
+    })
+    .then(data => {
+      localStorage.setItem("isAuthenticated", true);
+      localStorage.setItem("userRole", data.rol);
+      localStorage.setItem("token", data.accessToken);
+      localStorage.setItem("refreshToken", data.refreshToken);
+      if (data.rol === "CLIENTE") {
+        window.location.href = "/home";
+      } else if (data.rol === "ADMIN") {
+        
+        window.location.href = "/admin-home";
+      } else {
+        alert("Rol desconocido: " + data.rol);
+      }
+    }).catch(error => {
       console.error("Error al iniciar sesión:", error);
-      alert(
-        "Hubo un problema al iniciar sesión. Por favor, inténtalo de nuevo más tarde."
-      );
-    }
+      alert("Error al iniciar sesión.");
+    });
   };
 
   return (

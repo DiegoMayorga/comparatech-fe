@@ -4,7 +4,7 @@ import Check from "../img/check.png";
 const ForgotPassword = () => {
 
     const [email, setEmail] = useState("");
-    const [emailSent, setEmailSent] = useState(true);
+    const [emailSent, setEmailSent] = useState(false);
 
     const handleForgotPassword = async (e) => {
         console.log("this is the forgot password button");

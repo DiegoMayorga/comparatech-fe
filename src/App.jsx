@@ -5,58 +5,45 @@ import Post from "./pages/Post";
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SignUp from "./pages/Signup";
+import AdminHome from "./pages/AdminHome";
 
 const App = () => {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const getUser = () => {
-      fetch("http://localhost:5000/auth/login/success", {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true,
-        },
-      })
-        .then((response) => {
-          if (response.status === 200) return response.json();
-          throw new Error("authentication has been failed!");
-        })
-        .then((resObject) => {
-          setUser(resObject.user);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-    getUser();
-  }, []);
+  const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem("isAuthenticated") || false);
 
   return (
     <BrowserRouter>
       <div>
-        <Navbar user={user} />
+        <Navbar user={isAuthenticated} />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route
+            path="/"
+            element={isAuthenticated ? <Navigate to="/home" /> : <Navigate to="/login" />}
+          />
           <Route
             path="/login"
-            element={user ? <Navigate to="/" /> : <Login />}
+            element={isAuthenticated ? <Navigate to="/home" /> : <Login setIsAuthenticated={ setIsAuthenticated } />}
           />
           <Route
             path="/signup"
-            element={user ? <Navigate to="/" /> : <SignUp />}
+            element={isAuthenticated ? <Navigate to="/home" /> : <SignUp/>}
           />
           <Route
             path="/forgot-password"
-            element={user ? <Navigate to="/" /> : <ForgotPassword />}
+            element={isAuthenticated ? <Navigate to="/home" /> : <ForgotPassword/>}
+          />
+          <Route
+            path="/home"
+            element={isAuthenticated ? <Home/> : <Navigate to="/login" />}
           />
           <Route
             path="/post/:id"
-            element={user ? <Post /> : <Navigate to="/login" />}
+            element={isAuthenticated ? <Navigate to="/home" /> : <Post/>}
+          />
+          <Route
+            path="/admin-home"
+            element={isAuthenticated ? <AdminHome/> : <Navigate to="/login" />}
           />
         </Routes>
       </div>

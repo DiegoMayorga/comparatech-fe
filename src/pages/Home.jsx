@@ -1,10 +1,16 @@
 import Card from "../components/Card";
 import ProductFilter from "../components/ProductFilter";
 import Search from "../components/Search";
+import { validateRole } from '../utilities/validate-role.js';
 
 import { posts } from "../data";
 
 const Home = () => {
+
+  if(!validateRole("CLIENTE")){
+    window.location.href = "/admin-home";
+  }
+
   return (
     <div className="homepage">
       <Search />
