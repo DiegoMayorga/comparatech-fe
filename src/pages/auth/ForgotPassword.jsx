@@ -13,7 +13,7 @@ const ForgotPassword = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:8080/umb/v1/user/forgot-password?correoElectronico=${email}`,
+        `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/user/forgot-password?correoElectronico=${email}`,
         {
           method: "POST",
           headers: {
