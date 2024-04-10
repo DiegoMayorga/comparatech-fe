@@ -1,9 +1,17 @@
 import { Link } from "react-router-dom";
 
 const Navbar = ({ user }) => {
-  const logout = () => {
+  /* const logout = () => {
     window.open("http://localhost:5000/auth/logout", "_self");
+  }; */
+
+  const handleLogout = () => {
+    localStorage.removeItem("isAuthenticated");
+    localStorage.removeItem("token");
+    localStorage.removeItem("refreshToken");
+    window.location.href = "/login";
   };
+
   return (
     <div className="navbar">
       <span className="logo">
@@ -17,7 +25,7 @@ const Navbar = ({ user }) => {
             <li className="listItem">
               <p>Mi cuenta</p>
             </li>
-            <li className="listItem" onClick={logout}>
+            <li className="listItem" onClick={handleLogout}>
               Cerrar sesión
             </li>
           </ul>
