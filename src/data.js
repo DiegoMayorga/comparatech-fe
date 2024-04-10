@@ -15,7 +15,9 @@ export const posts = [
     longDesc:
       "Infinix Note 30 Pro Dual SIM 256 GB magic black 8 GB RAM",
     Provider:
-      "MercadoLibre",
+      "https://media.fashionnetwork.com/m/5994/9e88/2a77/6720/8d7b/f8b0/2294/55b5/2736/921e/921e.jpg",
+    category: "Celulares",
+    brand: "Infinix"
   },
   {
     id: 3,

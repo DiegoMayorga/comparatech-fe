@@ -1,6 +1,6 @@
-import Card from "../../components/Card";
-import ProductFilter from "../../components/ProductFilter";
-import Search from "../../components/Search";
+import CardPost from "../../components/card-post/CardPost";
+import ProductFilter from "../../components/product-filter/ProductFilter";
+import Search from "../../components/search/Search";
 
 import { posts } from "../../data";
 
@@ -15,7 +15,7 @@ const Home = () => {
       </div>
       <div className="home">
         {posts.map((post) => (
-          <Card key={post.id} post={post} />
+          <CardPost key={post.id} post={post} />
         ))}
       </div>
       <div className="center">
@@ -24,7 +24,7 @@ const Home = () => {
       </div>
       <div className="home">
         {posts.map((post) => (
-          <Card key={post.id} post={post} />
+          <CardPost key={post.id} post={post} />
         ))}
       </div>
     </div>

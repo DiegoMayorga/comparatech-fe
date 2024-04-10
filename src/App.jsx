@@ -1,4 +1,4 @@
-import Navbar from "./components/Navbar";
+import Navbar from "./components//navbar/Navbar";
 import "./styles/app.css"
 import "./assest/check.png";
 import Home from "./pages/home/Home";
@@ -11,7 +11,7 @@ import SignUp from "./pages/auth/Signup";
 import Cellphones from "./pages/sections/Cellphones";
 import Others from "./pages/sections/Others";
 import Computers from "./pages/sections/Computers";
-import Footer from "./components/Footer";
+import Footer from "./components/footer/Footer";
 import AboutUs from "./pages/about-us/AboutUs";
 
 const App = () => {

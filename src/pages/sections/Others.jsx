@@ -1,8 +1,8 @@
-import ProductFilter from "../../components/ProductFilter";
-import Search from "../../components/Search";
-import Card from "../../components/Card";
+import ProductFilter from "../../components/product-filter/ProductFilter";
+import Search from "../../components/search/Search";
 import { posts } from "../../data";
-import FilterBy from "../../components/FilterBy";
+import FilterBy from "../../components/filter-by/FilterBy";
+import CardPost from "../../components/card-post/CardPost";
 
 const Others = () => {
   return (
@@ -17,7 +17,7 @@ const Others = () => {
         <FilterBy />
         <div className="cellphone-cards">
           {posts.map((post) => (
-            <Card key={post.id} post={post} />
+            <CardPost key={post.id} post={post} />
           ))}
         </div>
       </div>

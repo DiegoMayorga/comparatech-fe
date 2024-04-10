@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Check from "../../assest/check.png";
-import Button from "../../atoms/Button";
+import Button from "../../atoms/button/Button";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
