@@ -12,6 +12,8 @@ const Navbar = ({ user }) => {
     window.location.href = "/login";
   };
 
+  console.log(localStorage);
+
   return (
     <div className="navbar">
       <span className="logo">

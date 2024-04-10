@@ -53,7 +53,7 @@ const App = () => {
           />
           <Route
             path="/post/:id"
-            element={isAuthenticated ? <Navigate to="/home" /> : <Post />}
+            element={isAuthenticated ? <Post /> : <Navigate to="/home" />}
           />
           <Route
             path="/admin-home"

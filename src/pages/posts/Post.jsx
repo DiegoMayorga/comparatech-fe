@@ -26,7 +26,7 @@ const Post = () => {
       <div className="post">
         <Card>
           <Image src={post.Provider} alt={post.title} width={"60px"} />
-          <Image src={post.img} alt={post.title} width={"420px"} />
+          <Image src={post.img} alt={post.title} width={"100%"} />
         </Card>
         <Card padding={"30px"}>
           <p className="postLongDesc">{post.longDesc}</p>
@@ -40,7 +40,7 @@ const Post = () => {
             target="_blank"
             rel="noreferrer noopener"
           >
-            <Button margin={"20px 0 0 0"} text={"Ir a la tienda"} />
+            <Button margin={"20px 0 0 0"} text={"Ir a la tienda"} width={"100%"}/>
           </a>
         </Card>
       </div>

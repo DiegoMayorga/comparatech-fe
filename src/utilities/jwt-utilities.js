@@ -13,3 +13,7 @@ export function validateRoleFromToken(role) {
     }
   }
 }
+
+export function extractEmailFromToken(token){
+  return jwtDecode(token).EMAIL;
+}
