@@ -1,3 +1,5 @@
+import "../../styles/pages/about-us/about-us.css"
+
 const AboutUs = () => {
   return (
     <>

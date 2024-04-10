@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Button from "../../atoms/Button";
+import Button from "../../atoms/button/Button";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");

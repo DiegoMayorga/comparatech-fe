@@ -1,17 +1,18 @@
 import { Link } from "react-router-dom";
-import Button from "../atoms/Button";
+import Button from "../../atoms/button/Button";
+import Card from "../../molecules/card/Card";
 
-const Card = ({ post }) => {
+const CardPost = ({ post }) => {
   return (
-    <div className="card">
+    <Card margin={"0"}>
       <Link className="link" to={`/post/${post.id}`}>
         <span className="title">{post.title}</span>
         <img src={post.img} alt="" className="img" />
         <p className="desc">{post.desc}</p>
         <Button className="cardButton" text="Ver producto" />
       </Link>
-    </div>
+    </Card>
   );
 };
 
-export default Card;
+export default CardPost;

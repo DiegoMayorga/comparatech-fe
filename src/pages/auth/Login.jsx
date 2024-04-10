@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Google from "../../assest/google.png";
-import Button from "../../atoms/Button";
+import Button from "../../atoms/button/Button";
 
 const Login = () => {
   const google = () => {

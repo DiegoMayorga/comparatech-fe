@@ -1,0 +1,21 @@
+.post {
+    display: flex;
+    padding: 50px 100px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.specifications {
+    display: flex;
+    padding: 50px 100px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.wrap {
+    display: flex;
+    padding: 50px 100px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
