@@ -1,6 +1,5 @@
 import Navbar from "./components//navbar/Navbar";
 import "./styles/app.css";
-import "./styles/pages/auth/restar-password.css";
 import "./styles/components/admin-menu.css";
 import "./styles/sections/admin-web-scraper.css";
 import "./styles/sections/admin-pqrs.css";
