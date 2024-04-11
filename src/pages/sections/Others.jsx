@@ -3,6 +3,7 @@ import Search from "../../components/search/Search";
 import { posts } from "../../data";
 import FilterBy from "../../components/filter-by/FilterBy";
 import CardPost from "../../components/card-post/CardPost";
+import "../../styles/pages/sections/sections.css"
 
 const Others = () => {
   return (

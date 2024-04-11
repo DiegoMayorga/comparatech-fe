@@ -1,9 +1,7 @@
 import { Link } from "react-router-dom";
+import "../../styles/components/navbar/navbar.css"
 
 const Navbar = ({ user }) => {
-  /* const logout = () => {
-    window.open("http://localhost:5000/auth/logout", "_self");
-  }; */
 
   const handleLogout = () => {
     localStorage.removeItem("isAuthenticated");

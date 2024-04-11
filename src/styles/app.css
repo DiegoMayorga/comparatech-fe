@@ -5,121 +5,7 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* NAVBAR Y FOOTER */
-
-.navbar {
-  height: 50px;
-  background-color: rgba(2, 0, 128, 0.671);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.logo {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.footer {
-  height: 50px;
-  width: 100%;
-  background-color: rgba(2, 0, 128, 0.671);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  bottom: 0;
-  position: fixed;
-}
-
-.list {
-  display: flex;
-  align-items: center;
-  list-style: none;
-}
-
-.listItem {
-  margin-right: 20px;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-.avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.home {
-  display: flex;
-  padding: 50px 100px;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.search {
-  margin: 50px 0 20px;
-  justify-content: center;
-  display: flex;
-}
-
-form > .search-input {
-  border-radius: 50px;
-  width: 50%;
-  padding: 15px 20px;
-  margin-bottom: 20px;
-}
-
-.login-form > input,
-.signup-form > input {
-  width: 200px;
-  padding: 15px 20px;
-  margin-bottom: 20px;
-  border-radius: 10px;
-}
-
-.cellphones {
-  display: flex;
-}
-
-.cellphone-cards {
-  margin-left: 20%;
-  display: flex;
-  padding: 50px 100px;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.filter-by {
-  margin: 50px 0 0 100px;
-  width: 10%;
-  padding: 30px;
-  border-radius: 20px;
-  -webkit-box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);
-  -moz-box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);
-  box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);
-  position: absolute;
-}
-
-.form-check {
-  margin: 5px;
-}
-
-.form-check > input {
-  margin-right: 10px;
-}
-
-.product-filter {
-  border-radius: 50px;
-  margin-bottom: 50px;
-}
-
-.cellphone-filter {
-  text-decoration: none;
-  color: white;
-}
+/* Títulos con línea en la mitad */
 
 .center {
   height: 100%;
@@ -146,13 +32,6 @@ form > .search-input {
   background-color: white;
   font-weight: bold;
   font-size: 20px;
-}
-
-.img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  margin: 20px 0px;
 }
 
 .desc {
@@ -337,43 +216,6 @@ form > .search-input {
     flex-direction: column;
   }
 
-  .product-filter {
-    display: grid;
-  }
-
-  .product-filter > ul {
-    display: flex;
-    flex-direction: column;
-    width: 60%;
-    justify-self: center;
-  }
-
-  .product-filter > ul > li {
-    margin: 2px;
-    cursor: pointer;
-    background-color: rgba(2, 0, 128, 0.671);
-    color: white;
-    border-radius: 50px;
-    text-align: center;
-  }
-
-  .product-filter > ul > li:hover {
-    background-color: rgba(2, 0, 128, 0.596);
-    color: white;
-  }
-
-  .product-filter > ul > li:first-child {
-    border-top-left-radius: 50px;
-    border-bottom-left-radius: 50px;
-    padding: 20px;
-  }
-
-  .product-filter > ul > li:last-child {
-    border-top-right-radius: 50px;
-    border-bottom-right-radius: 50px;
-    padding: 20px;
-  }
-
   .signup-wrapper {
     width: 75% !important;
     height: 60% !important;
@@ -394,5 +236,9 @@ form > .search-input {
   .line {
     height: 0.5px;
     width: 300px;
+  }
+
+  .filter-by {
+    margin: 50px 0 0 10%;
   }
 }

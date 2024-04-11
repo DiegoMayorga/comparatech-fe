@@ -1,3 +1,5 @@
+import "../../styles/components/search/search.css"
+
 const handleSearch = () =>{"    "}
 
 const Search = () => {
