@@ -1,15 +1,16 @@
 import { Link } from "react-router-dom";
+import "../../styles/components/product-filter/product-filter.css"
 
 const ProductFilter = () => {
   return (
     <div className="product-filter">
-      <Link className="cellphone-filter" to="/cellphones">
+      <Link className="title-filter" to="/cellphones">
         Celulares
       </Link>
-      <Link className="cellphone-filter" to="/computers">
+      <Link className="title-filter" to="/computers">
         Computadores
       </Link>
-      <Link className="cellphone-filter" to="/others">
+      <Link className="title-filter" to="/others">
         Otros
       </Link>
     </div>

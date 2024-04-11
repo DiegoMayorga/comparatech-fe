@@ -1,6 +1,6 @@
 import Navbar from "./components//navbar/Navbar";
 import "./styles/app.css";
-import "./styles/pages/auth/restar-password.css";
+import "./styles/pages/auth/restart-password.css";
 import "./assest/check.png";
 import Home from "./pages/home/Home";
 import AdminHome from "./pages/home/AdminHome";

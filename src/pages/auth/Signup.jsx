@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Button from "../../atoms/button/Button";
+import "../../styles/pages/auth/signup.css"
 
 const SignUp = () => {
   const [email, setEmail] = useState("");

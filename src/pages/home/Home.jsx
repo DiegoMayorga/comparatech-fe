@@ -17,6 +17,7 @@ const Home = () => {
         <div className="or">Productos más vendidos</div>
         <div className="line" />
       </div>
+      
       <div className="home">
         {posts.map((post) => (
           <CardPost key={post.id} post={post} />
