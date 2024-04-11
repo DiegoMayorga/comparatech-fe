@@ -2,7 +2,7 @@ import CardPost from "../../components/card-post/CardPost";
 import ProductFilter from "../../components/product-filter/ProductFilter";
 import Search from "../../components/search/Search";
 import { validateRoleFromToken } from "../../utilities/jwt-utilities.js";
-
+import "../../styles/pages/home/home.css"
 import { posts } from "../../data.js";
 
 const Home = () => {
@@ -14,7 +14,7 @@ const Home = () => {
       <Search />
       <ProductFilter />
       <div className="center">
-        <div className="or">Ofertas del día</div>
+        <div className="or">Productos más vendidos</div>
         <div className="line" />
       </div>
       <div className="home">

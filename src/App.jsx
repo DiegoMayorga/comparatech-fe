@@ -7,7 +7,7 @@ import AdminHome from "./pages/home/AdminHome";
 import Post from "./pages/posts/Post";
 import Login from "./pages/auth/Login";
 import ForgotPassword from "./pages/auth/ForgotPassword";
-import RestarPassword from "./pages/auth/RestarPassword";
+import RestartPassword from "./pages/auth/RestartPassword";
 import { useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import SignUp from "./pages/auth/Signup";
@@ -45,7 +45,7 @@ const App = () => {
           />
           <Route
             path="/reset-password"
-            element={isAuthenticated ? <Navigate to="/home" /> : <RestarPassword />}
+            element={isAuthenticated ? <Navigate to="/home" /> : <RestartPassword />}
           />
           <Route
             path="/home"
@@ -53,7 +53,7 @@ const App = () => {
           />
           <Route
             path="/post/:id"
-            element={isAuthenticated ? <Navigate to="/home" /> : <Post />}
+            element={isAuthenticated ? <Post /> : <Navigate to="/home" />}
           />
           <Route
             path="/admin-home"
