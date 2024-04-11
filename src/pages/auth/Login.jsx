@@ -36,7 +36,7 @@ const Login = () => {
         if (data.rol === "CLIENTE") {
           window.location.href = "/home";
         } else if (data.rol === "ADMIN") {
-          window.location.href = "/admin-home";
+          window.location.href = "/admin-web-scraper";
         } else {
           alert("Rol desconocido: " + data.rol);
         }

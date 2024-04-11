@@ -2,6 +2,7 @@
   display: flex;
   list-style: none;
   justify-content: center;
+  font-weight: bold;
 }
 
 .product-filter > .cellphone-filter {

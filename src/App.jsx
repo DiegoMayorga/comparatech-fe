@@ -1,9 +1,11 @@
 import Navbar from "./components//navbar/Navbar";
 import "./styles/app.css";
 import "./styles/pages/auth/restar-password.css";
+import "./styles/components/admin-menu.css";
+import "./styles/sections/admin-web-scraper.css";
+import "./styles/sections/admin-pqrs.css";
 import "./assest/check.png";
 import Home from "./pages/home/Home";
-import AdminHome from "./pages/home/AdminHome";
 import Post from "./pages/posts/Post";
 import Login from "./pages/auth/Login";
 import ForgotPassword from "./pages/auth/ForgotPassword";
@@ -14,6 +16,8 @@ import SignUp from "./pages/auth/Signup";
 import Cellphones from "./pages/sections/Cellphones";
 import Others from "./pages/sections/Others";
 import Computers from "./pages/sections/Computers";
+import AdminWebScraper from "./pages/sections/AdminWebScraper";
+import AdminPqrs from "./pages/sections/AdminPqrs";
 import Footer from "./components/footer/Footer";
 import AboutUs from "./pages/about-us/AboutUs";
 
@@ -56,8 +60,12 @@ const App = () => {
             element={isAuthenticated ? <Post /> : <Navigate to="/home" />}
           />
           <Route
-            path="/admin-home"
-            element={isAuthenticated ? <AdminHome /> : <Navigate to="/login" />}
+            path="/admin-web-scraper"
+            element={isAuthenticated ? <AdminWebScraper /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/admin-pqrs"
+            element={isAuthenticated ? <AdminPqrs /> : <Navigate to="/login" />}
           />
           <Route
             path="/cellphones"
