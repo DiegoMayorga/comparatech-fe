@@ -1,32 +1,50 @@
 import { useState } from "react";
 import Button from "../../atoms/button/Button";
-import "../../styles/pages/auth/signup.css"
+import "../../styles/pages/auth/signup.css";
 
 const SignUp = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleSignup = async (e) => {
-    console.log("This is signup button.");
     e.preventDefault();
     try {
-      const response = await fetch("/api/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password, confirmPassword }),
-      });
-
-      if (response.ok) {
-        //Aquí redirigir cuando ya logremos tener el usuario y contraseña
-        window.location.href = "/home"; // Es con el <Link> pero hay que hacerlo desde la vista que es.
-        alert("Usuario creado exitosamente.");
-      } else {
-        // El inicio de sesión falló, muestra un mensaje de error al usuario
-        alert("Registro fallido.");
+      if (password !== confirmPassword) {
+        alert("La contraseña no coincide");
+        return;
       }
+      const response = await fetch(
+        "http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/user/save",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            nombreCompleto: name,
+            correoElectronico: email,
+            contrasena: password,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (data.message === "USER_ALREADY_EXISTS") {
+        alert("El usuario ya existe.");
+        return;
+      }
+      // El inicio de sesión falló, muestra un mensaje de error al usuario
+      if (!response.ok) {
+        alert("Registro fallido.");
+        return;
+      }
+
+      //Aquí redirigir cuando ya logremos tener el usuario y contraseña
+      window.location.href = "/login"; // Es con el <Link> pero hay que hacerlo desde la vista que es.
+      alert("Usuario creado exitosamente.");
     } catch (error) {
       console.error("Error al crear usuario:", error);
       alert(
@@ -40,6 +58,15 @@ const SignUp = () => {
       <h1 className="title">Crea una cuenta</h1>
       <div className="wrapper">
         <form className="signup-form" onSubmit={handleSignup}>
+          <label className="label">Nombre</label>
+          <input
+            type="text"
+            value={name}
+            name="name"
+            placeholder="Nombre"
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
           <label className="label">Correo electrónico</label>
           <input
             type="email"

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Google from "../../assest/google.png";
 import Button from "../../atoms/button/Button";
-import "../../styles/pages/auth/login.css"
+import "../../styles/pages/auth/login.css";
 
 const Login = () => {
   const google = () => {
@@ -13,39 +13,47 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    fetch("http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/auth", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        correoElectronico: email,
-        contrasena: password,
-      }),
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          alert("Error al iniciar sesión.");
+    try {
+      const response = await fetch(
+        "http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/auth",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            correoElectronico: email,
+            contrasena: password,
+          }),
         }
-      })
-      .then((data) => {
-        localStorage.setItem("isAuthenticated", true);
-        localStorage.setItem("token", data.accessToken);
-        localStorage.setItem("refreshToken", data.refreshToken);
-        if (data.rol === "CLIENTE") {
-          window.location.href = "/home";
-        } else if (data.rol === "ADMIN") {
-          window.location.href = "/admin-web-scraper";
-        } else {
-          alert("Rol desconocido: " + data.rol);
-        }
-      })
-      .catch((error) => {
-        console.error("Error al iniciar sesión:", error);
+      );
+
+      const data = await response.json();
+
+      if (data.message === "BAD_CREDENTIALS") {
+        alert("Credenciales incorrectas.");
+        return;
+      }
+
+      if (!response.ok) {
         alert("Error al iniciar sesión.");
-      });
+        return;
+      }
+
+      localStorage.setItem("isAuthenticated", true);
+      localStorage.setItem("token", data.accessToken);
+      localStorage.setItem("refreshToken", data.refreshToken);
+      if (data.rol === "CLIENTE") {
+        window.location.href = "/home";
+      } else if (data.rol === "ADMIN") {
+        window.location.href = "/admin-web-scraper";
+      } else {
+        alert("Rol desconocido: " + data.rol);
+      }
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error);
+      alert("Error al iniciar sesión.");
+    }
   };
 
   return (
