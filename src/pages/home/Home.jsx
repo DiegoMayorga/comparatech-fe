@@ -16,7 +16,7 @@ const Home = () => {
     const fetchData = async () => {
       try {
         const pResponse = await fetch(
-          "http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/product?skip=0&limit=10",
+          "http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/product/find-most-viewed",
           {
             method: "GET",
             headers: {
@@ -51,7 +51,7 @@ const Home = () => {
         }
 
         const historyData = await hResponse.json();
-        setHistory(historyData.historialBusqueda);
+        setHistory(historyData.historialBusqueda[0].productos);
       } catch (error) {
         console.error("Error fetching data:", error);
       }

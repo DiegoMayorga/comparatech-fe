@@ -53,7 +53,7 @@ const Computers = () => {
         <FilterBy />
         <div className="cellphone-cards">
           {products.map((post) => (
-            <CardPost key={post.id} post={post} />
+            <CardPost key={post._id} post={post} />
           ))}
         </div>
       </div>
