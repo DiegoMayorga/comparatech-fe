@@ -76,7 +76,7 @@ const ForgotPassword = () => {
           <h1 className="title">Correo electrónico enviado</h1>
           <p className="forgot-password-text">
             Hemos enviado un correo electronico al correo especificado con un
-            enlace para que restablezca su contraseña.
+            enlace para que restablezcas tu contraseña.
           </p>
         </div>
       )}

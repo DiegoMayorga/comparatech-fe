@@ -7,7 +7,7 @@ export function validateRoleFromToken(role) {
 
   if (!(role === userRole)) {
     if (role === "CLIENTE") {
-      window.location.href = "/admin-home";
+      window.location.href = "/admin-web-scraper";
     } else if (role === "ADMIN") {
       window.location.href = "/home";
     }
