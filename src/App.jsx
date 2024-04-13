@@ -1,8 +1,8 @@
 import Navbar from "./components//navbar/Navbar";
 import "./styles/app.css";
 import "./styles/components/admin-menu.css";
-import "./styles/sections/admin-web-scraper.css";
-import "./styles/sections/admin-pqrs.css";
+import "./styles/pages/sections/admin-web-scraper.css";
+import "./styles/pages/sections/admin-pqrs.css";
 import "./styles/pages/auth/restart-password.css";
 import "./assest/check.png";
 import Home from "./pages/home/Home";
