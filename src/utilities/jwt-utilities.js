@@ -14,6 +14,24 @@ export function validateRoleFromToken(role) {
   }
 }
 
-export function extractEmailFromToken(token){
+export function validateExpirationToken() {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    return false;
+  }
+
+  const decodedToken = jwtDecode(token);
+  if (!decodedToken.exp) {
+    return false;
+  }
+
+  const currentTime = Date.now() / 1000;
+  if (decodedToken.exp < currentTime) {
+    window.location.href = "/login";
+  }
+}
+
+export function extractEmailFromToken(token) {
   return jwtDecode(token).EMAIL;
 }

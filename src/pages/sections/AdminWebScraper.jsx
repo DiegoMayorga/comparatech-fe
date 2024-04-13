@@ -1,11 +1,13 @@
 import AdminMenu from "../../components/admin-menu/AdminMenu";
 import { validateRoleFromToken } from "../../utilities/jwt-utilities.js";
+import { validateExpirationToken } from "../../utilities/jwt-utilities.js";
 import { useState } from "react";
 import Button from "../../atoms/button/Button";
 import Check from "../../assest/check.png";
 
 const AdminWebScraper = () => {
     validateRoleFromToken("ADMIN");
+    validateExpirationToken();
 
     const [ktronixPhones, setKtronixPhones] = useState(false);
     const [ktronixComputers, setKtronixComputers] = useState(false);
