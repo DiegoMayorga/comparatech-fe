@@ -41,7 +41,7 @@ const FilterBy = () => {
           <label>64</label>
         </div>
         <div className="form-check">
-          <input type="radio" checked />
+          <input type="radio"/>
           <label>128</label>
         </div>
         <div className="form-check">
