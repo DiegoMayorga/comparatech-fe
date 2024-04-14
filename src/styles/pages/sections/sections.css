@@ -1,27 +1,9 @@
-.cellphones {
-  display: flex;
-}
-
-.cellphone-cards {
-  display: flex;
-  padding: 50px 100px;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.form-check {
-  margin: 5px;
-}
-
-.form-check > input {
-  margin-right: 10px;
-}
-
 .pagination {
   margin-top: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 100px;
 }
 
 .pagination button {
@@ -42,4 +24,23 @@
   background-color: #007bff;
   color: #fff;
   border-color: #007bff;
+}
+
+.devices {
+  display: flex;
+}
+
+.devices-cards {
+  display: flex;
+  padding: 50px 100px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.form-check {
+  margin: 5px;
+}
+
+.form-check > input {
+  margin-right: 10px;
 }

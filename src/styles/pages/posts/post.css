@@ -5,6 +5,10 @@
   flex-wrap: wrap;
 }
 
+.post-title {
+  text-align: center;
+}
+
 .specifications {
   display: flex;
   padding: 50px 100px;

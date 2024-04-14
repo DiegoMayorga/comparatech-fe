@@ -76,14 +76,14 @@ const Post = () => {
     };
 
     fetchData();
-  }, []); // Empty dependency array to only run once on mount
+  }, [id]);
 
   return (
     <>
       <div className="center">
         <br />
         <div className="or">
-          <h1 className="postTitle">{post.nombre}</h1>
+          <h2 className="post-title">{post.nombre}</h2>
         </div>
         <br />
         <div className="line" />
