@@ -4,6 +4,7 @@ import Button from "../../atoms/button/Button";
 import "../../styles/pages/posts/post.css";
 import CardPost from "../../components/card-post/CardPost";
 import CardComment from "../../components/card-comments/CardComments.jsx";
+import CardSpecs from "../../components/card-specs/CardSpecs.jsx";
 import { validateRoleFromToken } from "../../utilities/jwt-utilities.js";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -11,8 +12,9 @@ import { useParams } from "react-router-dom";
 
 const Post = () => {
   const { id } = useParams();
-  const [post, setPost] = useState([]);
+  const [post, setPost] = useState({});
   const [comments, setComments] = useState([]);
+  const [specs, setSpecs] = useState([]);
   const [similar, setSimilar] = useState([]);
 
   validateRoleFromToken("CLIENTE");
@@ -43,6 +45,7 @@ const Post = () => {
         setPost(productData.producto);
 
         setComments(productData.producto.comentarios);
+        setSpecs(productData.producto.caracteristicas);
 
         const sResponse = await fetch(
           "http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/product/find-by-name",
@@ -112,32 +115,9 @@ const Post = () => {
         <Card width={"80%"} padding={"30px"}>
           <h2>Especificaciones</h2>
           <div className="wrap">
-            <div>
-              <div>Línea</div>
-              <div>Nota</div>
-            </div>
-            <div>
-              <div>Línea</div>
-              <div>Nota</div>
-            </div>
-            <div>
-              <div>Línea</div>
-              <div>Nota</div>
-            </div>
-          </div>
-          <div className="wrap">
-            <div>
-              <div>Línea</div>
-              <div>Nota</div>
-            </div>
-            <div>
-              <div>Línea</div>
-              <div>Nota</div>
-            </div>
-            <div>
-              <div>Línea</div>
-              <div>Nota</div>
-            </div>
+            {specs.map((spec) => (
+              <CardSpecs key={spec._id} spec={spec} />
+            ))}
           </div>
         </Card>
       </div>
