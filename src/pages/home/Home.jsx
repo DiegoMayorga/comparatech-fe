@@ -71,7 +71,7 @@ const Home = () => {
 
       <div className="home">
         {products.map((post) => (
-          <CardPost key={post.id} post={post} />
+          <CardPost key={post._id} post={post} />
         ))}
       </div>
       <div className="center">
@@ -80,7 +80,7 @@ const Home = () => {
       </div>
       <div className="home">
         {history.map((post) => (
-          <CardPost key={post.id} post={post} />
+          <CardPost key={post._id} post={post} />
         ))}
       </div>
     </div>

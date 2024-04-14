@@ -5,7 +5,7 @@ const FilterBy = () => {
   return (
     <Card
       margin={"50px 0 0 100px"}
-      width={"30%"}
+      width={"90px"}
       padding={"30px"}
       height={"100%"}
     >
@@ -46,7 +46,7 @@ const FilterBy = () => {
           <label>64</label>
         </div>
         <div className="form-check">
-          <input type="radio" checked />
+          <input type="radio"/>
           <label>128</label>
         </div>
         <div className="form-check">

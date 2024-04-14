@@ -62,7 +62,7 @@ const Cellphones = () => {
 
   const renderPageButtons = () => {
     const pageButtons = [];
-    const totalPagesToShow = 5; // Puedes ajustar este valor para mostrar más o menos páginas alrededor de la actual
+    const totalPagesToShow = 5;
 
     let startPage = Math.max(1, currentPage - Math.floor(totalPagesToShow / 2));
     let endPage = Math.min(totalPages, startPage + totalPagesToShow - 1);
@@ -94,9 +94,9 @@ const Cellphones = () => {
         <div className="or">Celulares</div>
         <div className="line" />
       </div>
-      <div className="cellphones">
+      <div className="devices">
         <FilterBy />
-        <div className="cellphone-cards">
+        <div className="devices-cards">
           {products.map((post) => (
             <CardPost key={post._id} post={post} />
           ))}

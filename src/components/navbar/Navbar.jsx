@@ -9,9 +9,7 @@ const Navbar = ({ user }) => {
     localStorage.removeItem("refreshToken");
     window.location.href = "/login";
   };
-
-  console.log(localStorage);
-
+  
   return (
     <div className="navbar">
       <span className="logo">
