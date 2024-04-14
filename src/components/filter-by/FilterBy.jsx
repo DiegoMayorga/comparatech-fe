@@ -3,7 +3,12 @@ import Card from "../../molecules/card/Card";
 
 const FilterBy = () => {
   return (
-    <Card margin={"50px 0 0 100px"} width={"30%"} padding={"30px"}>
+    <Card
+      margin={"50px 0 0 100px"}
+      width={"30%"}
+      padding={"30px"}
+      height={"100%"}
+    >
       <form>
         <p>Filtrar por:</p>
         <br />
