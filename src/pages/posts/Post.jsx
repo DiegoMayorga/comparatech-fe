@@ -11,7 +11,7 @@ import { useParams } from "react-router-dom";
 
 const Post = () => {
   const { id } = useParams();
-  const [post, setPost] = useState([]);
+  const [post, setPost] = useState({});
   const [comments, setComments] = useState([]);
   const [similar, setSimilar] = useState([]);
 
@@ -94,7 +94,7 @@ const Post = () => {
         </Card>
         <Card padding={"30px"}>
           <br />
-          <p className="postDesc">{post.precio}</p>
+          <p className="postDesc">{post.precio.toLocaleString('es-ES', { style: 'currency', currency: 'COP' })}</p>
           <br />
           <p className="category">Categoría: {post.categoria}</p>
           <p className="platform">Plataforma: {post.plataforma}</p>

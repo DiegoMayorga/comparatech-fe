@@ -9,7 +9,7 @@ const CardPost = ({ post }) => {
       <Link className="link" to={`/post/${post._id}`}>
         <span className="title">{post.nombre}</span>
         <Image src={post.imagenUrl} alt="" width={"100%"} margin={"20px 0"} minWidth={"150px"} objectFit={"cover"}/>
-        <p className="desc">{post.precio}</p>
+        <p className="desc">{post.precio.toLocaleString('es-ES', { style: 'currency', currency: 'COP' })}</p>
         <Button className="cardButton" text="Ver producto" />
       </Link>
     </Card>
