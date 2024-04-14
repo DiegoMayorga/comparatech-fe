@@ -3,6 +3,7 @@ import Image from "../../atoms/image/Image";
 import Button from "../../atoms/button/Button";
 import "../../styles/pages/posts/post.css";
 import CardPost from "../../components/card-post/CardPost";
+import CardComment from "../../components/card-comments/CardComments.jsx";
 import { validateRoleFromToken } from "../../utilities/jwt-utilities.js";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -11,6 +12,7 @@ import { useParams } from "react-router-dom";
 const Post = () => {
   const { id } = useParams();
   const [post, setPost] = useState([]);
+  const [comments, setComments] = useState([]);
   const [similar, setSimilar] = useState([]);
 
   validateRoleFromToken("CLIENTE");
@@ -39,6 +41,8 @@ const Post = () => {
 
         const productData = await pResponse.json();
         setPost(productData.producto);
+
+        setComments(productData.producto.comentarios);
 
         const sResponse = await fetch(
           "http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/product/find-by-name",
@@ -154,39 +158,11 @@ const Post = () => {
         <br />
         <div className="line" />
       </div>
-      <Card width={"60%"}>
-        <p>
-          <b>Usuario: Pepito</b>
-        </p>
-        <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis
-          rem incidunt quam provident ab assumenda voluptatum beatae? Quos, nisi
-          adipisci. Odit, perspiciatis reiciendis. Maiores adipisci dolores
-          consequatur eligendi commodi optio?
-        </p>
-      </Card>
-      <Card width={"60%"}>
-        <p>
-          <b>Usuario: Pepito</b>
-        </p>
-        <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis
-          rem incidunt quam provident ab assumenda voluptatum beatae? Quos, nisi
-          adipisci. Odit, perspiciatis reiciendis. Maiores adipisci dolores
-          consequatur eligendi commodi optio?
-        </p>
-      </Card>
-      <Card margin={"0 auto 50px"} width={"60%"}>
-        <p>
-          <b>Usuario: Pepito</b>
-        </p>
-        <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis
-          rem incidunt quam provident ab assumenda voluptatum beatae? Quos, nisi
-          adipisci. Odit, perspiciatis reiciendis. Maiores adipisci dolores
-          consequatur eligendi commodi optio?
-        </p>
-      </Card>
+      <div className="post">
+        {comments.map((comment) => (
+          <CardComment key={comment._id} comment={comment} />
+        ))}
+      </div>
     </>
   );
 };
