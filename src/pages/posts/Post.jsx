@@ -19,6 +19,15 @@ const Post = () => {
 
   validateRoleFromToken("CLIENTE");
 
+  const formatCurrency = (amount) => {
+    const formatter = new Intl.NumberFormat("es-CO", {
+      style: "currency",
+      currency: "COP",
+      minimumFractionDigits: 0,
+    });
+    return formatter.format(amount);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -97,7 +106,7 @@ const Post = () => {
         </Card>
         <Card padding={"30px"}>
           <br />
-          <p className="postDesc">{post.precio.toLocaleString('es-ES', { style: 'currency', currency: 'COP' })}</p>
+          <p className="postDesc">{formatCurrency(post.precio)}</p>
           <br />
           <p className="category">Categoría: {post.categoria}</p>
           <p className="platform">Plataforma: {post.plataforma}</p>
