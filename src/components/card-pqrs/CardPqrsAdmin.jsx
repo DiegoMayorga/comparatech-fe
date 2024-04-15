@@ -30,7 +30,8 @@ const CardPqrsAdmin = ({pqrs} ) => {
     }
 
     let isButtonEnable = true;
-    if (pqrs.incidencia === "resuelto") {
+    if (pqrs.incidencia === "resuelto" &&
+        pqrs.descripcionSolicitud !== "Solicitud para cambio de contraseña") {
         isButtonEnable = false;
     }
 

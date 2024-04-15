@@ -75,7 +75,7 @@ const Home = () => {
         ))}
       </div>
       <div className="center">
-        <div className="or">Historial</div>
+        <div className="or">Tus últimas búsquedas</div>
         <div className="line" />
       </div>
       <div className="home">
