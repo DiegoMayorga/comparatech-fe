@@ -65,7 +65,7 @@ const Home = () => {
       <Search />
       <ProductFilter />
       <div className="center">
-        <div className="or">Productos más vendidos</div>
+        <div className="or">Productos más vistos</div>
         <div className="line" />
       </div>
 
