@@ -1,6 +1,6 @@
 import Card from "../../molecules/card/Card";
 
-const CardPqrs = ( {pqrs} ) => {
+const CardPqrsCustomer = ({pqrs} ) => {
 
     let updatePqrs = "Sin actualización";
 
@@ -46,4 +46,4 @@ const CardPqrs = ( {pqrs} ) => {
     );
 }
 
-export default CardPqrs;
+export default CardPqrsCustomer;
