@@ -1,4 +1,5 @@
 import Card from "../../molecules/card/Card";
+import Button from "../../atoms/button/Button";
 
 const CardPqrsAdmin = ({pqrs} ) => {
 
@@ -28,6 +29,15 @@ const CardPqrsAdmin = ({pqrs} ) => {
             renderRequestType = "Petición";
     }
 
+    let isButtonEnable = true;
+    if (pqrs.incidencia === "resuelto") {
+        isButtonEnable = false;
+    }
+
+    const handleSolvePqrs = (pqrsId) => {
+        console.log(pqrsId);
+    }
+
     return (
         <Card margin={"0"}>
             <h1 className={"card-pqrs-title"}>Tipo Solicitud:</h1>
@@ -44,7 +54,13 @@ const CardPqrsAdmin = ({pqrs} ) => {
             <p className={"card-pqrs-text"}>{updatePqrs}</p>
             <h1 className={"card-pqrs-title"}>Id:</h1>
             <p className={"card-pqrs-text"}>{pqrs.id}</p>
-            <button>Resolver</button>
+            <Button
+                text="Resolver"
+                width={"150px"}
+                margin={"10px 0 0 calc(50% - 70px)"}
+                onClick={() => handleSolvePqrs(pqrs.id)}
+                isEnable={isButtonEnable}
+            />
         </Card>
     );
 }
