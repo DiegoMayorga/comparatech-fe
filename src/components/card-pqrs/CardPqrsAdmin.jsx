@@ -1,11 +1,11 @@
 import Card from "../../molecules/card/Card";
 import Button from "../../atoms/button/Button";
 
-const CardPqrsAdmin = ({pqrs} ) => {
+const CardPqrsAdmin = ({pqrs}) => {
 
     let updatePqrs = "Sin actualización";
 
-    if (pqrs.fechaActualiza !== undefined){
+    if (pqrs.fechaActualiza !== undefined) {
         updatePqrs = pqrs.fechaActualiza;
     }
 
@@ -29,14 +29,29 @@ const CardPqrsAdmin = ({pqrs} ) => {
             renderRequestType = "Petición";
     }
 
-    let isButtonEnable = true;
-    if (pqrs.incidencia === "resuelto" &&
-        pqrs.descripcionSolicitud !== "Solicitud para cambio de contraseña") {
-        isButtonEnable = false;
+    let isButtonDisable = false;
+    if (pqrs.incidencia === "resuelto" ||
+        pqrs.descripcionSolicitud === "Solicitud para cambio de contraseña") {
+        isButtonDisable = true;
     }
 
+    const token = localStorage.getItem("token");
     const handleSolvePqrs = (pqrsId) => {
-        console.log(pqrsId);
+        fetch("http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/pqrs/update", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                "id": pqrsId
+            })
+        }).then(response => {
+            if (response.ok) {
+                window.location.reload();
+            }
+        })
+            .catch(error => console.error(error));
     }
 
     return (
@@ -60,7 +75,7 @@ const CardPqrsAdmin = ({pqrs} ) => {
                 width={"150px"}
                 margin={"10px 0 0 calc(50% - 70px)"}
                 onClick={() => handleSolvePqrs(pqrs.id)}
-                isEnable={isButtonEnable}
+                isEnable={isButtonDisable}
             />
         </Card>
     );

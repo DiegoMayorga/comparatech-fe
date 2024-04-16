@@ -38,7 +38,6 @@ const AdminWebScraper = () => {
 
         fetch("http://localhost:8080/umb/v1/product/web-scraper-bot", {
             method: "POST",
-            mode: "cors",
             headers: {
                 "Content-Type": "application/json",
                 "authorization": `Bearer ${token}`
@@ -60,7 +59,7 @@ const AdminWebScraper = () => {
                 "falabellaTablets": falabellaTablets,
                 "exitoTablets": exitoTablets,
                 "mercadoLibreTablets": mercadoLibreTablets
-            }),
+            })
         }).catch(error => console.error(error));
 
 

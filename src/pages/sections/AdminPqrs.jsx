@@ -10,7 +10,7 @@ const AdminPqrs = () => {
 
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const itemsPerPage = 6;
+    const itemsPerPage = 9;
     const [pqrs, setPqrs] = useState([]);
 
     useEffect(() => {
@@ -36,8 +36,9 @@ const AdminPqrs = () => {
 
                 const pqrsData = await pqrsResponse.json();
                 setPqrs(pqrsData.pqrs);
-                const totalProducts = pqrsData.pqrs.length;
-                const calculatedTotalPages = Math.ceil(totalProducts / itemsPerPage);
+                const totalPqrs = pqrsData.total;
+                console.log(totalPqrs)
+                const calculatedTotalPages = Math.ceil(totalPqrs / itemsPerPage);
                 setTotalPages(Math.max(calculatedTotalPages, 1));
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -45,7 +46,7 @@ const AdminPqrs = () => {
         };
 
         fetchData();
-    }, []);
+    }, [currentPage]);
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);

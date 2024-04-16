@@ -5,155 +5,155 @@ import "../../styles/pages/posts/post.css";
 import CardPost from "../../components/card-post/CardPost";
 import CardComment from "../../components/card-comments/CardComments.jsx";
 import CardSpecs from "../../components/card-specs/CardSpecs.jsx";
-import { validateRoleFromToken } from "../../utilities/jwt-utilities.js";
-import { useState } from "react";
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import {validateExpirationToken, validateRoleFromToken} from "../../utilities/jwt-utilities.js";
+import {useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
 
 const Post = () => {
-  const { id } = useParams();
-  const [post, setPost] = useState({});
-  const [comments, setComments] = useState([]);
-  const [specs, setSpecs] = useState([]);
-  const [similar, setSimilar] = useState([]);
+    const {id} = useParams();
+    const [post, setPost] = useState({});
+    const [comments, setComments] = useState([]);
+    const [specs, setSpecs] = useState([]);
+    const [similar, setSimilar] = useState([]);
 
-  validateRoleFromToken("CLIENTE");
+    validateRoleFromToken("CLIENTE");
+    validateExpirationToken();
 
-  const formatCurrency = (amount) => {
-    const formatter = new Intl.NumberFormat("es-CO", {
-      style: "currency",
-      currency: "COP",
-      minimumFractionDigits: 0,
-    });
-    return formatter.format(amount);
-  };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const pResponse = await fetch(
-          "http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/product/find-by-id",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-            body: JSON.stringify({
-              productoId: id,
-            }),
-          }
-        );
-
-        if (!pResponse.ok) {
-          alert("Hubo  un error al recuperar los datos");
-          return;
-        }
-
-        const productData = await pResponse.json();
-        setPost(productData.producto);
-
-        setComments(productData.producto.comentarios);
-        setSpecs(productData.producto.caracteristicas);
-
-        const sResponse = await fetch(
-          "http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/product/find-by-name",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-            body: JSON.stringify({
-              productName: productData.producto.nombre
-                .split(" ")
-                .slice(0, 3)
-                .join(" "),
-              skip: 0,
-              limit: 6,
-            }),
-          }
-        );
-
-        if (!sResponse.ok) {
-          alert("Hubo  un error al recuperar los datos");
-          return;
-        }
-
-        const similarData = await sResponse.json();
-        setSimilar(similarData.productos);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
+    const formatCurrency = (amount) => {
+        const formatter = new Intl.NumberFormat("es-CO", {
+            style: "currency",
+            currency: "COP",
+            minimumFractionDigits: 0,
+        });
+        return formatter.format(amount);
     };
 
-    fetchData();
-  }, [id]);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const pResponse = await fetch(
+                    "http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/product/find-by-id",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: "Bearer " + localStorage.getItem("token"),
+                        },
+                        body: JSON.stringify({
+                            productoId: id,
+                        }),
+                    }
+                );
 
-  return (
-    <>
-      <div className="center">
-        <br />
-        <div className="or">
-          <h2 className="post-title">{post.nombre}</h2>
-        </div>
-        <br />
-        <div className="line" />
-      </div>
-      <div className="post">
-        <Card>
-          <Image src={post.imagenUrl} alt={post.nombre} width={"100%"} />
-        </Card>
-        <Card padding={"30px"}>
-          <br />
-          <p className="postDesc">{formatCurrency(post.precio)}</p>
-          <br />
-          <p className="category">Categoría: {post.categoria}</p>
-          <p className="platform">Plataforma: {post.plataforma}</p>
-          <p className="brand">Marca: {post.marca}</p>
-          <a href={post.url} target="_blank" rel="noreferrer noopener">
-            <Button
-              margin={"20px 0 0 0"}
-              text={"Ir a la tienda"}
-              width={"100%"}
-            />
-          </a>
-        </Card>
-      </div>
-      <div className="specifications">
-        <Card width={"80%"} padding={"30px"}>
-          <h2>Especificaciones</h2>
-          <div className="wrap">
-            {specs.map((spec) => (
-              <CardSpecs key={spec._id} spec={spec} />
-            ))}
-          </div>
-        </Card>
-      </div>
-      <div className="center">
-        <br />
-        <div className="or">Similares</div>
-        <br />
-        <div className="line" />
-      </div>
-      <div className="post">
-        {similar.map((post) => (
-          <CardPost key={post._id} post={post} />
-        ))}
-      </div>
-      <div className="center">
-        <br />
-        <div className="or">Comentarios</div>
-        <br />
-        <div className="line" />
-      </div>
-      <div className="post">
-        {comments.map((comment) => (
-          <CardComment key={comment._id} comment={comment} />
-        ))}
-      </div>
-    </>
-  );
+                if (!pResponse.ok) {
+                    alert("Hubo  un error al recuperar los datos");
+                    return;
+                }
+
+                const productData = await pResponse.json();
+                setPost(productData.producto);
+
+                setComments(productData.producto.comentarios);
+                setSpecs(productData.producto.caracteristicas);
+
+                const sResponse = await fetch(
+                    "http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/product/find-by-name",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: "Bearer " + localStorage.getItem("token"),
+                        },
+                        body: JSON.stringify({
+                            productName: productData.producto.nombre
+                                .split(" ")
+                                .slice(0, 3)
+                                .join(" "),
+                            skip: 0,
+                            limit: 6,
+                        }),
+                    }
+                );
+
+                if (!sResponse.ok) {
+                    alert("Hubo  un error al recuperar los datos");
+                    return;
+                }
+
+                const similarData = await sResponse.json();
+                setSimilar(similarData.productos);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+
+        fetchData();
+    }, [id]);
+
+    return (
+        <>
+            <div className="center">
+                <br/>
+                <div className="or">
+                    <h2 className="post-title">{post.nombre}</h2>
+                </div>
+                <br/>
+                <div className="line"/>
+            </div>
+            <div className="post">
+                <Card>
+                    <Image src={post.imagenUrl} alt={post.nombre} width={"100%"}/>
+                </Card>
+                <Card padding={"30px"}>
+                    <br/>
+                    <p className="postDesc">{formatCurrency(post.precio)}</p>
+                    <br/>
+                    <p className="category">Categoría: {post.categoria}</p>
+                    <p className="platform">Plataforma: {post.plataforma}</p>
+                    <p className="brand">Marca: {post.marca}</p>
+                    <a href={post.url} target="_blank" rel="noreferrer noopener">
+                        <Button
+                            margin={"20px 0 0 0"}
+                            text={"Ir a la tienda"}
+                            width={"100%"}
+                        />
+                    </a>
+                </Card>
+            </div>
+            <div className="specifications">
+                <Card width={"80%"} padding={"30px"}>
+                    <h2>Especificaciones</h2>
+                    <div className="wrap">
+                        {specs.map((spec) => (
+                            <CardSpecs key={spec._id} spec={spec}/>
+                        ))}
+                    </div>
+                </Card>
+            </div>
+            <div className="center">
+                <br/>
+                <div className="or">Similares</div>
+                <br/>
+                <div className="line"/>
+            </div>
+            <div className="post">
+                {similar.map((post) => (
+                    <CardPost key={post._id} post={post}/>
+                ))}
+            </div>
+            <div className="center">
+                <br/>
+                <div className="or">Comentarios</div>
+                <br/>
+                <div className="line"/>
+            </div>
+            <div className="post">
+                {comments.map((comment) => (
+                    <CardComment key={comment._id} comment={comment}/>
+                ))}
+            </div>
+        </>
+    );
 };
 
 export default Post;
