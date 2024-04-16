@@ -144,24 +144,6 @@ const FilterBy = () => {
           <b>Precio</b>
         </p>
         <br />
-<<<<<<< Updated upstream
-        <div className="form-check">
-          <input type="radio" />
-          <label>64</label>
-        </div>
-        <div className="form-check">
-          <input type="radio" checked />
-          <label>128</label>
-        </div>
-        <div className="form-check">
-          <input type="radio" />
-          <label>256</label>
-        </div>
-        <div className="form-check">
-          <input type="radio" />
-          <label>512</label>
-        </div>
-=======
         <label className="label">Minimo</label>
         <input
           width={"50%"}
@@ -181,7 +163,6 @@ const FilterBy = () => {
           onChange={(e) => setMax(e.target.value)}
         />
         <br />
->>>>>>> Stashed changes
         <br />
         <Button text="Filtrar" width={"100%"} />
       </form>

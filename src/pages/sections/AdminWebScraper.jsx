@@ -1,19 +1,10 @@
 import AdminMenu from "../../components/admin-menu/AdminMenu";
-import { validateRoleFromToken } from "../../utilities/jwt-utilities.js";
+import {validateRoleFromToken, validateExpirationToken} from "../../utilities/jwt-utilities.js";
+import { useState } from "react";
+import Button from "../../atoms/button/Button";
+import Check from "../../assest/check.png";
 
 const AdminWebScraper = () => {
-<<<<<<< Updated upstream
-
-    validateRoleFromToken("ADMIN");
-
-    return (
-        <>
-            <AdminMenu />
-            <h1>Web Scraper</h1>
-        </>
-    );
-}
-=======
   validateRoleFromToken("ADMIN");
   validateExpirationToken();
 
@@ -262,6 +253,5 @@ const AdminWebScraper = () => {
     </>
   );
 };
->>>>>>> Stashed changes
 
 export default AdminWebScraper;
