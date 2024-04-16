@@ -63,6 +63,7 @@ const Login = () => {
       <div className="wrapper">
         <div className="right">
           <form className="login-form" onSubmit={handleLogin}>
+            <label className="label">Correo electrónico</label>
             <input
               type="email"
               value={email}
@@ -71,6 +72,7 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
+            <label className="label">Contraseña</label>
             <input
               type="password"
               value={password}
