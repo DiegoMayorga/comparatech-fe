@@ -22,6 +22,8 @@ import Footer from "./components/footer/Footer";
 import AboutUs from "./pages/about-us/AboutUs";
 
 const App = () => {
+
+
   const [isAuthenticated] = useState(
     localStorage.getItem("isAuthenticated") || false
   );
@@ -30,6 +32,7 @@ const App = () => {
     <BrowserRouter>
       <div>
         <Navbar user={isAuthenticated} />
+        
         <Routes>
           <Route
             path="/"

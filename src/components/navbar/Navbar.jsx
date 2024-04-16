@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
-import "../../styles/components/navbar/navbar.css"
+import "../../styles/components/navbar/navbar.css";
+import { useState } from "react";
+import ProfileModal from "../profile-modal/ProfileModal";
 
 const Navbar = ({ user }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem("isAuthenticated");
@@ -9,7 +12,15 @@ const Navbar = ({ user }) => {
     localStorage.removeItem("refreshToken");
     window.location.href = "/login";
   };
-  
+
+  const openProfileModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeProfileModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="navbar">
       <span className="logo">
@@ -20,7 +31,7 @@ const Navbar = ({ user }) => {
       <div>
         {user ? (
           <ul className="list">
-            <li className="listItem">
+            <li className="listItem" onClick={openProfileModal}>
               <p>Mi cuenta</p>
             </li>
             <li className="listItem" onClick={handleLogout}>
@@ -28,7 +39,7 @@ const Navbar = ({ user }) => {
             </li>
           </ul>
         ) : (
-          ( <>
+          <>
             <Link className="link link--login" to="login">
               Iniciar sesión
             </Link>
@@ -36,9 +47,9 @@ const Navbar = ({ user }) => {
               Registrarse
             </Link>
           </>
-          )
         )}
       </div>
+      {isModalOpen && <ProfileModal user={user} onClose={closeProfileModal} />}
     </div>
   );
 };
