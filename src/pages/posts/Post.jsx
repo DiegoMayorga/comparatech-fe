@@ -88,7 +88,7 @@ const Post = () => {
     };
 
     fetchData();
-  }, [id]);
+  }, [id]); // Empty dependency array to only run once on mount
 
   return (
     <>
