@@ -1,12 +1,15 @@
-import "../../styles/components/search/search.css"
+import "../../styles/components/search/search.css";
 
-const handleSearch = () =>{"    "}
+const handleSearch = () => {
+  "    ";
+};
 
 const Search = () => {
   return (
     <>
       <form className="search" onSubmit={handleSearch}>
-        <input className="search-input"
+        <input
+          className="search-input"
           type="text"
           placeholder="Buscar producto tecnológico..."
         />

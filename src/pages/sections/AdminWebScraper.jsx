@@ -1,5 +1,8 @@
 import AdminMenu from "../../components/admin-menu/AdminMenu";
-import {validateRoleFromToken, validateExpirationToken} from "../../utilities/jwt-utilities.js";
+import {
+  validateRoleFromToken,
+  validateExpirationToken,
+} from "../../utilities/jwt-utilities.js";
 import { useState } from "react";
 import Button from "../../atoms/button/Button";
 import Check from "../../assest/check.png";
