@@ -5,9 +5,11 @@ import "../../styles/pages/posts/post.css";
 import CardPost from "../../components/card-post/CardPost";
 import CardComment from "../../components/card-comments/CardComments.jsx";
 import CardSpecs from "../../components/card-specs/CardSpecs.jsx";
-import { validateRoleFromToken } from "../../utilities/jwt-utilities.js";
-import { useState } from "react";
-import { useEffect } from "react";
+import {
+  validateExpirationToken,
+  validateRoleFromToken,
+} from "../../utilities/jwt-utilities.js";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const Post = () => {
@@ -18,6 +20,7 @@ const Post = () => {
   const [similar, setSimilar] = useState([]);
 
   validateRoleFromToken("CLIENTE");
+  validateExpirationToken();
 
   const formatCurrency = (amount) => {
     const formatter = new Intl.NumberFormat("es-CO", {
@@ -88,7 +91,7 @@ const Post = () => {
     };
 
     fetchData();
-  }, [id]); // Empty dependency array to only run once on mount
+  }, [id]);
 
   return (
     <>
