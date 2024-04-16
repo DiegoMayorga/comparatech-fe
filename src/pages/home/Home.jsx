@@ -65,22 +65,22 @@ const Home = () => {
       <Search />
       <ProductFilter />
       <div className="center">
-        <div className="or">Productos más vendidos</div>
+        <div className="or">Productos más vistos</div>
         <div className="line" />
       </div>
 
       <div className="home">
         {products.map((post) => (
-          <CardPost key={post.id} post={post} />
+          <CardPost key={post._id} post={post} />
         ))}
       </div>
       <div className="center">
-        <div className="or">Historial</div>
+        <div className="or">Tus últimas búsquedas</div>
         <div className="line" />
       </div>
       <div className="home">
         {history.map((post) => (
-          <CardPost key={post.id} post={post} />
+          <CardPost key={post._id} post={post} />
         ))}
       </div>
     </div>
