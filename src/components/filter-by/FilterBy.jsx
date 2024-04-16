@@ -2,25 +2,68 @@ import Button from "../../atoms/button/Button";
 import Card from "../../molecules/card/Card";
 import { useState } from "react";
 
-const FilterBy = () => {
+const FilterBy = ({ section }) => {
   const [selectedRAM, setSelectedRAM] = useState(null);
   const [selectedDisco, setSelectedDisco] = useState(null);
   const [min, setMin] = useState("");
   const [max, setMax] = useState("");
 
+  // Función para manejar cambios en el filtro de RAM
   const handleRadioChangeRAM = (value) => {
-    if (selectedRAM === value) {
-      setSelectedRAM(null);
-    } else {
-      setSelectedRAM(value);
-    }
+    setSelectedRAM(value);
+    setSelectedDisco(null); // Desactiva el filtro de disco
+    setMin(""); // Desactiva el filtro de precio
+    setMax(""); // Desactiva el filtro de precio
   };
+
+  // Función para manejar cambios en el filtro de disco
   const handleRadioChangeDisco = (value) => {
-    if (selectedDisco === value) {
-      setSelectedDisco(null);
-    } else {
-      setSelectedDisco(value);
+    setSelectedDisco(value);
+    setSelectedRAM(null); // Desactiva el filtro de RAM
+    setMin(""); // Desactiva el filtro de precio
+    setMax(""); // Desactiva el filtro de precio
+  };
+
+  // Función para manejar cambios en el rango de precios
+  const handlePriceChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "min") {
+      setMin(value);
+    } else if (name === "max") {
+      setMax(value);
     }
+    setSelectedRAM(null);
+    setSelectedDisco(null);
+  };
+
+  // Función para manejar la acción de filtrar
+  const handleFilter = async () => {
+    if (selectedRAM !== null) {
+      // Realizar la búsqueda filtrando por RAM
+      console.log(`Buscando por RAM: ${selectedRAM} en ${section}`);
+      await sleep(30000);
+      return;
+    }
+    if (selectedDisco !== null) {
+      // Realizar la búsqueda filtrando por disco
+      console.log(`Buscando por Disco: ${selectedDisco} en ${section}`);
+      await sleep(30000);
+      return;
+    }
+    if (min !== "" || max !== "") {
+      // Realizar la búsqueda filtrando por precio
+      console.log(
+        `Buscando por Precio: Min: ${min}, Max: ${max} en ${section}`
+      );
+      await sleep(30000);
+      return;
+    }
+    // No se ha seleccionado ningún filtro
+    console.log("No se ha seleccionado ningún filtro.");
+  };
+
+  const sleep = (ms) => {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   };
 
   return (
@@ -88,8 +131,6 @@ const FilterBy = () => {
           <label>16</label>
         </div>
         <br />
-
-        <br />
         <p>
           <b>DISCO</b>
         </p>
@@ -98,51 +139,41 @@ const FilterBy = () => {
           <input
             type="radio"
             name="disco"
-            value="4"
-            checked={selectedRAM === "4"}
-            onChange={() => handleRadioChangeDisco("4")}
+            value="64"
+            checked={selectedDisco === "64"}
+            onChange={() => handleRadioChangeDisco("64")}
           />
-          <label>4</label>
+          <label>64</label>
         </div>
         <div className="form-check">
           <input
             type="radio"
             name="disco"
-            value="6"
-            checked={selectedRAM === "6"}
-            onChange={() => handleRadioChangeDisco("6")}
+            value="128"
+            checked={selectedDisco === "128"}
+            onChange={() => handleRadioChangeDisco("128")}
           />
-          <label>6</label>
+          <label>128</label>
         </div>
         <div className="form-check">
           <input
             type="radio"
             name="disco"
-            value="8"
-            checked={selectedRAM === "8"}
-            onChange={() => handleRadioChangeDisco("8")}
+            value="256"
+            checked={selectedDisco === "256"}
+            onChange={() => handleRadioChangeDisco("256")}
           />
-          <label>8</label>
+          <label>256</label>
         </div>
         <div className="form-check">
           <input
             type="radio"
             name="disco"
-            value="12"
-            checked={selectedRAM === "12"}
-            onChange={() => handleRadioChangeDisco("12")}
+            value="512"
+            checked={selectedDisco === "512"}
+            onChange={() => handleRadioChangeDisco("512")}
           />
-          <label>12</label>
-        </div>
-        <div className="form-check">
-          <input
-            type="radio"
-            name="disco"
-            value="16"
-            checked={selectedRAM === "16"}
-            onChange={() => handleRadioChangeDisco("16")}
-          />
-          <label>16</label>
+          <label>512</label>
         </div>
         <br />
         <p>
@@ -156,7 +187,7 @@ const FilterBy = () => {
           value={min}
           name="min"
           placeholder="0"
-          onChange={(e) => setMin(e.target.value)}
+          onChange={handlePriceChange}
         />
         <label className="label">Maximo</label>
         <input
@@ -165,11 +196,11 @@ const FilterBy = () => {
           value={max}
           name="max"
           placeholder="99999"
-          onChange={(e) => setMax(e.target.value)}
+          onChange={handlePriceChange}
         />
         <br />
         <br />
-        <Button text="Filtrar" width={"100%"} />
+        <Button text="Filtrar" width={"100%"} onClick={handleFilter} />
       </form>
     </Card>
   );

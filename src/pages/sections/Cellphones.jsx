@@ -7,6 +7,7 @@ import { validateRoleFromToken } from "../../utilities/jwt-utilities.js";
 import { useState, useEffect } from "react";
 
 const Cellphones = () => {
+  const section = "smartphone";
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -95,7 +96,7 @@ const Cellphones = () => {
         <div className="line" />
       </div>
       <div className="devices">
-        <FilterBy />
+        <FilterBy section={section} />
         <div className="devices-cards">
           {products.map((post) => (
             <CardPost key={post._id} post={post} />
