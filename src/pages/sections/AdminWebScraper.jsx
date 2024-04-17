@@ -1,6 +1,5 @@
 import AdminMenu from "../../components/admin-menu/AdminMenu";
-import { validateRoleFromToken } from "../../utilities/jwt-utilities.js";
-import { validateExpirationToken } from "../../utilities/jwt-utilities.js";
+import {validateRoleFromToken, validateExpirationToken} from "../../utilities/jwt-utilities.js";
 import { useState } from "react";
 import Button from "../../atoms/button/Button";
 import Check from "../../assest/check.png";
@@ -39,7 +38,6 @@ const AdminWebScraper = () => {
 
         fetch("http://localhost:8080/umb/v1/product/web-scraper-bot", {
             method: "POST",
-            mode: "cors",
             headers: {
                 "Content-Type": "application/json",
                 "authorization": `Bearer ${token}`
@@ -61,7 +59,7 @@ const AdminWebScraper = () => {
                 "falabellaTablets": falabellaTablets,
                 "exitoTablets": exitoTablets,
                 "mercadoLibreTablets": mercadoLibreTablets
-            }),
+            })
         }).catch(error => console.error(error));
 
 

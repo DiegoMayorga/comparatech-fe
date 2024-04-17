@@ -4,7 +4,7 @@ import "../../styles/components/footer/footer.css"
 const Footer = () => {
   return (
     <div className="footer">
-      <Link className="link" to="/aboutus">
+      <Link className="link" to="/about-us">
         Sobre nosotros
       </Link>
     </div>

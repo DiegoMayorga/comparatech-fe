@@ -1,17 +1,18 @@
-import Navbar from "./components//navbar/Navbar";
+import Navbar from "./components/navbar/Navbar";
 import "./styles/app.css";
 import "./styles/components/admin-menu.css";
 import "./styles/pages/sections/admin-web-scraper.css";
 import "./styles/pages/sections/admin-pqrs.css";
 import "./styles/pages/auth/restart-password.css";
+import "./styles/pages/not-found/not-found.css"
 import "./assest/check.png";
 import Home from "./pages/home/Home";
 import Post from "./pages/posts/Post";
 import Login from "./pages/auth/Login";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import RestartPassword from "./pages/auth/RestartPassword";
-import { useState } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import {useState} from "react";
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import SignUp from "./pages/auth/Signup";
 import Cellphones from "./pages/sections/Cellphones";
 import Others from "./pages/sections/Others";
@@ -20,10 +21,9 @@ import AdminWebScraper from "./pages/sections/AdminWebScraper";
 import AdminPqrs from "./pages/sections/AdminPqrs";
 import Footer from "./components/footer/Footer";
 import AboutUs from "./pages/about-us/AboutUs";
+import NotFound from "./pages/not-found/NotFound";
 
 const App = () => {
-
-
   const [isAuthenticated] = useState(
     localStorage.getItem("isAuthenticated") || false
   );
@@ -32,7 +32,6 @@ const App = () => {
     <BrowserRouter>
       <div>
         <Navbar user={isAuthenticated} />
-        
         <Routes>
           <Route
             path="/"

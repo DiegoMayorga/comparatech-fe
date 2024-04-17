@@ -3,8 +3,11 @@ import Search from "../../components/search/Search";
 import FilterBy from "../../components/filter-by/FilterBy";
 import CardPost from "../../components/card-post/CardPost";
 import "../../styles/pages/sections/sections.css";
-import { validateRoleFromToken } from "../../utilities/jwt-utilities.js";
-import { useState, useEffect } from "react";
+import {
+  validateExpirationToken,
+  validateRoleFromToken,
+} from "../../utilities/jwt-utilities.js";
+import { useEffect, useState } from "react";
 
 const Computers = () => {
   const [products, setProducts] = useState([]);
@@ -13,6 +16,7 @@ const Computers = () => {
   const itemsPerPage = 6;
 
   validateRoleFromToken("CLIENTE");
+  validateExpirationToken();
 
   useEffect(() => {
     const fetchData = async () => {

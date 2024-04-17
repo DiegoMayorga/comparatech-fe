@@ -28,6 +28,7 @@ export function validateExpirationToken() {
 
   const currentTime = Date.now() / 1000;
   if (decodedToken.exp < currentTime) {
+    localStorage.clear();
     window.location.href = "/login";
   }
 }
