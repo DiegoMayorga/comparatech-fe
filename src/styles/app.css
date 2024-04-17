@@ -96,6 +96,8 @@
 }
 
 .label {
+  align-self: start;
+  margin-left: 5px;
   margin-bottom: 10px;
 }
 
@@ -108,7 +110,7 @@
 
 .wrapper {
   width: 300px;
-  height: 450px;
+  height: 500px;
   -webkit-box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);
   -moz-box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);
   box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);
@@ -212,8 +214,7 @@
 
   .wrapper {
     width: 75%;
-    height: 60%;
-    flex-direction: column;
+    height: 65%;
   }
 
   .signup-wrapper {

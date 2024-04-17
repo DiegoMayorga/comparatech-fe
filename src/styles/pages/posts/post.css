@@ -23,3 +23,13 @@
   justify-content: space-between;
   flex-wrap: wrap;
 }
+
+.cover-image {
+  display: grid;
+}
+
+.cover-image > .image {
+  align-self: center !important;
+  width: 80% !important;
+  height: auto !important;
+}

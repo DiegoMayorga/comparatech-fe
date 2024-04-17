@@ -49,6 +49,14 @@
 }
 
 @media screen and (max-width: 992px) {
+
+  .home {
+    display: flex;
+    flex-direction: column;
+    padding: 50px 100px;
+    flex-wrap: wrap;
+  }
+
   .product-filter {
     display: flex;
     flex-direction: column;

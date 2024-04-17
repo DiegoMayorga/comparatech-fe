@@ -10,10 +10,14 @@ const Input = ({
   padding,
   margin,
   required,
+  height,
+  width,
 }) => {
   const inputStyle = {
     padding: padding || "15px 20px",
     margin: margin || "20px",
+    width: width || "auto",
+    height: height || "auto",
   };
   return (
     <input
@@ -35,6 +39,8 @@ Input.propTypes = {
   name: PropTypes.string,
   placeholder: PropTypes.string,
   padding: PropTypes.string,
+  height: PropTypes.string,
+  width: PropTypes.string,
   margin: PropTypes.string,
   onChange: PropTypes.func,
   required: PropTypes.bool,
