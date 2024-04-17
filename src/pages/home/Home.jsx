@@ -38,7 +38,7 @@ const Home = () => {
         setProducts(productsData.productos);
 
         const hResponse = await fetch(
-          "http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/user/viewed-products",
+          "http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/user/viewed-products?skip=0&limit=9",
           {
             method: "GET",
             headers: {

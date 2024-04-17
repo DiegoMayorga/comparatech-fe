@@ -21,6 +21,7 @@ import AdminWebScraper from "./pages/sections/AdminWebScraper";
 import AdminPqrs from "./pages/sections/AdminPqrs";
 import Footer from "./components/footer/Footer";
 import AboutUs from "./pages/about-us/AboutUs";
+import NotFound from "./pages/not-found/NotFound";
 /* import NotFound from "./pages/not-found/NotFound"; */
 
 const App = () => {
@@ -95,7 +96,12 @@ const App = () => {
             path="/others"
             element={isAuthenticated ? <Others /> : <Navigate to="/login" />}
           />
-          <Route path="/aboutus" element={<AboutUs />} />
+          <Route path="/about-us"
+                 element={ isAuthenticated ? <AboutUs /> : <Navigate to="/login" />}
+          />
+          <Route path="/*"
+                 element={isAuthenticated ? <NotFound /> : <Navigate to="/login" />}
+          />
         </Routes>
         <Footer />
       </div>

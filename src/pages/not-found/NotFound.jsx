@@ -6,7 +6,12 @@ const NotFound = () => {
     validateExpirationToken();
 
     return (
-        <h1>Resource Not Found</h1>
+        <>
+            <div className="not-found-container">
+                <h1>404</h1>
+                <h2>Resource Not Found</h2>
+            </div>
+        </>
     );
 }
 
