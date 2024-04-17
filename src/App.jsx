@@ -4,15 +4,15 @@ import "./styles/components/admin-menu.css";
 import "./styles/pages/sections/admin-web-scraper.css";
 import "./styles/pages/sections/admin-pqrs.css";
 import "./styles/pages/auth/restart-password.css";
-import "./styles/pages/not-found/not-found.css"
+import "./styles/pages/not-found/not-found.css";
 import "./assest/check.png";
 import Home from "./pages/home/Home";
 import Post from "./pages/posts/Post";
 import Login from "./pages/auth/Login";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import RestartPassword from "./pages/auth/RestartPassword";
-import {useState} from "react";
-import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+import { useState } from "react";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import SignUp from "./pages/auth/Signup";
 import Cellphones from "./pages/sections/Cellphones";
 import Others from "./pages/sections/Others";
@@ -35,7 +35,13 @@ const App = () => {
         <Routes>
           <Route
             path="/"
-            element={isAuthenticated ? <Navigate to="/home" /> : <Navigate to="/login" />}
+            element={
+              isAuthenticated ? (
+                <Navigate to="/home" />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
           <Route
             path="/login"
@@ -47,11 +53,15 @@ const App = () => {
           />
           <Route
             path="/forgot-password"
-            element={isAuthenticated ? <Navigate to="/home" /> : <ForgotPassword />}
+            element={
+              isAuthenticated ? <Navigate to="/home" /> : <ForgotPassword />
+            }
           />
           <Route
             path="/reset-password"
-            element={isAuthenticated ? <Navigate to="/home" /> : <RestartPassword />}
+            element={
+              isAuthenticated ? <Navigate to="/home" /> : <RestartPassword />
+            }
           />
           <Route
             path="/home"
@@ -63,7 +73,9 @@ const App = () => {
           />
           <Route
             path="/admin-web-scraper"
-            element={isAuthenticated ? <AdminWebScraper /> : <Navigate to="/login" />}
+            element={
+              isAuthenticated ? <AdminWebScraper /> : <Navigate to="/login" />
+            }
           />
           <Route
             path="/admin-pqrs"
