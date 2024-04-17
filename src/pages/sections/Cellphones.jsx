@@ -25,8 +25,9 @@ const Cellphones = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        var totalProducts = 0;
         const skip = (currentPage - 1) * itemsPerPage;
-        if (filterOption === 0) {
+        if (filterOption == 0) {
           const pResponse = await fetch(
             `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/product/find-by-category?category_name=smartphone&skip=${skip}&limit=${itemsPerPage}`,
             {
@@ -44,6 +45,7 @@ const Cellphones = () => {
           }
 
           const productsData = await pResponse.json();
+          totalProducts = productsData.totalProductos;
           setProducts(productsData.productos);
         }
         if (filterOption === 1) {
@@ -64,6 +66,7 @@ const Cellphones = () => {
           }
 
           const productsData = await pResponse.json();
+          totalProducts = productsData.totalProductos;
           setProducts(productsData.productos);
         }
         if (filterOption === 2) {
@@ -84,6 +87,7 @@ const Cellphones = () => {
           }
 
           const productsData = await pResponse.json();
+          totalProducts = productsData.totalProductos;
           setProducts(productsData.productos);
         }
         if (filterOption === 3) {
@@ -104,10 +108,10 @@ const Cellphones = () => {
           }
 
           const productsData = await pResponse.json();
+          totalProducts = productsData.totalProductos;
           setProducts(productsData.productos);
         }
 
-        const totalProducts = productsData.totalProductos;
         const calculatedTotalPages = Math.ceil(totalProducts / itemsPerPage);
         setTotalPages(Math.max(calculatedTotalPages, 1));
       } catch (error) {
