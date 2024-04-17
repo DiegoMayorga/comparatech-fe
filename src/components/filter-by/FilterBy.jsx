@@ -4,7 +4,7 @@ import { useState } from "react";
 import "../../styles/components/filter-by/filter-by.css";
 import Input from "../../atoms/input/Input";
 
-const FilterBy = ({ section }) => {
+const FilterBy = ({ onFilteredData }) => {
   const [selectedRAM, setSelectedRAM] = useState(null);
   const [selectedDisco, setSelectedDisco] = useState(null);
   const [min, setMin] = useState("");
@@ -42,22 +42,36 @@ const FilterBy = ({ section }) => {
   const handleFilter = async () => {
     if (selectedRAM !== null) {
       // Realizar la búsqueda filtrando por RAM
-      console.log(`Buscando por RAM: ${selectedRAM} en ${section}`);
-      await sleep(30000);
+      const filteredData = {
+        filterOption: 1,
+        filter: {
+          selectedRAM: selectedRAM,
+        },
+      };
+      onFilteredData(filteredData);
       return;
     }
     if (selectedDisco !== null) {
       // Realizar la búsqueda filtrando por disco
-      console.log(`Buscando por Disco: ${selectedDisco} en ${section}`);
-      await sleep(30000);
+      const filteredData = {
+        filterOption: 2,
+        filter: {
+          selectedDisco: selectedDisco,
+        },
+      };
+      onFilteredData(filteredData);
       return;
     }
     if (min !== "" || max !== "") {
       // Realizar la búsqueda filtrando por precio
-      console.log(
-        `Buscando por Precio: Min: ${min}, Max: ${max} en ${section}`
-      );
-      await sleep(30000);
+      const filteredData = {
+        filterOption: 3,
+        filter: {
+          min: min,
+          max: max,
+        },
+      };
+      onFilteredData(filteredData);
       return;
     }
     // No se ha seleccionado ningún filtro
@@ -192,7 +206,7 @@ const FilterBy = ({ section }) => {
             margin={"10px 0"}
             placeholder="0"
             onChange={handlePriceChange}
-            />
+          />
           <p className="label">Máximo</p>
           <Input
             width={"50%"}

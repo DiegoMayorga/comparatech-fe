@@ -7,7 +7,8 @@ import { validateRoleFromToken } from "../../utilities/jwt-utilities.js";
 import { useState, useEffect } from "react";
 
 const Cellphones = () => {
-  const section = "smartphone";
+  const filterOption = 0;
+  const [filter, setFilter] = useState({});
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -15,28 +16,96 @@ const Cellphones = () => {
 
   validateRoleFromToken("CLIENTE");
 
+  // Función para recibir los datos filtrados del componente de filtro
+  const handleFilteredData = (data) => {
+    filterOption = data.filterOption;
+    setFilter(data.filter);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const skip = (currentPage - 1) * itemsPerPage;
-        const pResponse = await fetch(
-          `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/product/find-by-category?category_name=smartphone&skip=${skip}&limit=${itemsPerPage}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
+        if (filterOption === 0) {
+          const pResponse = await fetch(
+            `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/product/find-by-category?category_name=smartphone&skip=${skip}&limit=${itemsPerPage}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("token"),
+              },
+            }
+          );
+
+          if (!pResponse.ok) {
+            alert("Hubo un error al recuperar los datos");
+            return;
           }
-        );
 
-        if (!pResponse.ok) {
-          alert("Hubo un error al recuperar los datos");
-          return;
+          const productsData = await pResponse.json();
+          setProducts(productsData.productos);
         }
+        if (filterOption === 1) {
+          const pResponse = await fetch(
+            `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/product/find-by-ram-memory?ram_memory=${filter.selectedRAM}&category_name=smartphone&skip=${skip}&limit=${itemsPerPage}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("token"),
+              },
+            }
+          );
 
-        const productsData = await pResponse.json();
-        setProducts(productsData.productos);
+          if (!pResponse.ok) {
+            alert("Hubo un error al recuperar los datos");
+            return;
+          }
+
+          const productsData = await pResponse.json();
+          setProducts(productsData.productos);
+        }
+        if (filterOption === 2) {
+          const pResponse = await fetch(
+            `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/product/find-by-storage-capacity?storage_capacity=${filter.selectedDisco}&category_name=smartphone&skip=${skip}&limit=${itemsPerPage}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("token"),
+              },
+            }
+          );
+
+          if (!pResponse.ok) {
+            alert("Hubo un error al recuperar los datos");
+            return;
+          }
+
+          const productsData = await pResponse.json();
+          setProducts(productsData.productos);
+        }
+        if (filterOption === 3) {
+          const pResponse = await fetch(
+            `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/product/find-by-price-range?min_price=${filter.min}&max_price=${filter.max}&category_name=smartphone&skip=${skip}&limit=${itemsPerPage}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("token"),
+              },
+            }
+          );
+
+          if (!pResponse.ok) {
+            alert("Hubo un error al recuperar los datos");
+            return;
+          }
+
+          const productsData = await pResponse.json();
+          setProducts(productsData.productos);
+        }
 
         const totalProducts = productsData.totalProductos;
         const calculatedTotalPages = Math.ceil(totalProducts / itemsPerPage);
@@ -96,7 +165,7 @@ const Cellphones = () => {
         <div className="line" />
       </div>
       <div className="devices">
-        <FilterBy section={section} />
+        <FilterBy onFilteredData={handleFilteredData} />
         <div className="devices-cards">
           {products.map((post) => (
             <CardPost key={post._id} post={post} />
