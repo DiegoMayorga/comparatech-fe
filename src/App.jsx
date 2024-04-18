@@ -5,6 +5,7 @@ import "./styles/pages/sections/admin-web-scraper.css";
 import "./styles/pages/sections/admin-pqrs.css";
 import "./styles/pages/auth/restart-password.css";
 import "./styles/pages/not-found/not-found.css";
+import "./styles/pages/complaint-box/complaint-box.css";
 import "./assest/check.png";
 import Home from "./pages/home/Home";
 import Post from "./pages/posts/Post";
@@ -21,8 +22,9 @@ import AdminWebScraper from "./pages/sections/AdminWebScraper";
 import AdminPqrs from "./pages/sections/AdminPqrs";
 import Footer from "./components/footer/Footer";
 import AboutUs from "./pages/about-us/AboutUs";
+import ComplaintBox from "./pages/complaint-box/ComplaintBox";
+import CustomerPqrs from "./pages/customer-pqrs/CustomerPqrs";
 import NotFound from "./pages/not-found/NotFound";
-/* import NotFound from "./pages/not-found/NotFound"; */
 
 const App = () => {
   const [isAuthenticated] = useState(
@@ -96,8 +98,14 @@ const App = () => {
             path="/others"
             element={isAuthenticated ? <Others /> : <Navigate to="/login" />}
           />
+          <Route path="/complaint-box"
+                 element={ isAuthenticated ? <ComplaintBox /> : <Navigate to="/login" /> }
+          />
+          <Route path="/my-requests"
+                 element={ isAuthenticated ? <CustomerPqrs /> : <Navigate to="/login" /> }
+          />
           <Route path="/about-us"
-                 element={ isAuthenticated ? <AboutUs /> : <Navigate to="/login" />}
+                 element={<AboutUs />}
           />
           <Route path="/*"
                  element={isAuthenticated ? <NotFound /> : <Navigate to="/login" />}

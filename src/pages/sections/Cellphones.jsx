@@ -3,18 +3,18 @@ import Search from "../../components/search/Search";
 import FilterBy from "../../components/filter-by/FilterBy";
 import CardPost from "../../components/card-post/CardPost";
 import "../../styles/pages/sections/sections.css";
-import { validateRoleFromToken } from "../../utilities/jwt-utilities.js";
+import { validateTokenWithRole } from "../../utilities/jwt-utilities.js";
 import { useState, useEffect } from "react";
 
 const Cellphones = () => {
-  const filterOption = 0;
+  let filterOption = 0;
   const [filter, setFilter] = useState({});
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const itemsPerPage = 6;
 
-  validateRoleFromToken("CLIENTE");
+  validateTokenWithRole("CLIENTE");
 
   // Función para recibir los datos filtrados del componente de filtro
   const handleFilteredData = (data) => {

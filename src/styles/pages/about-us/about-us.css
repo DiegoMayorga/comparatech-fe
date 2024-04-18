@@ -1,6 +1,10 @@
 .about-us {
-  font-family: cursive;
-  font-size: 20px;
-  margin: 20px 80px;
-  text-align: center;
+    font-family: cursive;
+    font-size: 20px;
+    margin: 20px 80px;
+    text-align: center;
+}
+
+.aboutus-content {
+    margin-bottom: 75vh;
 }

@@ -1,9 +1,8 @@
-import {validateExpirationToken, validateRoleFromToken} from "../../utilities/jwt-utilities";
+import {validateTokenWithRole} from "../../utilities/jwt-utilities";
 
 const NotFound = () => {
 
-    validateRoleFromToken("CLIENTE");
-    validateExpirationToken();
+    validateTokenWithRole("CLIENTE");
 
     return (
         <>

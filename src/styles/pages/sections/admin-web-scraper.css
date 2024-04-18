@@ -6,6 +6,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    margin-bottom: 43vh;
 }
 
 .wrapper-scraper {
@@ -49,7 +50,7 @@
     margin-right: 5px;
 }
 
-.categories-scraper-container>input[type="checkbox"]::checked {
+.categories-scraper-container>input[type="checkbox"]:checked {
     accent-color: rgba(2, 0, 128, 0.671);
 }
 
@@ -66,4 +67,23 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+}
+
+@media screen and (max-width: 700px) {
+    .wrapper-scraper {
+        grid-template-columns: auto;
+    }
+
+    .categories-scraper-container {
+        grid-template-columns: auto;
+        grid-template-rows: auto auto auto auto;
+    }
+
+    .categories-scraper-container>label {
+        margin-top: 10px;
+    }
+
+    .categories-scraper-container>label:nth-child(2n) {
+        margin-left: 0;
+    }
 }
