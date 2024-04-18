@@ -33,3 +33,7 @@
   width: 80% !important;
   height: auto !important;
 }
+
+.image {
+  border-radius: 50px !important;
+}

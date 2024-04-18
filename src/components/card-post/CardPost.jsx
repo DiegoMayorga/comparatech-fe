@@ -16,25 +16,26 @@ const CardPost = ({ post }) => {
 
   const platformLogos = {
     exito:
-        "https://seeklogo.com/images/E/exito-logo-4AC4CFF6A0-seeklogo.com.png",
-    ktronix:
-        "https://femac.coop/images/2023/servicios/convenios/ktronix.png",
+      "https://seeklogo.com/images/E/exito-logo-4AC4CFF6A0-seeklogo.com.png",
+    ktronix: "https://femac.coop/images/2023/servicios/convenios/ktronix.png",
     falabella:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Falabella.svg/2560px-Falabella.svg.png",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Falabella.svg/2560px-Falabella.svg.png",
     "mercado-libre":
-        "https://tecnomarketingnews.com/wp-content/uploads/2016/08/MercadoLibre.png",
+      "https://tecnomarketingnews.com/wp-content/uploads/2016/08/MercadoLibre.png",
   };
 
   return (
     <>
       <Card className="card-responsive" margin={"0"}>
         <Link className="link" to={`/post/${post._id}`}>
-          <span className="title">{post.nombre}</span>
+          <div className="post-title">
+            <span className="title">{post.nombre}</span>
+          </div>
           <div className="e-commerce">
             <Image
-                src={platformLogos[post.plataforma]}
-                alt={post.nombre}
-                width={"30%"}
+              src={platformLogos[post.plataforma]}
+              alt={post.nombre}
+              width={"30%"}
             />
           </div>
           <div className="cover-image">
