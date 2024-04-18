@@ -16,8 +16,10 @@ import { useState } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import SignUp from "./pages/auth/Signup";
 import Cellphones from "./pages/sections/Cellphones";
-import Others from "./pages/sections/Others";
 import Computers from "./pages/sections/Computers";
+import Tablets from "./pages/sections/Tablets";
+import Monitors from "./pages/sections/Monitors";
+import Others from "./pages/sections/Others";
 import AdminWebScraper from "./pages/sections/AdminWebScraper";
 import AdminPqrs from "./pages/sections/AdminPqrs";
 import Footer from "./components/footer/Footer";
@@ -93,6 +95,14 @@ const App = () => {
           <Route
             path="/computers"
             element={isAuthenticated ? <Computers /> : <Navigate to="/login" />}
+          />
+          <Route
+              path="/tablets"
+              element={isAuthenticated ? <Tablets /> : <Navigate to="/login" />}
+          />
+          <Route
+              path="/monitors"
+              element={isAuthenticated ? <Monitors /> : <Navigate to="/login" />}
           />
           <Route
             path="/others"
