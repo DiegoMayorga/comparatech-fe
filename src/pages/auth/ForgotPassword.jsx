@@ -25,6 +25,8 @@ const ForgotPassword = () => {
       if (response.ok) {
         console.log("correo enviado");
         setEmailSent(true);
+      } else if (response.status === 404) {
+        console.log("usuario no encontrado");
       } else {
         console.log("error al enviar el correo de recuperación");
       }

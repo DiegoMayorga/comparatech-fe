@@ -29,8 +29,10 @@ const Computers = () => {
                     }
                 );
 
-                if (!pResponse.ok) {
-                    alert("Hubo  un error al recuperar los datos");
+                if (pResponse.status === 403) {
+                    window.location.href = "/login";
+                } else if (!pResponse.ok) {
+                    alert("Hubo un error al recuperar los datos");
                     return;
                 }
 
@@ -41,7 +43,7 @@ const Computers = () => {
                 const calculatedTotalPages = Math.ceil(totalProducts / itemsPerPage);
                 setTotalPages(Math.max(calculatedTotalPages, 1));
             } catch (error) {
-                console.error("Error fetching data:", error);
+                alert("Hubo  un error al recuperar los datos");
             }
         };
 

@@ -55,8 +55,10 @@ const Post = () => {
                     }
                 );
 
-                if (!pResponse.ok) {
-                    alert("Hubo  un error al recuperar los datos");
+                if (pResponse.status === 403) {
+                    window.location.href = "/login";
+                } else if (!pResponse.ok) {
+                    alert("Hubo un error al recuperar los datos");
                     return;
                 }
 
@@ -85,15 +87,17 @@ const Post = () => {
                     }
                 );
 
-                if (!sResponse.ok) {
-                    alert("Hubo  un error al recuperar los datos");
+                if (sResponse.status === 403) {
+                    window.location.href = "/login";
+                } else if (!sResponse.ok) {
+                    alert("Hubo un error al recuperar los datos");
                     return;
                 }
 
                 const similarData = await sResponse.json();
                 setSimilar(similarData.productos);
             } catch (error) {
-                console.error("Error fetching data:", error);
+                alert("Hubo un error al recuperar los datos");
             }
         };
 

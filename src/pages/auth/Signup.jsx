@@ -30,6 +30,10 @@ const SignUp = () => {
         }
       );
 
+      if (response.status === 400) {
+        console.log("el usuario ya existe");
+      }
+
       const data = await response.json();
 
       if (data.message === "USER_ALREADY_EXISTS") {

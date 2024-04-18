@@ -4,7 +4,7 @@ export function validateTokenWithRole(role) {
     const token = localStorage.getItem("token");
 
     if (!token) {
-        window.location.href = "/home";
+        window.location.href = "/login";
     }
 
     const userRole = jwtDecode(token).ROLE;

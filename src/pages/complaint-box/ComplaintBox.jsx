@@ -34,13 +34,11 @@ const ComplaintBox = () => {
                 console.log("pqrs enviado");
                 setComplaintSend(true);
             } else {
-                console.log("error al enviar el pqrs");
+                alert("Error al crear la solicitud...");
             }
         } catch (error) {
             console.error("Error al enviar pqrs:", error);
-            alert(
-                "Hubo un problema al crear la solicitud pqrs."
-            );
+            alert("Hubo un problema al crear la solicitud pqrs.");
         }
     }
 

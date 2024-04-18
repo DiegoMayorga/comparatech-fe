@@ -11,16 +11,13 @@ const RestartPassword = () => {
   const [noCoincidence, setNoCoincidence] = useState(false);
   const [passwordChange, setPasswordChange] = useState(false);
 
+  const queryString = window.location.search;
+  const params = new URLSearchParams(queryString);
+  const token = params.get("token");
+  const pqrsId = params.get("pqrsId");
+
   const handleRestarPassword = async (e) => {
     e.preventDefault();
-
-    const queryString = window.location.search;
-
-    const params = new URLSearchParams(queryString);
-
-    const token = params.get("token");
-
-    const pqrsId = params.get("pqrsId");
 
     if (password !== confirmPassword) {
       setNoCoincidence(true);

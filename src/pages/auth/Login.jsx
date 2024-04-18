@@ -29,6 +29,12 @@ const Login = () => {
         }
       );
 
+      if (response.status === 404) {
+        console.log("usuario no encontrado");
+      } else if (response.status === 400) {
+        console.log("bad credentials");
+      }
+
       const data = await response.json();
 
       if (data.message === "BAD_CREDENTIALS") {

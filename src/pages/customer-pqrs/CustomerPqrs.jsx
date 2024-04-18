@@ -30,8 +30,10 @@ const CustomerPqrs = () => {
                 );
 
                 if (!pqrsResponse.ok) {
-                    alert("Hubo  un error al recuperar los datos");
+                    alert("Hubo un error al recuperar los datos");
                     return;
+                } else if (pqrsResponse.status === 403) {
+                    window.location.href = "/login";
                 }
 
                 const pqrsData = await pqrsResponse.json();
@@ -41,7 +43,7 @@ const CustomerPqrs = () => {
                 const calculatedTotalPages = Math.ceil(totalPqrs / itemsPerPage);
                 setTotalPages(Math.max(calculatedTotalPages, 1));
             } catch (error) {
-                console.error("Error fetching data:", error);
+                alert("Hubo un error al recuperar los datos");
             }
         };
 
