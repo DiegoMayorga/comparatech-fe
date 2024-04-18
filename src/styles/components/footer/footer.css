@@ -5,6 +5,11 @@
   color: white;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   bottom: 0;
+}
+
+.footer > p {
+  font-weight: bold;
+  margin: 0 15px 0 15px;
 }
