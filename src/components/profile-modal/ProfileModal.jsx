@@ -2,6 +2,7 @@ import { useState } from "react";
 import "../../styles/components/profile-modal/profile-modal.css";
 import Input from "../../atoms/input/Input";
 import Button from "../../atoms/button/Button";
+import {Link} from "react-router-dom";
 
 const ProfileModal = ({ user, onClose }) => {
   const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
@@ -46,6 +47,12 @@ const ProfileModal = ({ user, onClose }) => {
         <h2>Información del usuario</h2>
         <p>Nombre: {user.name}</p>
         <p>Email: {user.email}</p>
+        <Link className="modal-link" to="/my-history" onClick={onClose}>
+          <p>Mi historial</p>
+        </Link>
+        <Link className="modal-link" to="/my-requests" onClick={onClose}>
+          <p>Mis solicitudes</p>
+        </Link>
         <div className="accordion">
           <Button
             width={"90%"}

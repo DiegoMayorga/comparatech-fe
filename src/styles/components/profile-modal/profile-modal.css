@@ -74,3 +74,9 @@
   border-radius: 5px;
   cursor: pointer;
 }
+
+.modal-link {
+  color: black;
+  font-weight: 600;
+  text-decoration: underline;
+}

@@ -9,6 +9,10 @@
   bottom: 0;
 }
 
+.footer-link {
+  font-weight: 600;
+}
+
 .footer > p {
   font-size: 20px;
   font-weight: bold;
