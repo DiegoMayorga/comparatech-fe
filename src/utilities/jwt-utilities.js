@@ -4,6 +4,7 @@ export function validateTokenWithRole(role) {
     const token = localStorage.getItem("token");
 
     if (!token) {
+        localStorage.clear();
         window.location.href = "/login";
     }
 
