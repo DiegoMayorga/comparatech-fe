@@ -1,15 +1,45 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../../styles/components/profile-modal/profile-modal.css";
 import Input from "../../atoms/input/Input";
 import Button from "../../atoms/button/Button";
 
-const ProfileModal = ({ user, onClose }) => {
+const ProfileModal = ({ onClose }) => {
   const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordMismatch, setPasswordMismatch] = useState(false);
   const [passwordChangeSuccess, setPasswordChangeSuccess] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
+
+  useEffect(() => {
+    const fetchUserEmail = async () => {
+      try {
+        const response = await fetch(
+          "http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/user/find-by-email?correoElectronico=juanperez1@gmail.com",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        );
+
+        if (!response.ok) {
+          alert("Hubo un error al recuperar el correo electrónico del usuario");
+          return;
+        }
+
+        const userData = await response.json();
+        setUserEmail(userData.correoElectronico);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserEmail();
+  }, []);
 
   const handleCloseModal = (e) => {
     if (e.target.classList.contains("modal")) {
@@ -44,13 +74,25 @@ const ProfileModal = ({ user, onClose }) => {
           &times;
         </span>
         <h2>Información del usuario</h2>
-        <p>Nombre: {user.name}</p>
-        <p>Email: {user.email}</p>
+        <p>Nombre: </p>
+        <p>Email: {userEmail}</p>
+        <div className="profile-options">
+          <Button
+            text="Mi historial"
+            width={"40%"}
+            backgroundColor={"green"}
+          />
+          <Button
+            text="Mis solicitudes"
+            width={"40%"}
+            backgroundColor={"green"}
+          />
+        </div>
         <div className="accordion">
           <Button
             width={"90%"}
             onClick={handleToggleChangePassword}
-            margin={"20px"}
+            margin={"0 20px 20px"}
             text={isChangePasswordOpen ? "Cerrar" : "Cambiar contraseña"}
           />
           {isChangePasswordOpen && (
