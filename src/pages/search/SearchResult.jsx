@@ -11,12 +11,13 @@ const SearchResult = () => {
 
     validateTokenWithRole("CLIENTE");
 
-    const queryString = window.location.search;
-    const params = new URLSearchParams(queryString);
-    const search = params.get("search");
     useEffect(() => {
         const fetchData = async () => {
             try {
+                const queryString = window.location.search;
+                const params = new URLSearchParams(queryString);
+                const search = params.get("search");
+
                 const skip = (currentPage - 1) * itemsPerPage;
                 const pResponse = await fetch(
                     `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/product/find-by-name`,
