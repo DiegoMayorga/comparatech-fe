@@ -78,10 +78,6 @@ const FilterBy = ({ onFilteredData }) => {
     console.log("No se ha seleccionado ningún filtro.");
   };
 
-  const sleep = (ms) => {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  };
-
   return (
     <div className="filter-by">
       <Card
@@ -90,137 +86,135 @@ const FilterBy = ({ onFilteredData }) => {
         padding={"30px"}
         height={"100%"}
       >
-        <form>
-          <p>Filtrar por:</p>
-          <br />
-          <p>
-            <b>RAM</b>
-          </p>
-          <br />
-          <div className="form-check">
-            <input
-              type="radio"
-              name="ram"
-              value="4"
-              checked={selectedRAM === "4"}
-              onChange={() => handleRadioChangeRAM("4")}
-            />
-            <label>4</label>
-          </div>
-          <div className="form-check">
-            <input
-              type="radio"
-              name="ram"
-              value="6"
-              checked={selectedRAM === "6"}
-              onChange={() => handleRadioChangeRAM("6")}
-            />
-            <label>6</label>
-          </div>
-          <div className="form-check">
-            <input
-              type="radio"
-              name="ram"
-              value="8"
-              checked={selectedRAM === "8"}
-              onChange={() => handleRadioChangeRAM("8")}
-            />
-            <label>8</label>
-          </div>
-          <div className="form-check">
-            <input
-              type="radio"
-              name="ram"
-              value="12"
-              checked={selectedRAM === "12"}
-              onChange={() => handleRadioChangeRAM("12")}
-            />
-            <label>12</label>
-          </div>
-          <div className="form-check">
-            <input
-              type="radio"
-              name="ram"
-              value="16"
-              checked={selectedRAM === "16"}
-              onChange={() => handleRadioChangeRAM("16")}
-            />
-            <label>16</label>
-          </div>
-          <br />
-          <p>
-            <b>DISCO</b>
-          </p>
-          <br />
-          <div className="form-check">
-            <input
-              type="radio"
-              name="disco"
-              value="64"
-              checked={selectedDisco === "64"}
-              onChange={() => handleRadioChangeDisco("64")}
-            />
-            <label>64</label>
-          </div>
-          <div className="form-check">
-            <input
-              type="radio"
-              name="disco"
-              value="128"
-              checked={selectedDisco === "128"}
-              onChange={() => handleRadioChangeDisco("128")}
-            />
-            <label>128</label>
-          </div>
-          <div className="form-check">
-            <input
-              type="radio"
-              name="disco"
-              value="256"
-              checked={selectedDisco === "256"}
-              onChange={() => handleRadioChangeDisco("256")}
-            />
-            <label>256</label>
-          </div>
-          <div className="form-check">
-            <input
-              type="radio"
-              name="disco"
-              value="512"
-              checked={selectedDisco === "512"}
-              onChange={() => handleRadioChangeDisco("512")}
-            />
-            <label>512</label>
-          </div>
-          <br />
-          <p>
-            <b>Precio</b>
-          </p>
-          <br />
-          <p className="label">Mínimo</p>
-          <Input
-            width={"50%"}
-            type="text"
-            value={min}
-            name="min"
-            margin={"10px 0"}
-            placeholder="0"
-            onChange={handlePriceChange}
+        <p>Filtrar por:</p>
+        <br />
+        <p>
+          <b>RAM</b>
+        </p>
+        <br />
+        <div className="form-check">
+          <input
+            type="radio"
+            name="ram"
+            value="4"
+            checked={selectedRAM === "4"}
+            onChange={() => handleRadioChangeRAM("4")}
           />
-          <p className="label">Máximo</p>
-          <Input
-            width={"50%"}
-            type="text"
-            value={max}
-            name="max"
-            margin={"10px 0"}
-            placeholder="99999"
-            onChange={handlePriceChange}
+          <label>4</label>
+        </div>
+        <div className="form-check">
+          <input
+            type="radio"
+            name="ram"
+            value="6"
+            checked={selectedRAM === "6"}
+            onChange={() => handleRadioChangeRAM("6")}
           />
-          <br />
-          <br />
-          <Button text="Filtrar" width={"100%"} onClick={handleFilter} />
-        </form>
+          <label>6</label>
+        </div>
+        <div className="form-check">
+          <input
+            type="radio"
+            name="ram"
+            value="8"
+            checked={selectedRAM === "8"}
+            onChange={() => handleRadioChangeRAM("8")}
+          />
+          <label>8</label>
+        </div>
+        <div className="form-check">
+          <input
+            type="radio"
+            name="ram"
+            value="12"
+            checked={selectedRAM === "12"}
+            onChange={() => handleRadioChangeRAM("12")}
+          />
+          <label>12</label>
+        </div>
+        <div className="form-check">
+          <input
+            type="radio"
+            name="ram"
+            value="16"
+            checked={selectedRAM === "16"}
+            onChange={() => handleRadioChangeRAM("16")}
+          />
+          <label>16</label>
+        </div>
+        <br />
+        <p>
+          <b>DISCO</b>
+        </p>
+        <br />
+        <div className="form-check">
+          <input
+            type="radio"
+            name="disco"
+            value="64"
+            checked={selectedDisco === "64"}
+            onChange={() => handleRadioChangeDisco("64")}
+          />
+          <label>64</label>
+        </div>
+        <div className="form-check">
+          <input
+            type="radio"
+            name="disco"
+            value="128"
+            checked={selectedDisco === "128"}
+            onChange={() => handleRadioChangeDisco("128")}
+          />
+          <label>128</label>
+        </div>
+        <div className="form-check">
+          <input
+            type="radio"
+            name="disco"
+            value="256"
+            checked={selectedDisco === "256"}
+            onChange={() => handleRadioChangeDisco("256")}
+          />
+          <label>256</label>
+        </div>
+        <div className="form-check">
+          <input
+            type="radio"
+            name="disco"
+            value="512"
+            checked={selectedDisco === "512"}
+            onChange={() => handleRadioChangeDisco("512")}
+          />
+          <label>512</label>
+        </div>
+        <br />
+        <p>
+          <b>Precio</b>
+        </p>
+        <br />
+        <p className="label">Mínimo</p>
+        <Input
+          width={"50%"}
+          type="text"
+          value={min}
+          name="min"
+          margin={"10px 0"}
+          placeholder="0"
+          onChange={handlePriceChange}
+        />
+        <p className="label">Máximo</p>
+        <Input
+          width={"50%"}
+          type="text"
+          value={max}
+          name="max"
+          margin={"10px 0"}
+          placeholder="99999"
+          onChange={handlePriceChange}
+        />
+        <br />
+        <br />
+        <Button text="Filtrar" width={"100%"} onClick={handleFilter} />
       </Card>
     </div>
   );
