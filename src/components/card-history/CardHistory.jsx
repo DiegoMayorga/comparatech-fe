@@ -8,8 +8,6 @@ const CardHistory = ({ search }) => {
             <Link className="link" to={`/search?search=${search.busqueda}`}>
                 <h1 className={"card-pqrs-title"}>Busqueda:</h1>
                 <p className={"card-pqrs-text"}>{search.busqueda}</p>
-                <h1 className={"card-pqrs-title"}>Total productos:</h1>
-                <p className={"card-pqrs-text"}>{search.total}</p>
                 <h1 className={"card-pqrs-title"}>Fecha:</h1>
                 <p className={"card-pqrs-text"}>{search.fecha}</p>
             </Link>
