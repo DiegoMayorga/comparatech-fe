@@ -1,45 +1,26 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import "../../styles/components/profile-modal/profile-modal.css";
 import Input from "../../atoms/input/Input";
 import Button from "../../atoms/button/Button";
+import { Link } from "react-router-dom";
+import {
+  extractEmailFromToken,
+  validateTokenWithRole,
+} from "../../utilities/jwt-utilities";
 
 const ProfileModal = ({ onClose }) => {
   const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [cUser, setCUser] = useState({});
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordMismatch, setPasswordMismatch] = useState(false);
   const [passwordChangeSuccess, setPasswordChangeSuccess] = useState(false);
-  const [userEmail, setUserEmail] = useState("");
 
-  useEffect(() => {
-    const fetchUserEmail = async () => {
-      try {
-        const response = await fetch(
-          "http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/user/find-by-email?correoElectronico=juanperez1@gmail.com",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-          }
-        );
+  const token = localStorage.getItem("token");
+  const email = extractEmailFromToken(token);
 
-        if (!response.ok) {
-          alert("Hubo un error al recuperar el correo electrónico del usuario");
-          return;
-        }
-
-        const userData = await response.json();
-        setUserEmail(userData.correoElectronico);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
-
-    fetchUserEmail();
-  }, []);
+  validateTokenWithRole("CLIENTE");
 
   const handleCloseModal = (e) => {
     if (e.target.classList.contains("modal")) {
@@ -59,13 +40,74 @@ const ProfileModal = ({ onClose }) => {
       return;
     }
 
-    setTimeout(() => {
-      setPasswordChangeSuccess(true);
-      setOldPassword("");
-      setNewPassword("");
-      setConfirmPassword("");
-    }, 1000);
+    try {
+      const uResponse = await fetch(
+        `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/user/update-password`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            correoElectronico: email,
+            oldPassword: oldPassword,
+            newPassword: newPassword,
+            confirmNewPassword: confirmPassword
+          }),
+        }
+      );
+
+      if (uResponse.status === 403) {
+        localStorage.clear();
+        window.location.href = "/login";
+      } else if (!uResponse.ok) {
+        alert("Hubo un error al Cambiar la contraseña");
+        return;
+      }
+
+      setTimeout(() => {
+        setPasswordChangeSuccess(true);
+        setOldPassword("");
+        setNewPassword("");
+        setConfirmPassword("");
+      }, 1000);
+    } catch (error) {
+      alert("Hubo  un error al Cambiar la contraseña");
+    }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const uResponse = await fetch(
+          `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/user/find-by-email?correoElectronico=${email}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        );
+
+        if (uResponse.status === 403) {
+          localStorage.clear();
+          window.location.href = "/login";
+        } else if (!uResponse.ok) {
+          alert("Hubo un error al recuperar los datos");
+          return;
+        }
+
+        const userData = await uResponse.json();
+        setCUser(userData.user);
+      } catch (error) {
+        alert("Hubo  un error al recuperar los datos");
+      }
+    };
+
+    fetchData();
+  }, [email]);
 
   return (
     <div className="modal" onClick={handleCloseModal}>
@@ -74,20 +116,17 @@ const ProfileModal = ({ onClose }) => {
           &times;
         </span>
         <h2>Información del usuario</h2>
-        <p>Nombre: </p>
-        <p>Email: {userEmail}</p>
-        <div className="profile-options">
-          <Button
-            text="Mi historial"
-            width={"40%"}
-            backgroundColor={"green"}
-          />
-          <Button
-            text="Mis solicitudes"
-            width={"40%"}
-            backgroundColor={"green"}
-          />
-        </div>
+        <p>Nombre: {cUser.nombreCompleto}</p>
+        <p>Email: {cUser.correoElectronico}</p>
+        <Link className="modal-link" to="/my-history" onClick={onClose}>
+          <p>Mi historial</p>
+        </Link>
+        <Link className="modal-link" to="/my-requests" onClick={onClose}>
+          <p>Mis solicitudes</p>
+        </Link>
+        <Link className="modal-link" to="/my-views" onClick={onClose}>
+          <p>Productos vistos</p>
+        </Link>
         <div className="accordion">
           <Button
             width={"90%"}

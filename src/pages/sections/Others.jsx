@@ -3,7 +3,7 @@ import Search from "../../components/search/Search";
 import FilterBy from "../../components/filter-by/FilterBy";
 import CardPost from "../../components/card-post/CardPost";
 import "../../styles/pages/sections/sections.css";
-import {validateExpirationToken, validateRoleFromToken} from "../../utilities/jwt-utilities.js";
+import {validateTokenWithRole} from "../../utilities/jwt-utilities.js";
 import {useEffect, useState} from "react";
 
 const Others = () => {
@@ -12,8 +12,7 @@ const Others = () => {
     const [totalPages, setTotalPages] = useState(1);
     const itemsPerPage = 6;
 
-    validateRoleFromToken("CLIENTE");
-    validateExpirationToken();
+    validateTokenWithRole("CLIENTE");
 
     useEffect(() => {
         const fetchData = async () => {
@@ -30,8 +29,11 @@ const Others = () => {
                     }
                 );
 
-                if (!pResponse.ok) {
-                    alert("Hubo  un error al recuperar los datos");
+                if (pResponse.status === 403) {
+                    localStorage.clear();
+                    window.location.href = "/login";
+                } else if (!pResponse.ok) {
+                    alert("Hubo un error al recuperar los datos");
                     return;
                 }
 
@@ -42,7 +44,7 @@ const Others = () => {
                 const calculatedTotalPages = Math.ceil(totalProducts / itemsPerPage);
                 setTotalPages(Math.max(calculatedTotalPages, 1));
             } catch (error) {
-                console.error("Error fetching data:", error);
+                alert("Hubo  un error al recuperar los datos");
             }
         };
 

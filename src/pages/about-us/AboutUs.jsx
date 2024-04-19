@@ -1,10 +1,6 @@
 import "../../styles/pages/about-us/about-us.css"
-import {validateExpirationToken, validateRoleFromToken} from "../../utilities/jwt-utilities";
 
 const AboutUs = () => {
-
-    validateRoleFromToken("CLIENTE");
-    validateExpirationToken();
 
     return (
         <>

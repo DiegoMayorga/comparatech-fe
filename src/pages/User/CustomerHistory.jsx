@@ -1,16 +1,12 @@
-import ProductFilter from "../../components/product-filter/ProductFilter";
-import Search from "../../components/search/Search";
-import FilterBy from "../../components/filter-by/FilterBy";
-import CardPost from "../../components/card-post/CardPost";
-import "../../styles/pages/sections/sections.css";
+import { validateTokenWithRole } from "../../utilities/jwt-utilities";
 import { useEffect, useState } from "react";
-import { validateTokenWithRole } from "../../utilities/jwt-utilities.js";
+import CardHistory from "../../components/card-history/CardHistory";
 
-const Computers = () => {
-  const [products, setProducts] = useState([]);
+const CustomerHistory = () => {
+  const [history, setHistory] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const itemsPerPage = 6;
+  const itemsPerPage = 18;
 
   validateTokenWithRole("CLIENTE");
 
@@ -18,8 +14,7 @@ const Computers = () => {
     const fetchData = async () => {
       try {
         const skip = (currentPage - 1) * itemsPerPage;
-        const pResponse = await fetch(
-          `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/product/find-by-category?category_name=computer&skip=${skip}&limit=${itemsPerPage}`,
+        const hResponse = await fetch(`http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/user/search-history?skip=${skip}&limit=${itemsPerPage}`,
           {
             method: "GET",
             headers: {
@@ -29,22 +24,22 @@ const Computers = () => {
           }
         );
 
-        if (pResponse.status === 403) {
+        if (hResponse.status === 403) {
           localStorage.clear();
           window.location.href = "/login";
-        } else if (!pResponse.ok) {
+        } else if (!hResponse.ok) {
           alert("Hubo un error al recuperar los datos");
           return;
         }
 
-        const productsData = await pResponse.json();
-        setProducts(productsData.productos);
+        const historyData = await hResponse.json();
+        setHistory(historyData.historialBusqueda);
 
-        const totalProducts = productsData.totalProductos;
-        const calculatedTotalPages = Math.ceil(totalProducts / itemsPerPage);
+        const totalSearches = historyData.total;
+        const calculatedTotalPages = Math.ceil(totalSearches / itemsPerPage);
         setTotalPages(Math.max(calculatedTotalPages, 1));
       } catch (error) {
-        alert("Hubo  un error al recuperar los datos");
+        alert("Hubo un error al recuperar los datos");
       }
     };
 
@@ -90,20 +85,15 @@ const Computers = () => {
   };
 
   return (
-    <>
-      <Search />
-      <ProductFilter />
+    <div className="homepage">
       <div className="center">
-        <div className="or">Computadores</div>
+        <div className="or">Mi historial</div>
         <div className="line" />
       </div>
-      <div className="devices">
-        <FilterBy />
-        <div className="devices-cards">
-          {products.map((post) => (
-            <CardPost key={post._id} post={post} />
-          ))}
-        </div>
+      <div className="home">
+        {history.map((search) => (
+          <CardHistory key={search.id} search={search} />
+        ))}
       </div>
       <div className="pagination">
         <button onClick={goToFirstPage} disabled={currentPage === 1}>
@@ -126,8 +116,8 @@ const Computers = () => {
           {">>"}
         </button>
       </div>
-    </>
+    </div>
   );
 };
 
-export default Computers;
+export default CustomerHistory;

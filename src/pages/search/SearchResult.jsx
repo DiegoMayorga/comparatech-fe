@@ -1,47 +1,56 @@
-import AdminMenu from "../../components/admin-menu/AdminMenu";
-import {validateTokenWithRole,} from "../../utilities/jwt-utilities.js";
+import CardPost from "../../components/card-post/CardPost";
 import {useEffect, useState} from "react";
-import CardPqrsAdmin from "../../components/card-pqrs/CardPqrsAdmin";
+import {validateTokenWithRole} from "../../utilities/jwt-utilities";
 
-const AdminPqrs = () => {
-    validateTokenWithRole("ADMIN");
+const SearchResult = () => {
 
+    const [products, setProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const itemsPerPage = 9;
-    const [pqrs, setPqrs] = useState([]);
+    const itemsPerPage = 15;
+
+    validateTokenWithRole("CLIENTE");
 
     useEffect(() => {
         const fetchData = async () => {
             try {
+                const queryString = window.location.search;
+                const params = new URLSearchParams(queryString);
+                const search = params.get("search");
+
                 const skip = (currentPage - 1) * itemsPerPage;
-                const pqrsResponse = await fetch(
-                    `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/pqrs/find-all?skip=${skip}&limit=${itemsPerPage}`,
+                const pResponse = await fetch(
+                    `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/product/find-by-name`,
                     {
-                        method: "GET",
+                        method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                             Authorization: "Bearer " + localStorage.getItem("token"),
                         },
+                        body: JSON.stringify({
+                            productName: search,
+                            skip: skip,
+                            limit: itemsPerPage,
+                        })
                     }
                 );
 
-                if (pqrsResponse.status === 403) {
+                if (pResponse.status === 403) {
                     localStorage.clear();
                     window.location.href = "/login";
-                } else if (!pqrsResponse.ok) {
+                } else if (!pResponse.ok) {
                     alert("Hubo un error al recuperar los datos");
                     return;
                 }
 
-                const pqrsData = await pqrsResponse.json();
-                setPqrs(pqrsData.pqrs);
-                const totalPqrs = pqrsData.total;
-                console.log(totalPqrs);
-                const calculatedTotalPages = Math.ceil(totalPqrs / itemsPerPage);
+                const productsData = await pResponse.json();
+                setProducts(productsData.productos);
+
+                const totalProducts = productsData.totalProductos;
+                const calculatedTotalPages = Math.ceil(totalProducts / itemsPerPage);
                 setTotalPages(Math.max(calculatedTotalPages, 1));
             } catch (error) {
-                alert("Hubo un error al recuperar los datos");
+                alert("Hubo  un error al recuperar los datos");
             }
         };
 
@@ -87,19 +96,18 @@ const AdminPqrs = () => {
     };
 
     return (
-        <>
-            <AdminMenu/>
+        <div className="homepage">
             <div className="center">
-                <div className="or">PQRS</div>
+                <div className="or">Resultados de tu búsqueda</div>
                 <div className="line"/>
             </div>
-
-            <div className="home admin-pqrs-container">
-                {pqrs.map((item) => (
-                    <CardPqrsAdmin key={item.id} pqrs={item}/>
-                ))}
+            <div className="devices">
+                <div className="devices-cards">
+                    {products.map((post) => (
+                        <CardPost key={post._id} post={post}/>
+                    ))}
+                </div>
             </div>
-
             <div className="pagination">
                 <button onClick={goToFirstPage} disabled={currentPage === 1}>
                     {"<<"}
@@ -121,8 +129,8 @@ const AdminPqrs = () => {
                     {">>"}
                 </button>
             </div>
-        </>
+        </div>
     );
-};
+}
 
-export default AdminPqrs;
+export default SearchResult;

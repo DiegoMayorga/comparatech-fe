@@ -1,12 +1,11 @@
 import AdminMenu from "../../components/admin-menu/AdminMenu";
-import {validateRoleFromToken, validateExpirationToken} from "../../utilities/jwt-utilities.js";
-import { useState } from "react";
+import {validateTokenWithRole} from "../../utilities/jwt-utilities.js";
+import {useState} from "react";
 import Button from "../../atoms/button/Button";
 import Check from "../../assest/check.png";
 
 const AdminWebScraper = () => {
-    validateRoleFromToken("ADMIN");
-    validateExpirationToken();
+    validateTokenWithRole("ADMIN");
 
     const [ktronixPhones, setKtronixPhones] = useState(false);
     const [ktronixComputers, setKtronixComputers] = useState(false);
@@ -68,7 +67,7 @@ const AdminWebScraper = () => {
 
     return (
         <>
-            <AdminMenu />
+            <AdminMenu/>
             {!webScraperInitiate ? (
                 <form className="scraper-form" onSubmit={handleWebScraper}>
                     <div className="wrapper-scraper">
@@ -229,7 +228,7 @@ const AdminWebScraper = () => {
                 </form>
             ) : (
                 <div className="web-scraper-dialog-container">
-                    <img src={Check} alt="" className="mail-send-check-img" />
+                    <img src={Check} alt="" className="mail-send-check-img"/>
                     <h1 className="title">Proceso iniciado</h1>
                     <p className="forgot-password-text">
                         Cuando el proceso finalice, recibirás un correo electrónico con el resultado

@@ -75,6 +75,18 @@
   cursor: pointer;
 }
 
+.modal-link {
+  color: black;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.modal-link {
+  color: black;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
 .profile-options {
   display: flex;
   justify-content: space-evenly;

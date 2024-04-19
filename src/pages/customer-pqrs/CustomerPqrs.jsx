@@ -1,55 +1,57 @@
-import ProductFilter from "../../components/product-filter/ProductFilter";
-import Search from "../../components/search/Search";
-import FilterBy from "../../components/filter-by/FilterBy";
-import CardPost from "../../components/card-post/CardPost";
-import "../../styles/pages/sections/sections.css";
+import CardPqrsCustomer from "../../components/card-pqrs/CardPqrsCustomer";
+import {
+  extractEmailFromToken,
+  validateTokenWithRole,
+} from "../../utilities/jwt-utilities";
 import { useEffect, useState } from "react";
-import { validateTokenWithRole } from "../../utilities/jwt-utilities.js";
 
-const Computers = () => {
-  const [products, setProducts] = useState([]);
+const CustomerPqrs = () => {
+  validateTokenWithRole("CLIENTE");
+
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const itemsPerPage = 6;
+  const itemsPerPage = 9;
+  const [pqrs, setPqrs] = useState([]);
 
-  validateTokenWithRole("CLIENTE");
+  const token = localStorage.getItem("token");
+  const email = extractEmailFromToken(token);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const skip = (currentPage - 1) * itemsPerPage;
-        const pResponse = await fetch(
-          `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/product/find-by-category?category_name=computer&skip=${skip}&limit=${itemsPerPage}`,
+        const pqrsResponse = await fetch(
+          `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/pqrs/find-by-email?correoElectronico=${email}&skip=${skip}&limit=${itemsPerPage}`,
           {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: "Bearer " + localStorage.getItem("token"),
+              Authorization: `Bearer ${token}`,
             },
           }
         );
 
-        if (pResponse.status === 403) {
-          localStorage.clear();
-          window.location.href = "/login";
-        } else if (!pResponse.ok) {
+        if (!pqrsResponse.ok) {
           alert("Hubo un error al recuperar los datos");
           return;
+        } else if (pqrsResponse.status === 403) {
+          localStorage.clear();
+          window.location.href = "/login";
         }
 
-        const productsData = await pResponse.json();
-        setProducts(productsData.productos);
-
-        const totalProducts = productsData.totalProductos;
-        const calculatedTotalPages = Math.ceil(totalProducts / itemsPerPage);
+        const pqrsData = await pqrsResponse.json();
+        setPqrs(pqrsData.pqrs);
+        const totalPqrs = pqrsData.total;
+        console.log(totalPqrs);
+        const calculatedTotalPages = Math.ceil(totalPqrs / itemsPerPage);
         setTotalPages(Math.max(calculatedTotalPages, 1));
       } catch (error) {
-        alert("Hubo  un error al recuperar los datos");
+        alert("Hubo un error al recuperar los datos");
       }
     };
 
     fetchData();
-  }, [currentPage]);
+  }, [currentPage, token, email]);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -91,20 +93,17 @@ const Computers = () => {
 
   return (
     <>
-      <Search />
-      <ProductFilter />
       <div className="center">
-        <div className="or">Computadores</div>
+        <div className="or">Mis solicitudes</div>
         <div className="line" />
       </div>
-      <div className="devices">
-        <FilterBy />
-        <div className="devices-cards">
-          {products.map((post) => (
-            <CardPost key={post._id} post={post} />
-          ))}
-        </div>
+
+      <div className="home admin-pqrs-container">
+        {pqrs.map((item) => (
+          <CardPqrsCustomer key={item.id} pqrs={item} />
+        ))}
       </div>
+
       <div className="pagination">
         <button onClick={goToFirstPage} disabled={currentPage === 1}>
           {"<<"}
@@ -130,4 +129,4 @@ const Computers = () => {
   );
 };
 
-export default Computers;
+export default CustomerPqrs;

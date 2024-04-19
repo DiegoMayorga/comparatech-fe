@@ -3,21 +3,22 @@ import Search from "../../components/search/Search";
 import FilterBy from "../../components/filter-by/FilterBy";
 import CardPost from "../../components/card-post/CardPost";
 import "../../styles/pages/sections/sections.css";
-import { validateRoleFromToken } from "../../utilities/jwt-utilities.js";
-import { useState, useEffect } from "react";
+import { validateTokenWithRole } from "../../utilities/jwt-utilities.js";
+import { useEffect, useState } from "react";
 
 const Cellphones = () => {
-  const filterOption = 0;
+  let filterOption = 0;
   const [filter, setFilter] = useState({});
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const itemsPerPage = 6;
 
-  validateRoleFromToken("CLIENTE");
+  validateTokenWithRole("CLIENTE");
 
   // Función para recibir los datos filtrados del componente de filtro
   const handleFilteredData = (data) => {
+    console.log(data);
     filterOption = data.filterOption;
     setFilter(data.filter);
   };
@@ -25,6 +26,7 @@ const Cellphones = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        console.log(filterOption);
         var totalProducts = 0;
         const skip = (currentPage - 1) * itemsPerPage;
         if (filterOption === 0) {
@@ -39,7 +41,10 @@ const Cellphones = () => {
             }
           );
 
-          if (!pResponse.ok) {
+          if (pResponse.status === 403) {
+            localStorage.clear();
+            window.location.href = "/login";
+          } else if (!pResponse.ok) {
             alert("Hubo un error al recuperar los datos");
             return;
           }
@@ -60,7 +65,10 @@ const Cellphones = () => {
             }
           );
 
-          if (!pResponse.ok) {
+          if (pResponse.status === 403) {
+            localStorage.clear();
+            window.location.href = "/login";
+          } else if (!pResponse.ok) {
             alert("Hubo un error al recuperar los datos");
             return;
           }
@@ -81,7 +89,10 @@ const Cellphones = () => {
             }
           );
 
-          if (!pResponse.ok) {
+          if (pResponse.status === 403) {
+            localStorage.clear();
+            window.location.href = "/login";
+          } else if (!pResponse.ok) {
             alert("Hubo un error al recuperar los datos");
             return;
           }
@@ -102,7 +113,10 @@ const Cellphones = () => {
             }
           );
 
-          if (!pResponse.ok) {
+          if (pResponse.status === 403) {
+            localStorage.clear();
+            window.location.href = "/login";
+          } else if (!pResponse.ok) {
             alert("Hubo un error al recuperar los datos");
             return;
           }
@@ -120,7 +134,7 @@ const Cellphones = () => {
     };
 
     fetchData();
-  }, [currentPage]);
+  }, [currentPage, filter, filterOption]);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -137,14 +151,12 @@ const Cellphones = () => {
   const renderPageButtons = () => {
     const pageButtons = [];
     const totalPagesToShow = 5;
-
     let startPage = Math.max(1, currentPage - Math.floor(totalPagesToShow / 2));
     let endPage = Math.min(totalPages, startPage + totalPagesToShow - 1);
 
     if (endPage - startPage < totalPagesToShow - 1) {
       startPage = Math.max(1, endPage - totalPagesToShow + 1);
     }
-
     for (let i = startPage; i <= endPage; i++) {
       pageButtons.push(
         <button
@@ -156,7 +168,6 @@ const Cellphones = () => {
         </button>
       );
     }
-
     return pageButtons;
   };
 
