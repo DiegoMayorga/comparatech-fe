@@ -41,7 +41,9 @@ const Cellphones = () => {
             }
           );
 
-          if (!pResponse.ok) {
+          if (pResponse.status === 403) {
+            window.location.href = "/login";
+          } else if (!pResponse.ok) {
             alert("Hubo un error al recuperar los datos");
             return;
           }
@@ -62,7 +64,9 @@ const Cellphones = () => {
             }
           );
 
-          if (!pResponse.ok) {
+          if (pResponse.status === 403) {
+            window.location.href = "/login";
+          } else if (!pResponse.ok) {
             alert("Hubo un error al recuperar los datos");
             return;
           }
@@ -83,7 +87,9 @@ const Cellphones = () => {
             }
           );
 
-          if (!pResponse.ok) {
+          if (pResponse.status === 403) {
+            window.location.href = "/login";
+          } else if (!pResponse.ok) {
             alert("Hubo un error al recuperar los datos");
             return;
           }
@@ -104,7 +110,9 @@ const Cellphones = () => {
             }
           );
 
-          if (!pResponse.ok) {
+          if (pResponse.status === 403) {
+            window.location.href = "/login";
+          } else if (!pResponse.ok) {
             alert("Hubo un error al recuperar los datos");
             return;
           }

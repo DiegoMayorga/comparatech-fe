@@ -26,6 +26,7 @@ import Footer from "./components/footer/Footer";
 import AboutUs from "./pages/about-us/AboutUs";
 import ComplaintBox from "./pages/complaint-box/ComplaintBox";
 import CustomerPqrs from "./pages/customer-pqrs/CustomerPqrs";
+import CustomerHistory from "./pages/User/CustomerHistory";
 import NotFound from "./pages/not-found/NotFound";
 
 const App = () => {
@@ -97,28 +98,39 @@ const App = () => {
             element={isAuthenticated ? <Computers /> : <Navigate to="/login" />}
           />
           <Route
-              path="/tablets"
-              element={isAuthenticated ? <Tablets /> : <Navigate to="/login" />}
+            path="/tablets"
+            element={isAuthenticated ? <Tablets /> : <Navigate to="/login" />}
           />
           <Route
-              path="/monitors"
-              element={isAuthenticated ? <Monitors /> : <Navigate to="/login" />}
+            path="/monitors"
+            element={isAuthenticated ? <Monitors /> : <Navigate to="/login" />}
           />
           <Route
             path="/others"
             element={isAuthenticated ? <Others /> : <Navigate to="/login" />}
           />
-          <Route path="/complaint-box"
-                 element={ isAuthenticated ? <ComplaintBox /> : <Navigate to="/login" /> }
+          <Route
+            path="/complaint-box"
+            element={
+              isAuthenticated ? <ComplaintBox /> : <Navigate to="/login" />
+            }
           />
-          <Route path="/my-requests"
-                 element={ isAuthenticated ? <CustomerPqrs /> : <Navigate to="/login" /> }
+          <Route
+            path="/my-requests"
+            element={
+              isAuthenticated ? <CustomerPqrs /> : <Navigate to="/login" />
+            }
           />
-          <Route path="/about-us"
-                 element={<AboutUs />}
+          <Route
+            path="/my-history"
+            element={
+              isAuthenticated ? <CustomerHistory /> : <Navigate to="/login" />
+            }
           />
-          <Route path="/*"
-                 element={isAuthenticated ? <NotFound /> : <Navigate to="/login" />}
+          <Route path="/about-us" element={<AboutUs />} />
+          <Route
+            path="/*"
+            element={isAuthenticated ? <NotFound /> : <Navigate to="/login" />}
           />
         </Routes>
         <Footer />
