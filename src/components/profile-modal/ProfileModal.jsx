@@ -42,19 +42,18 @@ const ProfileModal = ({ onClose }) => {
 
     try {
       const uResponse = await fetch(
-        `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/user/reset-password`,
+        `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/user/update-password`,
         {
-          method: "POST",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             correoElectronico: email,
-            contrasena: oldPassword,
-            confirmContrasena: confirmPassword,
-            token: token,
-            pqrsId: 4,
+            oldPassword: oldPassword,
+            newPassword: newPassword,
+            confirmNewPassword: confirmPassword
           }),
         }
       );
