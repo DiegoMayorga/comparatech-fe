@@ -7,7 +7,7 @@ import { validateTokenWithRole } from "../../utilities/jwt-utilities.js";
 import { useEffect, useState } from "react";
 
 const Cellphones = () => {
-  let filterOption;
+  let filterOption = 0;
   const [filter, setFilter] = useState({});
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
