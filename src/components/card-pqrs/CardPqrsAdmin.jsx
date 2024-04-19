@@ -50,6 +50,7 @@ const CardPqrsAdmin = ({pqrs}) => {
             if (response.ok) {
                 window.location.reload();
             } else if (response.status === 403) {
+                localStorage.clear();
                 window.location.href = "/login";
             }
         })

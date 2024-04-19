@@ -35,6 +35,7 @@ const CustomerPqrs = () => {
           alert("Hubo un error al recuperar los datos");
           return;
         } else if (pqrsResponse.status === 403) {
+          localStorage.clear();
           window.location.href = "/login";
         }
 

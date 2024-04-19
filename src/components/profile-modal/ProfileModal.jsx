@@ -59,6 +59,7 @@ const ProfileModal = ({ onClose }) => {
       );
 
       if (uResponse.status === 403) {
+        localStorage.clear();
         window.location.href = "/login";
       } else if (!uResponse.ok) {
         alert("Hubo un error al Cambiar la contraseña");
@@ -91,6 +92,7 @@ const ProfileModal = ({ onClose }) => {
         );
 
         if (uResponse.status === 403) {
+          localStorage.clear();
           window.location.href = "/login";
         } else if (!uResponse.ok) {
           alert("Hubo un error al recuperar los datos");
@@ -121,6 +123,9 @@ const ProfileModal = ({ onClose }) => {
         </Link>
         <Link className="modal-link" to="/my-requests" onClick={onClose}>
           <p>Mis solicitudes</p>
+        </Link>
+        <Link className="modal-link" to="/my-views" onClick={onClose}>
+          <p>Productos vistos</p>
         </Link>
         <div className="accordion">
           <Button

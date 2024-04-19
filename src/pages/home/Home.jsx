@@ -26,6 +26,7 @@ const Home = () => {
                 );
 
                 if (pResponse.status === 403) {
+                    localStorage.clear();
                     window.location.href = "/login";
                 } else if (!pResponse.ok) {
                     alert("Hubo un error al recuperar los datos");
@@ -47,6 +48,7 @@ const Home = () => {
                 );
 
                 if (hResponse.status === 403) {
+                    localStorage.clear();
                     window.location.href = "/login";
                 } else if (!hResponse.ok) {
                     alert("Hubo un error al recuperar los datos");

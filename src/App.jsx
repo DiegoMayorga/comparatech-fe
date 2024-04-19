@@ -29,6 +29,7 @@ import CustomerPqrs from "./pages/customer-pqrs/CustomerPqrs";
 import CustomerHistory from "./pages/User/CustomerHistory";
 import NotFound from "./pages/not-found/NotFound";
 import SearchResult from "./pages/search/SearchResult";
+import CustomerViews from "./pages/User/CustomerViews";
 
 const App = () => {
   const [isAuthenticated] = useState(
@@ -130,6 +131,12 @@ const App = () => {
             path="/my-history"
             element={
               isAuthenticated ? <CustomerHistory /> : <Navigate to="/login" />
+            }
+          />
+          <Route
+            path="/my-views"
+            element={
+              isAuthenticated ? <CustomerViews /> : <Navigate to="/login" />
             }
           />
           <Route path="/about-us" element={<AboutUs />} />

@@ -27,6 +27,7 @@ const AdminPqrs = () => {
                 );
 
                 if (pqrsResponse.status === 403) {
+                    localStorage.clear();
                     window.location.href = "/login";
                 } else if (!pqrsResponse.ok) {
                     alert("Hubo un error al recuperar los datos");

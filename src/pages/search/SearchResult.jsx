@@ -36,6 +36,7 @@ const SearchResult = () => {
                 );
 
                 if (pResponse.status === 403) {
+                    localStorage.clear();
                     window.location.href = "/login";
                 } else if (!pResponse.ok) {
                     alert("Hubo un error al recuperar los datos");

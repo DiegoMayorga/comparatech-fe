@@ -1,15 +1,12 @@
 import {useEffect, useState} from "react";
 import {validateTokenWithRole} from "../../utilities/jwt-utilities";
-import Search from "../../components/search/Search";
-import ProductFilter from "../../components/product-filter/ProductFilter";
-import FilterBy from "../../components/filter-by/FilterBy";
 import CardPost from "../../components/card-post/CardPost";
 
-const Monitors = () => {
+const CustomerViews = () => {
     const [products, setProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const itemsPerPage = 6;
+    const itemsPerPage = 15;
 
     validateTokenWithRole("CLIENTE");
 
@@ -18,7 +15,7 @@ const Monitors = () => {
             try {
                 const skip = (currentPage - 1) * itemsPerPage;
                 const pResponse = await fetch(
-                    `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/product/find-by-category?category_name=monitor&skip=${skip}&limit=${itemsPerPage}`,
+                    `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/user/viewed-products?skip=${skip}&limit=${itemsPerPage}`,
                     {
                         method: "GET",
                         headers: {
@@ -89,15 +86,12 @@ const Monitors = () => {
     };
 
     return (
-        <>
-            <Search/>
-            <ProductFilter/>
+        <div className="homepage">
             <div className="center">
-                <div className="or">Monitores</div>
+                <div className="or">Mis visualizaciones</div>
                 <div className="line"/>
             </div>
             <div className="devices">
-                <FilterBy/>
                 <div className="devices-cards">
                     {products.map((post) => (
                         <CardPost key={post._id} post={post}/>
@@ -125,8 +119,8 @@ const Monitors = () => {
                     {">>"}
                 </button>
             </div>
-        </>
+        </div>
     );
 }
 
-export default Monitors;
+export default CustomerViews;

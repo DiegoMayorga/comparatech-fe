@@ -25,6 +25,7 @@ const CustomerHistory = () => {
         );
 
         if (hResponse.status === 403) {
+          localStorage.clear();
           window.location.href = "/login";
         } else if (!hResponse.ok) {
           alert("Hubo un error al recuperar los datos");
