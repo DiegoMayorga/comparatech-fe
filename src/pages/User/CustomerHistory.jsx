@@ -6,7 +6,7 @@ const CustomerHistory = () => {
   const [history, setHistory] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const itemsPerPage = 15;
+  const itemsPerPage = 18;
 
   validateTokenWithRole("CLIENTE");
 
