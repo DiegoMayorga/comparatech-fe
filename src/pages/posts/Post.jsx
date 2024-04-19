@@ -68,34 +68,7 @@ const Post = () => {
                 setComments(productData.producto.comentarios);
                 setSpecs(productData.producto.caracteristicas);
 
-                const sResponse = await fetch(
-                    "http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/product/find-by-name",
-                    {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            Authorization: "Bearer " + localStorage.getItem("token"),
-                        },
-                        body: JSON.stringify({
-                            productName: productData.producto.nombre
-                                .split(" ")
-                                .slice(0, 3)
-                                .join(" "),
-                            skip: 0,
-                            limit: 6,
-                        }),
-                    }
-                );
-
-                if (sResponse.status === 403) {
-                    window.location.href = "/login";
-                } else if (!sResponse.ok) {
-                    alert("Hubo un error al recuperar los datos");
-                    return;
-                }
-
-                const similarData = await sResponse.json();
-                setSimilar(similarData.productos);
+                setSimilar(productData.similar);
             } catch (error) {
                 alert("Hubo un error al recuperar los datos");
             }

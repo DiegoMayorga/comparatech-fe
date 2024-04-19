@@ -28,6 +28,7 @@ import ComplaintBox from "./pages/complaint-box/ComplaintBox";
 import CustomerPqrs from "./pages/customer-pqrs/CustomerPqrs";
 import CustomerHistory from "./pages/User/CustomerHistory";
 import NotFound from "./pages/not-found/NotFound";
+import SearchResult from "./pages/search/SearchResult";
 
 const App = () => {
   const [isAuthenticated] = useState(
@@ -108,6 +109,10 @@ const App = () => {
           <Route
             path="/others"
             element={isAuthenticated ? <Others /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/search"
+            element={isAuthenticated ? <SearchResult /> : <Navigate to="/login" />}
           />
           <Route
             path="/complaint-box"
