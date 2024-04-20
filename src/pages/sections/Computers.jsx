@@ -19,7 +19,7 @@ const Computers = () => {
       try {
         const skip = (currentPage - 1) * itemsPerPage;
         const pResponse = await fetch(
-          `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/product/find-by-category?category_name=computer&skip=${skip}&limit=${itemsPerPage}`,
+          `http://localhost:8080/umb/v1/product/find-by-category?category_name=computer&skip=${skip}&limit=${itemsPerPage}`,
           {
             method: "GET",
             headers: {

@@ -17,7 +17,7 @@ const Login = () => {
         e.preventDefault();
         try {
             const response = await fetch(
-                "http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/auth",
+                "http://localhost:8080/umb/v1/auth",
                 {
                     method: "POST",
                     headers: {

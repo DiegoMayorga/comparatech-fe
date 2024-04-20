@@ -1,7 +1,20 @@
 import PropTypes from "prop-types";
 import "../../styles/atoms/button/button.css";
 
-const Button = ({ color, backgroundColor, border, text, onClick, margin, padding, width, alignSelf, href, isEnable }) => {
+const Button = ({
+  color,
+  backgroundColor,
+  border,
+  text,
+  onClick,
+  margin,
+  padding,
+  width,
+  alignSelf,
+  href,
+  isEnable,
+  zIndex,
+}) => {
   const buttonStyle = {
     color: color || "white",
     backgroundColor: backgroundColor || "#020080ab",
@@ -10,9 +23,16 @@ const Button = ({ color, backgroundColor, border, text, onClick, margin, padding
     width: width || "150px",
     alignSelf: alignSelf || "none",
     padding: padding || "15px 25px",
+    zIndex: zIndex || "none",
   };
   return (
-    <button className="custom-button" style={buttonStyle} onClick={onClick} href={href} disabled={isEnable}>
+    <button
+      className="custom-button"
+      style={buttonStyle}
+      onClick={onClick}
+      href={href}
+      disabled={isEnable}
+    >
       {text}
     </button>
   );
@@ -27,6 +47,7 @@ Button.propTypes = {
   width: PropTypes.string,
   alignSelf: PropTypes.string,
   href: PropTypes.string,
+  zIndex: PropTypes.string,
   text: PropTypes.string.isRequired,
   onClick: PropTypes.func,
 };

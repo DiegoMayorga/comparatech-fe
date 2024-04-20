@@ -15,7 +15,7 @@ const Home = () => {
         const fetchData = async () => {
             try {
                 const pResponse = await fetch(
-                    "http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/product/find-most-viewed?skip=0&limit=15",
+                    "http://localhost:8080/umb/v1/product/find-most-viewed?skip=0&limit=15",
                     {
                         method: "GET",
                         headers: {
@@ -37,7 +37,7 @@ const Home = () => {
                 setProducts(productsData.productos);
 
                 const hResponse = await fetch(
-                    "http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/user/viewed-products?skip=0&limit=9",
+                    "http://localhost:8080/umb/v1/user/viewed-products?skip=0&limit=9",
                     {
                         method: "GET",
                         headers: {

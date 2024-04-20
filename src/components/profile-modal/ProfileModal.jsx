@@ -7,18 +7,28 @@ import {
   extractEmailFromToken,
   validateTokenWithRole,
 } from "../../utilities/jwt-utilities";
+import Card from "../../molecules/card/Card.jsx";
 
 const ProfileModal = ({ onClose }) => {
   const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
+  const [isChangeCredentialsOpen, setIsChangeCredentialsOpen] = useState(false);
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [newUser, setNewUser] = useState("");
+  const [newEmail, setNewEmail] = useState("");
   const [cUser, setCUser] = useState({});
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordMismatch, setPasswordMismatch] = useState(false);
   const [passwordChangeSuccess, setPasswordChangeSuccess] = useState(false);
+  const [credentialsChangeSuccess, setCredentialsChangeSuccess] =
+    useState(false);
+  const [showButtons, setShowButtons] = useState(false);
+  const [showCredentials, setShowCredentials] = useState(false);
+  const [showUpdate, setShowUpdate] = useState(false);
+  const [showUpdatePassword, setShowUpdatePassword] = useState(false);
 
   const token = localStorage.getItem("token");
-  const email = extractEmailFromToken(token);
+  const [email, setEmail] = useState(extractEmailFromToken(token));
 
   validateTokenWithRole("CLIENTE");
 
@@ -30,6 +40,55 @@ const ProfileModal = ({ onClose }) => {
 
   const handleToggleChangePassword = () => {
     setIsChangePasswordOpen(!isChangePasswordOpen);
+    setShowButtons(!isChangePasswordOpen);
+    setShowUpdate(!isChangePasswordOpen);
+  };
+
+  const handleToggleChangeCredentials = () => {
+    setIsChangeCredentialsOpen(!isChangeCredentialsOpen);
+    setShowCredentials(!isChangeCredentialsOpen);
+    setShowButtons(!isChangeCredentialsOpen);
+    setShowUpdatePassword(!isChangeCredentialsOpen);
+  };
+
+  const handleChangeCredentials = async (e) => {
+    e.preventDefault();
+
+    try {
+      const uResponse = await fetch(
+        `http://localhost:8080/umb/v1/user/update`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            id: cUser.id,
+            nombreCompleto: newUser,
+            correoElectronico: newEmail,
+          }),
+        }
+      );
+
+      if (uResponse.status === 403) {
+        localStorage.clear();
+        window.location.href = "/login";
+      } else if (!uResponse.ok) {
+        alert("Hubo un error al actualizar las credenciales.");
+        return;
+      }
+      uResponse.json().then((response) => {
+        localStorage.removeItem("token");
+        localStorage.setItem("token", response.token);
+        setCUser(response.user)
+        setCredentialsChangeSuccess(true);
+        setNewUser(response.user.nombreCompleto);
+        setNewEmail(response.user.correoElectronico);
+      });
+    } catch (error) {
+      alert("Hubo  un error al Cambiar la contraseña");
+    }
   };
 
   const handleChangePassword = async (e) => {
@@ -42,7 +101,7 @@ const ProfileModal = ({ onClose }) => {
 
     try {
       const uResponse = await fetch(
-        `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/user/update-password`,
+        `http://localhost:8080/umb/v1/user/update-password`,
         {
           method: "PUT",
           headers: {
@@ -71,17 +130,19 @@ const ProfileModal = ({ onClose }) => {
         setOldPassword("");
         setNewPassword("");
         setConfirmPassword("");
+        setEmail(newEmail);
       }, 1000);
     } catch (error) {
       alert("Hubo  un error al Cambiar la contraseña");
     }
   };
 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const uResponse = await fetch(
-          `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/user/find-by-email?correoElectronico=${email}`,
+          `http://localhost:8080/umb/v1/user/find-by-email?correoElectronico=${email}`,
           {
             method: "GET",
             headers: {
@@ -107,7 +168,7 @@ const ProfileModal = ({ onClose }) => {
     };
 
     fetchData();
-  }, [email]);
+  }, []);
 
   return (
     <div className="modal" onClick={handleCloseModal}>
@@ -115,90 +176,149 @@ const ProfileModal = ({ onClose }) => {
         <span className="close" onClick={onClose}>
           &times;
         </span>
-        <h2>Información del usuario</h2>
-        <div className="user-info">
-          <p>{cUser.nombreCompleto}</p>
-          <p>{cUser.correoElectronico}</p>
-        </div>
+        <h2 className="modal-title">Mi cuenta</h2>
+        {!showCredentials && (
+          <Card padding={"25px"} width={"50%"} margin={"15px auto"}>
+            <p className="p-credentials">{cUser.nombreCompleto}</p>
+            <p className="p-credentials">{cUser.correoElectronico}</p>
+          </Card>
+        )}
         <div className="modal-options">
-          <Link className="modal-link" to="/my-history" onClick={onClose}>
-            <Button
-              backgroundColor={"green"}
-              width={"100%"}
-              text="Mi historial"
-            />
-          </Link>
-          <Link className="modal-link" to="/my-requests" onClick={onClose}>
-            <Button
-              backgroundColor={"green"}
-              width={"100%"}
-              text="Mis solicitudes"
-            />
-          </Link>
-          <Link className="modal-link" to="/my-views" onClick={onClose}>
-            <Button
-              backgroundColor={"green"}
-              width={"100%"}
-              text="Productos vistos"
-            />
-          </Link>
-        </div>
-        <div className="accordion">
-          <Button
-            width={"90%"}
-            onClick={handleToggleChangePassword}
-            margin={"0 20px 20px"}
-            text={isChangePasswordOpen ? "Cerrar" : "Cambiar contraseña"}
-          />
-          {isChangePasswordOpen && (
-            <div className="password-form">
-              <form onSubmit={handleChangePassword}>
-                <Input
-                  type="password"
-                  width={"80%"}
-                  margin={"10px 20px"}
-                  placeholder="Contraseña actual"
-                  value={oldPassword}
-                  onChange={(e) => setOldPassword(e.target.value)}
-                  required
-                />
-                <Input
-                  type="password"
-                  width={"80%"}
-                  margin={"10px 20px"}
-                  placeholder="Nueva contraseña"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  required
-                />
-                <Input
-                  type="password"
-                  width={"80%"}
-                  margin={"10px 20px"}
-                  placeholder="Confirmar nueva contraseña"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  required
-                />
-                {passwordMismatch && (
-                  <p className="error-message">Las contraseñas no coinciden.</p>
-                )}
-                {passwordChangeSuccess && (
-                  <p className="success-message">
-                    ¡La contraseña se cambió con éxito!
-                  </p>
-                )}
+          {!showButtons && (
+            <>
+              <Link className="modal-link" to="/my-history" onClick={onClose}>
                 <Button
-                  onClick={handleChangePassword}
-                  text="Cambiar contraseña"
                   backgroundColor={"green"}
-                  margin={"20px"}
-                  width={"90%"}
+                  width={"100%"}
+                  text="Mi historial"
                 />
-              </form>
-            </div>
+              </Link>
+              <Link className="modal-link" to="/my-requests" onClick={onClose}>
+                <Button
+                  backgroundColor={"green"}
+                  width={"100%"}
+                  text="Mis solicitudes"
+                />
+              </Link>
+              <Link className="modal-link" to="/my-views" onClick={onClose}>
+                <Button
+                  backgroundColor={"green"}
+                  width={"100%"}
+                  text="Productos vistos"
+                />
+              </Link>
+            </>
           )}
         </div>
+        {!showUpdate && (
+          <div className="accordion">
+            <Button
+              width={"90%"}
+              onClick={handleToggleChangeCredentials}
+              margin={"0 20px"}
+              text={isChangeCredentialsOpen ? "Cerrar" : "Editar información"}
+            />
+            {isChangeCredentialsOpen && (
+              <div className="password-form">
+                <form onSubmit={handleChangeCredentials}>
+                  <Input
+                    type="text"
+                    width={"80%"}
+                    margin={"10px 20px"}
+                    placeholder="Nuevo usuario"
+                    value={newUser}
+                    onChange={(e) => setNewUser(e.target.value)}
+                  />
+                  <Input
+                    type="email"
+                    width={"80%"}
+                    margin={"10px 20px"}
+                    placeholder="Nuevo correo electrónico"
+                    value={newEmail}
+                    onChange={(e) => setNewEmail(e.target.value)}
+                  />
+                  {/*                 {sameCredentials && (
+                  <p className="error-message">
+                    Pusiste las mismas credenciales.
+                  </p>
+                )} */}
+                  {credentialsChangeSuccess && (
+                    <p className="success-message">
+                      ¡Las credenciales se cambiaron con éxito!
+                    </p>
+                  )}
+                  <Button
+                    onClick={handleChangeCredentials}
+                    text="Actualizar información"
+                    backgroundColor={"green"}
+                    margin={"20px"}
+                    width={"90%"}
+                  />
+                </form>
+              </div>
+            )}
+          </div>
+        )}
+        {!showUpdatePassword && (
+          <div className="accordion">
+            <Button
+              width={"90%"}
+              onClick={handleToggleChangePassword}
+              margin={"0 20px 20px"}
+              text={isChangePasswordOpen ? "Cerrar" : "Cambiar contraseña"}
+            />
+            {isChangePasswordOpen && (
+              <div className="password-form">
+                <form onSubmit={handleChangePassword}>
+                  <Input
+                    type="password"
+                    width={"80%"}
+                    margin={"10px 20px"}
+                    placeholder="Contraseña actual"
+                    value={oldPassword}
+                    onChange={(e) => setOldPassword(e.target.value)}
+                    required
+                  />
+                  <Input
+                    type="password"
+                    width={"80%"}
+                    margin={"10px 20px"}
+                    placeholder="Nueva contraseña"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    required
+                  />
+                  <Input
+                    type="password"
+                    width={"80%"}
+                    margin={"10px 20px"}
+                    placeholder="Confirmar nueva contraseña"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
+                  />
+                  {passwordMismatch && (
+                    <p className="error-message">
+                      Las contraseñas no coinciden.
+                    </p>
+                  )}
+                  {passwordChangeSuccess && (
+                    <p className="success-message">
+                      ¡La contraseña se cambió con éxito!
+                    </p>
+                  )}
+                  <Button
+                    onClick={handleChangePassword}
+                    text="Cambiar contraseña"
+                    backgroundColor={"green"}
+                    margin={"20px"}
+                    width={"90%"}
+                  />
+                </form>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
