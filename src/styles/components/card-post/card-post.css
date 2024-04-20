@@ -13,11 +13,6 @@
   align-items: center;
 }
 
-/* .product-info {
-  height: 83%;
-  max-height: 480px;
-} */
-
 .home > .card > .link > .product-info {
   max-height: 580px;
 }
