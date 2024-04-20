@@ -81,10 +81,17 @@
   text-decoration: underline;
 }
 
+.modal-options {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
 .modal-link {
   color: black;
   font-weight: 600;
   text-decoration: underline;
+  margin: 5px 10px;
 }
 
 .profile-options {
@@ -92,7 +99,15 @@
   justify-content: space-evenly;
 }
 
-.modal-content > p {
-  margin: 20px 30px;
-  font-weight: bold;
+.user-info {
+  display: inline;
+  justify-items: center;
+  padding: 20px;
+}
+
+.user-info > p {
+  margin: 15px 30px;
+  text-align: center;
+  font-size: 120%;
+  font-family: Georgia, "Times New Roman", Times, serif;
 }

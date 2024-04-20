@@ -53,7 +53,7 @@ const ProfileModal = ({ onClose }) => {
             correoElectronico: email,
             oldPassword: oldPassword,
             newPassword: newPassword,
-            confirmNewPassword: confirmPassword
+            confirmNewPassword: confirmPassword,
           }),
         }
       );
@@ -116,17 +116,33 @@ const ProfileModal = ({ onClose }) => {
           &times;
         </span>
         <h2>Información del usuario</h2>
-        <p>Nombre: {cUser.nombreCompleto}</p>
-        <p>Email: {cUser.correoElectronico}</p>
-        <Link className="modal-link" to="/my-history" onClick={onClose}>
-          <p>Mi historial</p>
-        </Link>
-        <Link className="modal-link" to="/my-requests" onClick={onClose}>
-          <p>Mis solicitudes</p>
-        </Link>
-        <Link className="modal-link" to="/my-views" onClick={onClose}>
-          <p>Productos vistos</p>
-        </Link>
+        <div className="user-info">
+          <p>{cUser.nombreCompleto}</p>
+          <p>{cUser.correoElectronico}</p>
+        </div>
+        <div className="modal-options">
+          <Link className="modal-link" to="/my-history" onClick={onClose}>
+            <Button
+              backgroundColor={"green"}
+              width={"100%"}
+              text="Mi historial"
+            />
+          </Link>
+          <Link className="modal-link" to="/my-requests" onClick={onClose}>
+            <Button
+              backgroundColor={"green"}
+              width={"100%"}
+              text="Mis solicitudes"
+            />
+          </Link>
+          <Link className="modal-link" to="/my-views" onClick={onClose}>
+            <Button
+              backgroundColor={"green"}
+              width={"100%"}
+              text="Productos vistos"
+            />
+          </Link>
+        </div>
         <div className="accordion">
           <Button
             width={"90%"}

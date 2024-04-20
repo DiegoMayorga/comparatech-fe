@@ -28,21 +28,23 @@ const CardPost = ({ post }) => {
     <>
       <Card className="card-responsive" margin={"0"}>
         <Link className="link" to={`/post/${post._id}`}>
-          <div className="post-title">
-            <span className="title">{post.nombre}</span>
-          </div>
-          <div className="e-commerce">
+          <div className="product-info">
+            <div className="post-title">
+              <span className="title">{post.nombre}</span>
+            </div>
             <Image
               src={platformLogos[post.plataforma]}
               alt={post.nombre}
               width={"30%"}
             />
+            <div className="cover-image">
+              <Image src={post.imagenUrl} alt={post.nombre} height={"300px"} />
+            </div>
           </div>
-          <div className="cover-image">
-            <Image src={post.imagenUrl} alt={post.nombre} height={"300px"} />
+          <div className="price-and-desc">
+            <p className="desc">{formatCurrency(post.precio)}</p>
+            <Button className="cardButton" text="Ver producto" />
           </div>
-          <p className="desc">{formatCurrency(post.precio)}</p>
-          <Button className="cardButton" text="Ver producto" />
         </Link>
       </Card>
     </>

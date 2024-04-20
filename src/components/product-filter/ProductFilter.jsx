@@ -14,7 +14,7 @@ const ProductFilter = () => {
                 Tablets
             </Link>
             <Link className="title-filter" to="/monitors">
-                Monitors
+                Monitores
             </Link>
             <Link className="title-filter" to="/others">
                 Otros
