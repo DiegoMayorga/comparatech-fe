@@ -169,7 +169,7 @@ const ProfileModal = ({ onClose }) => {
     };
 
     fetchData();
-  }, []);
+  }, [email]);
 
   return (
     <div className="modal" onClick={handleCloseModal}>
