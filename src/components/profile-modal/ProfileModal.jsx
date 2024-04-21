@@ -86,7 +86,7 @@ const ProfileModal = ({ onClose }) => {
         setCredentialsChangeSuccess(true);
         setNewUser(response.user.nombreCompleto);
         setNewEmail(response.user.correoElectronico);
-        setEmailExist(false)
+        setEmailExist(false);
       });
     } catch (error) {
       alert("Hubo  un error al cambiar las credenciales.");
@@ -169,7 +169,7 @@ const ProfileModal = ({ onClose }) => {
     };
 
     fetchData();
-  }, []);
+  }, [email]);
 
   return (
     <div className="modal" onClick={handleCloseModal}>
@@ -243,7 +243,7 @@ const ProfileModal = ({ onClose }) => {
                   ) : (
                     <p className="email-exist-error">Este correo ya existe.</p>
                   )}
-                  {credentialsChangeSuccess &&  (
+                  {credentialsChangeSuccess && (
                     <p className="success-message">
                       ¡Las credenciales se cambiaron con éxito!
                     </p>
