@@ -75,7 +75,7 @@ const ProfileModal = ({ onClose }) => {
       if (uResponse.status === 403) {
         localStorage.clear();
         window.location.href = "/login";
-      } else if (uResponse.status == 400) {
+      } else if (uResponse.status === 400) {
         setEmailExist(true);
         return;
       }
