@@ -35,7 +35,7 @@ const AdminWebScraper = () => {
 
         const token = localStorage.getItem("token");
 
-        fetch("http://localhost:8080/umb/v1/product/web-scraper-bot", {
+        fetch("http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/product/web-scraper-bot", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

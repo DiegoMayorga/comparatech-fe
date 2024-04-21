@@ -42,7 +42,7 @@ const Post = () => {
         const fetchData = async () => {
             try {
                 const pResponse = await fetch(
-                    "http://localhost:8080/umb/v1/product/find-by-id",
+                    "http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/product/find-by-id",
                     {
                         method: "POST",
                         headers: {

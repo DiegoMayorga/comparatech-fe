@@ -35,7 +35,7 @@ const RestartPassword = () => {
         const email = extractEmailFromToken(token);
 
         fetch(
-            "http://localhost:8080/umb/v1/user/reset-password",
+            "http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/user/reset-password",
             {
                 method: "POST",
                 headers: {

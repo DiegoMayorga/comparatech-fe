@@ -1,6 +1,8 @@
 import CardPost from "../../components/card-post/CardPost";
 import { useEffect, useState } from "react";
 import { validateTokenWithRole } from "../../utilities/jwt-utilities";
+import Search from "../../components/search/Search";
+import ProductFilter from "../../components/product-filter/ProductFilter";
 
 const SearchResult = () => {
   const [products, setProducts] = useState([]);
@@ -19,7 +21,7 @@ const SearchResult = () => {
 
         const skip = (currentPage - 1) * itemsPerPage;
         const pResponse = await fetch(
-          `http://localhost:8080/umb/v1/product/find-by-name`,
+          `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/product/find-by-name`,
           {
             method: "POST",
             headers: {
@@ -96,6 +98,8 @@ const SearchResult = () => {
 
   return (
     <div className="homepage">
+      <Search />
+      <ProductFilter />
       <div className="center">
         <div className="or">Resultados de tu búsqueda</div>
         <div className="line" />

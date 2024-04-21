@@ -61,19 +61,23 @@
   margin-bottom: 10px;
 }
 
-.password-form {
+.user-email > form:first-child {
+  margin-top: 20px;
+}
+
+.update-form {
   display: flex;
   flex-direction: column;
 }
 
-.password-form input {
+.update-form input {
   margin-bottom: 10px;
   padding: 8px;
   border-radius: 5px;
   border: 1px solid #ccc;
 }
 
-.password-form button {
+.update-form button {
   background-color: #28a745;
   color: white;
   padding: 10px;

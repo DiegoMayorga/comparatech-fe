@@ -27,7 +27,7 @@ const SignUp = () => {
             }
 
             const response = await fetch(
-                "http://localhost:8080/umb/v1/user/save",
+                "http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/user/save",
                 {
                     method: "POST",
                     headers: {

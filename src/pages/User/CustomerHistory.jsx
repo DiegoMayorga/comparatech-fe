@@ -14,7 +14,7 @@ const CustomerHistory = () => {
     const fetchData = async () => {
       try {
         const skip = (currentPage - 1) * itemsPerPage;
-        const hResponse = await fetch(`http://localhost:8080/umb/v1/user/search-history?skip=${skip}&limit=${itemsPerPage}`,
+        const hResponse = await fetch(`http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/user/search-history?skip=${skip}&limit=${itemsPerPage}`,
           {
             method: "GET",
             headers: {

@@ -37,7 +37,7 @@ const CardPqrsAdmin = ({pqrs}) => {
 
     const token = localStorage.getItem("token");
     const handleSolvePqrs = (pqrsId) => {
-        fetch("http://localhost:8080/umb/v1/pqrs/update", {
+        fetch("http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/pqrs/update", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

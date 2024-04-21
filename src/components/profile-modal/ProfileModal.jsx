@@ -56,7 +56,7 @@ const ProfileModal = ({ onClose }) => {
 
     try {
       const uResponse = await fetch(
-        `http://localhost:8080/umb/v1/user/update`,
+        `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/user/update`,
         {
           method: "PUT",
           headers: {
@@ -101,7 +101,7 @@ const ProfileModal = ({ onClose }) => {
 
     try {
       const uResponse = await fetch(
-        `http://localhost:8080/umb/v1/user/update-password`,
+        `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/user/update-password`,
         {
           method: "PUT",
           headers: {
@@ -142,7 +142,7 @@ const ProfileModal = ({ onClose }) => {
     const fetchData = async () => {
       try {
         const uResponse = await fetch(
-          `http://localhost:8080/umb/v1/user/find-by-email?correoElectronico=${email}`,
+          `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/user/find-by-email?correoElectronico=${email}`,
           {
             method: "GET",
             headers: {
@@ -219,7 +219,7 @@ const ProfileModal = ({ onClose }) => {
               text={isChangeCredentialsOpen ? "Cerrar" : "Editar información"}
             />
             {isChangeCredentialsOpen && (
-              <div className="password-form">
+              <div className="update-form user-email">
                 <form onSubmit={handleChangeCredentials}>
                   <Input
                     type="text"
@@ -268,7 +268,7 @@ const ProfileModal = ({ onClose }) => {
               text={isChangePasswordOpen ? "Cerrar" : "Cambiar contraseña"}
             />
             {isChangePasswordOpen && (
-              <div className="password-form">
+              <div className="update-form">
                 <form onSubmit={handleChangePassword}>
                   <Input
                     type="password"

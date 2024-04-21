@@ -21,7 +21,7 @@ const CustomerPqrs = () => {
       try {
         const skip = (currentPage - 1) * itemsPerPage;
         const pqrsResponse = await fetch(
-          `http://localhost:8080/umb/v1/pqrs/find-by-email?correoElectronico=${email}&skip=${skip}&limit=${itemsPerPage}`,
+          `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/pqrs/find-by-email?correoElectronico=${email}&skip=${skip}&limit=${itemsPerPage}`,
           {
             method: "GET",
             headers: {
