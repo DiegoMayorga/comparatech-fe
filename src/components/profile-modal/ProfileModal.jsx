@@ -28,7 +28,7 @@ const ProfileModal = ({ onClose }) => {
   const [showUpdatePassword, setShowUpdatePassword] = useState(false);
   const [emailExist, setEmailExist] = useState(false);
 
-  const token = localStorage.getItem("token");
+  const [token, setToken] = useState(localStorage.getItem("token"));
   const [email, setEmail] = useState(extractEmailFromToken(token));
 
   validateTokenWithRole("CLIENTE");
@@ -75,17 +75,19 @@ const ProfileModal = ({ onClose }) => {
       if (uResponse.status === 403) {
         localStorage.clear();
         window.location.href = "/login";
-      } else if (!uResponse.ok) {
+      } else if (uResponse.status == 400) {
         setEmailExist(true);
         return;
       }
       uResponse.json().then((response) => {
         localStorage.removeItem("token");
         localStorage.setItem("token", response.token);
+        setToken(response.token);
         setCUser(response.user);
         setCredentialsChangeSuccess(true);
         setNewUser(response.user.nombreCompleto);
         setNewEmail(response.user.correoElectronico);
+        setEmail(response.user.correoElectronico);
         setEmailExist(false)
       });
     } catch (error) {
