@@ -55,6 +55,8 @@ const ProfileModal = ({ onClose }) => {
   const handleChangeCredentials = async (e) => {
     e.preventDefault();
 
+    setCredentialsChangeSuccess(false);
+
     try {
       const uResponse = await fetch(
         `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/user/update`,
@@ -75,7 +77,7 @@ const ProfileModal = ({ onClose }) => {
       if (uResponse.status === 403) {
         localStorage.clear();
         window.location.href = "/login";
-      } else if (uResponse.status == 400) {
+      } else if (uResponse.status === 400) {
         setEmailExist(true);
         return;
       }
@@ -171,7 +173,7 @@ const ProfileModal = ({ onClose }) => {
     };
 
     fetchData();
-  }, []);
+  }, [email]);
 
   return (
     <div className="modal" onClick={handleCloseModal}>
@@ -247,7 +249,7 @@ const ProfileModal = ({ onClose }) => {
                   )}
                   {credentialsChangeSuccess &&  (
                     <p className="success-message">
-                      ¡Las credenciales se cambiaron con éxito!
+                      ¡La información de actualizó con éxito!
                     </p>
                   )}
                   <Button
