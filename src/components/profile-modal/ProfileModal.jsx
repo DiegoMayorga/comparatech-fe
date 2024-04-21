@@ -28,7 +28,7 @@ const ProfileModal = ({ onClose }) => {
   const [showUpdatePassword, setShowUpdatePassword] = useState(false);
   const [emailExist, setEmailExist] = useState(false);
 
-  const token = localStorage.getItem("token");
+  const [token, setToken] = useState(localStorage.getItem("token"));
   const [email, setEmail] = useState(extractEmailFromToken(token));
 
   validateTokenWithRole("CLIENTE");
@@ -55,6 +55,8 @@ const ProfileModal = ({ onClose }) => {
   const handleChangeCredentials = async (e) => {
     e.preventDefault();
 
+    setCredentialsChangeSuccess(false);
+
     try {
       const uResponse = await fetch(
         `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/user/update`,
@@ -75,18 +77,20 @@ const ProfileModal = ({ onClose }) => {
       if (uResponse.status === 403) {
         localStorage.clear();
         window.location.href = "/login";
-      } else if (!uResponse.ok) {
+      } else if (uResponse.status === 400) {
         setEmailExist(true);
         return;
       }
       uResponse.json().then((response) => {
         localStorage.removeItem("token");
         localStorage.setItem("token", response.token);
+        setToken(response.token);
         setCUser(response.user);
         setCredentialsChangeSuccess(true);
         setNewUser(response.user.nombreCompleto);
         setNewEmail(response.user.correoElectronico);
-        setEmailExist(false);
+        setEmail(response.user.correoElectronico);
+        setEmailExist(false)
       });
     } catch (error) {
       alert("Hubo  un error al cambiar las credenciales.");
@@ -245,7 +249,7 @@ const ProfileModal = ({ onClose }) => {
                   )}
                   {credentialsChangeSuccess && (
                     <p className="success-message">
-                      ¡Las credenciales se cambiaron con éxito!
+                      ¡La información de actualizó con éxito!
                     </p>
                   )}
                   <Button
