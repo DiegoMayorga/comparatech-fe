@@ -32,8 +32,14 @@
   align-self: center !important;
   width: 80% !important;
   height: auto !important;
+  z-index: -1 !important;
 }
 
 .image {
   border-radius: 50px !important;
+}
+
+.postDesc {
+  font-size: 40px;
+  font-weight: bold;
 }

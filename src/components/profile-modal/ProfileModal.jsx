@@ -26,6 +26,7 @@ const ProfileModal = ({ onClose }) => {
   const [showCredentials, setShowCredentials] = useState(false);
   const [showUpdate, setShowUpdate] = useState(false);
   const [showUpdatePassword, setShowUpdatePassword] = useState(false);
+  const [emailExist, setEmailExist] = useState(false);
 
   const token = localStorage.getItem("token");
   const [email, setEmail] = useState(extractEmailFromToken(token));
@@ -75,19 +76,19 @@ const ProfileModal = ({ onClose }) => {
         localStorage.clear();
         window.location.href = "/login";
       } else if (!uResponse.ok) {
-        alert("Hubo un error al actualizar las credenciales.");
+        setEmailExist(true);
         return;
       }
       uResponse.json().then((response) => {
         localStorage.removeItem("token");
         localStorage.setItem("token", response.token);
-        setCUser(response.user)
+        setCUser(response.user);
         setCredentialsChangeSuccess(true);
         setNewUser(response.user.nombreCompleto);
         setNewEmail(response.user.correoElectronico);
       });
     } catch (error) {
-      alert("Hubo  un error al Cambiar la contraseña");
+      alert("Hubo  un error al cambiar las credenciales.");
     }
   };
 
@@ -136,7 +137,6 @@ const ProfileModal = ({ onClose }) => {
       alert("Hubo  un error al Cambiar la contraseña");
     }
   };
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -237,11 +237,11 @@ const ProfileModal = ({ onClose }) => {
                     value={newEmail}
                     onChange={(e) => setNewEmail(e.target.value)}
                   />
-                  {/*                 {sameCredentials && (
-                  <p className="error-message">
-                    Pusiste las mismas credenciales.
-                  </p>
-                )} */}
+                  {!emailExist ? (
+                    <p></p>
+                  ) : (
+                    <p className="email-exist-error">Este correo ya existe.</p>
+                  )}
                   {credentialsChangeSuccess && (
                     <p className="success-message">
                       ¡Las credenciales se cambiaron con éxito!

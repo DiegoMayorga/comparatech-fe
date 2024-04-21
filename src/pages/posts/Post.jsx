@@ -105,9 +105,9 @@ const Post = () => {
                     <br/>
                     <p className="postDesc">{formatCurrency(post.precio)}</p>
                     <br/>
-                    <p className="category">Categoría: {post.categoria ? post.categoria.replace(/\b\w/g, (char) => char.toUpperCase()) : ""}</p>
-                    <p className="platform">Plataforma: {post.plataforma ? post.plataforma.replace(/\b\w/g, (char) => char.toUpperCase()) : ""}</p>
-                    <p className="brand">Marca: {post.marca ? post.marca.replace(/\b\w/g, (char) => char.toUpperCase()) : ""}</p>
+                    <p className="category"><b>Categoría: </b>{post.categoria ? post.categoria.replace(/\b\w/g, (char) => char.toUpperCase()) : ""}</p>
+                    <p className="platform"><b>Plataforma: </b>{post.plataforma ? post.plataforma.replace(/\b\w/g, (char) => char.toUpperCase()) : ""}</p>
+                    <p className="brand"><b>Marca: </b>{post.marca ? post.marca.replace(/\b\w/g, (char) => char.toUpperCase()) : ""}</p>
                     <a href={post.url} target="_blank" rel="noreferrer noopener">
                         <Button
                             margin={"20px 0 0 0"}

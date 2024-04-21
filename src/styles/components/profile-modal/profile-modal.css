@@ -117,12 +117,6 @@
   text-align: center;
 }
 
-/* .user-info {
-  display: inline;
-  justify-items: center;
-  padding: 20px;
-} */
-
 .card > .p-credentials {
   margin: 0px 5px 10px;
   text-align: center;
@@ -138,4 +132,10 @@
 .update-form {
   display: flex;
   flex-direction: row;
+}
+
+.email-exist-error {
+  color: red;
+  font-weight: bold;
+  margin-bottom: 15px;
 }
