@@ -31,7 +31,7 @@ const Navbar = ({ user, showMyProfile = true }) => {
       <div>
         {user ? (
           <ul className="list">
-            {!showMyProfile && (
+            {showMyProfile && (
               <li className="listItem" onClick={openProfileModal}>
                 <p>Mi cuenta</p>
               </li>

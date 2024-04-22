@@ -127,10 +127,10 @@ const ProfileModal = ({ onClose }) => {
       if (uResponse.status === 403) {
         localStorage.clear();
         window.location.href = "/login";
-      } else if (uResponse.status === 400) {
+      } else if (uResponse.status === 404) {
         setIncorrectPassword(true);
         return;
-      }
+      } 
 
       setTimeout(() => {
         setPasswordChangeSuccess(true);
@@ -175,7 +175,7 @@ const ProfileModal = ({ onClose }) => {
     };
 
     fetchData();
-  }, [email]);
+  }, []);
 
   return (
     <div className="modal" onClick={handleCloseModal}>
