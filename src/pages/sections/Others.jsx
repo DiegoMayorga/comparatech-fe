@@ -5,9 +5,13 @@ import CardPost from "../../components/card-post/CardPost";
 import "../../styles/pages/sections/sections.css";
 import { validateTokenWithRole } from "../../utilities/jwt-utilities.js";
 import { useEffect, useState } from "react";
+import {
+    findAllBySection,
+    findAllByPriceAndSection,
+  } from "../../utilities/findSections.js";
 
 const Others = () => {
-  let filterOption = 0;
+  const [filterOption, setFilterOpt] = useState(0);
   const section = "other";
   const [filter, setFilter] = useState({});
   const [products, setProducts] = useState([]);
@@ -18,46 +22,41 @@ const Others = () => {
   validateTokenWithRole("CLIENTE");
 
   const handleFilteredData = (data) => {
-    filterOption = data.filterOption;
+    setFilterOpt(data.filterOption);
     setFilter(data.filter);
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        var totalProducts = 0;
         const skip = (currentPage - 1) * itemsPerPage;
-        const pResponse = await fetch(
-          `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/product/find-by-category?category_name=other&skip=${skip}&limit=${itemsPerPage}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-          }
-        );
-
-        if (pResponse.status === 403) {
-          localStorage.clear();
-          window.location.href = "/login";
-        } else if (!pResponse.ok) {
-          alert("Hubo un error al recuperar los datos");
-          return;
+        if (filterOption === 0) {
+          const pRes = await findAllBySection(section, skip, itemsPerPage);
+          totalProducts = pRes.totalProducts;
+          setProducts(pRes.products);
+        }
+        if (filterOption === 3) {
+          const pRes = await findAllByPriceAndSection(
+            section,
+            filter.min,
+            filter.max,
+            skip,
+            itemsPerPage
+          );
+          totalProducts = pRes.totalProducts;
+          setProducts(pRes.products);
         }
 
-        const productsData = await pResponse.json();
-        setProducts(productsData.productos);
-
-        const totalProducts = productsData.totalProductos;
         const calculatedTotalPages = Math.ceil(totalProducts / itemsPerPage);
         setTotalPages(Math.max(calculatedTotalPages, 1));
       } catch (error) {
-        alert("Hubo  un error al recuperar los datos");
+        console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, [currentPage]);
+  }, [currentPage, filter, filterOption]);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);

@@ -5,6 +5,12 @@ import CardPost from "../../components/card-post/CardPost";
 import "../../styles/pages/sections/sections.css";
 import { validateTokenWithRole } from "../../utilities/jwt-utilities.js";
 import { useEffect, useState } from "react";
+import {
+  findAllBySection,
+  findAllByPriceAndSection,
+  findAllByRamAndSection,
+  findAllByStorageAndSection,
+} from "../../utilities/findSections.js";
 
 const Cellphones = () => {
   const [filterOption, setFilterOpt] = useState(0);
@@ -29,100 +35,40 @@ const Cellphones = () => {
         var totalProducts = 0;
         const skip = (currentPage - 1) * itemsPerPage;
         if (filterOption === 0) {
-          const pResponse = await fetch(
-            `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/product/find-by-category?category_name=smartphone&skip=${skip}&limit=${itemsPerPage}`,
-            {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + localStorage.getItem("token"),
-              },
-            }
-          );
-
-          if (pResponse.status === 403) {
-            localStorage.clear();
-            window.location.href = "/login";
-          } else if (!pResponse.ok) {
-            alert("Hubo un error al recuperar los datos");
-            return;
-          }
-
-          const productsData = await pResponse.json();
-          totalProducts = productsData.totalProductos;
-          setProducts(productsData.productos);
+          const pRes = await findAllBySection(section, skip, itemsPerPage);
+          totalProducts = pRes.totalProducts;
+          setProducts(pRes.products);
         }
         if (filterOption === 1) {
-          const pResponse = await fetch(
-            `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/product/find-by-ram-memory?ram_memory=${filter.selectedRAM}&category_name=smartphone&skip=${skip}&limit=${itemsPerPage}`,
-            {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + localStorage.getItem("token"),
-              },
-            }
+          const pRes = await findAllByRamAndSection(
+            section,
+            filter.selectedRAM,
+            skip,
+            itemsPerPage
           );
-
-          if (pResponse.status === 403) {
-            localStorage.clear();
-            window.location.href = "/login";
-          } else if (!pResponse.ok) {
-            alert("Hubo un error al recuperar los datos");
-            return;
-          }
-
-          const productsData = await pResponse.json();
-          totalProducts = productsData.totalProductos;
-          setProducts(productsData.productos);
+          totalProducts = pRes.totalProducts;
+          setProducts(pRes.products);
         }
         if (filterOption === 2) {
-          const pResponse = await fetch(
-            `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/product/find-by-storage-capacity?storage_capacity=${filter.selectedDisco}&category_name=smartphone&skip=${skip}&limit=${itemsPerPage}`,
-            {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + localStorage.getItem("token"),
-              },
-            }
+          const pRes = await findAllByStorageAndSection(
+            section,
+            filter.selectedDisco,
+            skip,
+            itemsPerPage
           );
-
-          if (pResponse.status === 403) {
-            localStorage.clear();
-            window.location.href = "/login";
-          } else if (!pResponse.ok) {
-            alert("Hubo un error al recuperar los datos");
-            return;
-          }
-
-          const productsData = await pResponse.json();
-          totalProducts = productsData.totalProductos;
-          setProducts(productsData.productos);
+          totalProducts = pRes.totalProducts;
+          setProducts(pRes.products);
         }
         if (filterOption === 3) {
-          const pResponse = await fetch(
-            `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/product/find-by-price-range?min_price=${filter.min}&max_price=${filter.max}&category_name=smartphone&skip=${skip}&limit=${itemsPerPage}`,
-            {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + localStorage.getItem("token"),
-              },
-            }
+          const pRes = await findAllByPriceAndSection(
+            section,
+            filter.min,
+            filter.max,
+            skip,
+            itemsPerPage
           );
-
-          if (pResponse.status === 403) {
-            localStorage.clear();
-            window.location.href = "/login";
-          } else if (!pResponse.ok) {
-            alert("Hubo un error al recuperar los datos");
-            return;
-          }
-
-          const productsData = await pResponse.json();
-          totalProducts = productsData.totalProductos;
-          setProducts(productsData.productos);
+          totalProducts = pRes.totalProducts;
+          setProducts(pRes.products);
         }
 
         const calculatedTotalPages = Math.ceil(totalProducts / itemsPerPage);
@@ -150,12 +96,14 @@ const Cellphones = () => {
   const renderPageButtons = () => {
     const pageButtons = [];
     const totalPagesToShow = 5;
+
     let startPage = Math.max(1, currentPage - Math.floor(totalPagesToShow / 2));
     let endPage = Math.min(totalPages, startPage + totalPagesToShow - 1);
 
     if (endPage - startPage < totalPagesToShow - 1) {
       startPage = Math.max(1, endPage - totalPagesToShow + 1);
     }
+
     for (let i = startPage; i <= endPage; i++) {
       pageButtons.push(
         <button
@@ -167,6 +115,7 @@ const Cellphones = () => {
         </button>
       );
     }
+    
     return pageButtons;
   };
 

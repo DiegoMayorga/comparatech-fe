@@ -5,9 +5,15 @@ import CardPost from "../../components/card-post/CardPost";
 import "../../styles/pages/sections/sections.css";
 import { useEffect, useState } from "react";
 import { validateTokenWithRole } from "../../utilities/jwt-utilities.js";
+import {
+  findAllBySection,
+  findAllByPriceAndSection,
+  findAllByRamAndSection,
+  findAllByStorageAndSection,
+} from "../../utilities/findSections.js";
 
 const Computers = () => {
-  let filterOption = 0;
+  const [filterOption, setFilterOpt] = useState(0);
   const section = "computer";
   const [filter, setFilter] = useState({});
   const [products, setProducts] = useState([]);
@@ -17,38 +23,54 @@ const Computers = () => {
 
   validateTokenWithRole("CLIENTE");
 
+  // Función para recibir los datos filtrados del componente de filtro
   const handleFilteredData = (data) => {
-    filterOption = data.filterOption;
+    setFilterOpt(data.filterOption);
     setFilter(data.filter);
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        var totalProducts = 0;
         const skip = (currentPage - 1) * itemsPerPage;
-        const pResponse = await fetch(
-          `http://ec2-54-158-4-132.compute-1.amazonaws.com:8080/umb/v1/product/find-by-category?category_name=computer&skip=${skip}&limit=${itemsPerPage}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-          }
-        );
-
-        if (pResponse.status === 403) {
-          localStorage.clear();
-          window.location.href = "/login";
-        } else if (!pResponse.ok) {
-          alert("Hubo un error al recuperar los datos");
-          return;
+        if (filterOption === 0) {
+          const pRes = await findAllBySection(section, skip, itemsPerPage);
+          totalProducts = pRes.totalProducts;
+          setProducts(pRes.products);
+        }
+        if (filterOption === 1) {
+          const pRes = await findAllByRamAndSection(
+            section,
+            filter.selectedRAM,
+            skip,
+            itemsPerPage
+          );
+          totalProducts = pRes.totalProducts;
+          setProducts(pRes.products);
+        }
+        if (filterOption === 2) {
+          const pRes = await findAllByStorageAndSection(
+            section,
+            filter.selectedDisco,
+            skip,
+            itemsPerPage
+          );
+          totalProducts = pRes.totalProducts;
+          setProducts(pRes.products);
+        }
+        if (filterOption === 3) {
+          const pRes = await findAllByPriceAndSection(
+            section,
+            filter.min,
+            filter.max,
+            skip,
+            itemsPerPage
+          );
+          totalProducts = pRes.totalProducts;
+          setProducts(pRes.products);
         }
 
-        const productsData = await pResponse.json();
-        setProducts(productsData.productos);
-
-        const totalProducts = productsData.totalProductos;
         const calculatedTotalPages = Math.ceil(totalProducts / itemsPerPage);
         setTotalPages(Math.max(calculatedTotalPages, 1));
       } catch (error) {
@@ -57,7 +79,7 @@ const Computers = () => {
     };
 
     fetchData();
-  }, [currentPage]);
+  }, [currentPage, filter, filterOption]);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
