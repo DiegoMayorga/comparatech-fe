@@ -3,7 +3,7 @@ import "../../styles/components/navbar/navbar.css";
 import { useState } from "react";
 import ProfileModal from "../profile-modal/ProfileModal";
 
-const Navbar = ({ user }) => {
+const Navbar = ({ user, showMyProfile = true }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleLogout = () => {
@@ -31,9 +31,11 @@ const Navbar = ({ user }) => {
       <div>
         {user ? (
           <ul className="list">
-            <li className="listItem" onClick={openProfileModal}>
-              <p>Mi cuenta</p>
-            </li>
+            {showMyProfile && (
+              <li className="listItem" onClick={openProfileModal}>
+                <p>Mi cuenta</p>
+              </li>
+            )}
             <li className="listItem" onClick={handleLogout}>
               Cerrar sesión
             </li>

@@ -5,6 +5,36 @@
     text-align: center;
 }
 
-.aboutus-content {
-    margin-bottom: 75vh;
+.devs {
+    display: flex;
+    flex-direction: row;
+}
+
+.card > h2 {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.dev-image {
+    display: flex;
+}
+
+.dev-image > .image {
+    margin-top: 30px !important;
+    border-radius: 20px !important;
+}
+
+.dev-description {
+    margin: 50px;
+}
+
+@media screen and (max-width: 992px) {
+    .devs {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .devs:last-child {
+        margin-bottom: 80px;
+    }
 }

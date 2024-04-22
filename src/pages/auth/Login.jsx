@@ -1,13 +1,8 @@
 import { useState } from "react";
-import Google from "../../assest/google.png";
 import Button from "../../atoms/button/Button";
 import "../../styles/pages/auth/login.css";
 
 const Login = () => {
-  const google = () => {
-    //window.open("http://localhost:5000/auth/google", "_self");
-    alert("Esta funcionalidad no está habilitada");
-  };
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -90,11 +85,6 @@ const Login = () => {
           <a href="http://localhost:3000/signup">
             <Button text="Registrarse" margin={"10px 0 0 0"} width={"244px"} />
           </a>
-          <p>o</p>
-          <div className="loginButton google" onClick={google}>
-            <img src={Google} alt="" className="icon" />
-            Ingresa con Google
-          </div>
           <a className="forgot-pw" href="http://localhost:3000/forgot-password">
             ¿Olvidaste tu contraseña?
           </a>

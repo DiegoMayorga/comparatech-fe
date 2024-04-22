@@ -6,6 +6,7 @@ const Input = ({
   value,
   name,
   placeholder,
+  defaultValue,
   onChange,
   padding,
   margin,
@@ -27,6 +28,7 @@ const Input = ({
       value={value}
       name={name}
       placeholder={placeholder}
+      defaultValue={defaultValue}
       onChange={onChange}
       required={required}
     />
@@ -38,6 +40,7 @@ Input.propTypes = {
   value: PropTypes.string,
   name: PropTypes.string,
   placeholder: PropTypes.string,
+  defaultValue: PropTypes.string,
   padding: PropTypes.string,
   height: PropTypes.string,
   width: PropTypes.string,

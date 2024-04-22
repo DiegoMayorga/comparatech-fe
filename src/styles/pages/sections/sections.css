@@ -30,6 +30,10 @@
   display: flex;
 }
 
+.devices-cards > .card {
+  height: max-content !important;
+}
+
 .devices-cards {
   display: flex;
   padding: 50px 100px;
