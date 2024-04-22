@@ -12,7 +12,7 @@ import Post from "./pages/posts/Post";
 import Login from "./pages/auth/Login";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import RestartPassword from "./pages/auth/RestartPassword";
-import { useState } from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import SignUp from "./pages/auth/Signup";
 import Cellphones from "./pages/sections/Cellphones";
@@ -113,7 +113,9 @@ const App = () => {
           />
           <Route
             path="/search"
-            element={isAuthenticated ? <SearchResult /> : <Navigate to="/login" />}
+            element={
+              isAuthenticated ? <SearchResult /> : <Navigate to="/login" />
+            }
           />
           <Route
             path="/complaint-box"

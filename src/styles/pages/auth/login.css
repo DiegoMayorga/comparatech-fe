@@ -4,3 +4,14 @@
   margin-bottom: 20px;
   border-radius: 10px;
 }
+
+.wrapper {
+  height: max-content;
+  padding: 30px 5px;
+}
+
+@media screen and (max-width: 992px) {
+  .wrapper {
+    width: max-content;
+  }
+}

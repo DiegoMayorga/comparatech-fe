@@ -119,7 +119,7 @@ const Post = () => {
             </div>
             <div className="specifications">
                 <Card width={"80%"} padding={"30px"}>
-                    <h2>Especificaciones</h2>
+                    <h2 className="title">Especificaciones</h2>
                     <div className="wrap">
                         {specs.map((spec) => (
                             <CardSpecs key={spec._id} spec={spec}/>

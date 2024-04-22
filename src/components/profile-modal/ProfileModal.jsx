@@ -27,6 +27,7 @@ const ProfileModal = ({ onClose }) => {
   const [showUpdate, setShowUpdate] = useState(false);
   const [showUpdatePassword, setShowUpdatePassword] = useState(false);
   const [emailExist, setEmailExist] = useState(false);
+  const [incorrectPassword, setIncorrectPassword] = useState(false);
 
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [email, setEmail] = useState(extractEmailFromToken(token));
@@ -90,7 +91,7 @@ const ProfileModal = ({ onClose }) => {
         setNewUser(response.user.nombreCompleto);
         setNewEmail(response.user.correoElectronico);
         setEmail(response.user.correoElectronico);
-        setEmailExist(false)
+        setEmailExist(false);
       });
     } catch (error) {
       alert("Hubo  un error al cambiar las credenciales.");
@@ -126,8 +127,8 @@ const ProfileModal = ({ onClose }) => {
       if (uResponse.status === 403) {
         localStorage.clear();
         window.location.href = "/login";
-      } else if (!uResponse.ok) {
-        alert("Hubo un error al Cambiar la contraseña");
+      } else if (uResponse.status === 400) {
+        setIncorrectPassword(true);
         return;
       }
 
@@ -137,6 +138,7 @@ const ProfileModal = ({ onClose }) => {
         setNewPassword("");
         setConfirmPassword("");
         setEmail(newEmail);
+        setIncorrectPassword(false);
       }, 1000);
     } catch (error) {
       alert("Hubo  un error al Cambiar la contraseña");
@@ -231,7 +233,7 @@ const ProfileModal = ({ onClose }) => {
                     width={"80%"}
                     margin={"10px 20px"}
                     placeholder="Nuevo usuario"
-                    value={newUser}
+                    defaultValue={cUser.nombreCompleto}
                     onChange={(e) => setNewUser(e.target.value)}
                   />
                   <Input
@@ -239,7 +241,7 @@ const ProfileModal = ({ onClose }) => {
                     width={"80%"}
                     margin={"10px 20px"}
                     placeholder="Nuevo correo electrónico"
-                    value={newEmail}
+                    defaultValue={cUser.correoElectronico}
                     onChange={(e) => setNewEmail(e.target.value)}
                   />
                   {!emailExist ? (
@@ -284,6 +286,13 @@ const ProfileModal = ({ onClose }) => {
                     onChange={(e) => setOldPassword(e.target.value)}
                     required
                   />
+                  {!incorrectPassword ? (
+                    <p></p>
+                  ) : (
+                    <p className="password-error">
+                      Contraseña actual incorrecta.
+                    </p>
+                  )}
                   <Input
                     type="password"
                     width={"80%"}

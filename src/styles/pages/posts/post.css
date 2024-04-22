@@ -43,3 +43,12 @@
   font-size: 40px;
   font-weight: bold;
 }
+
+@media screen and (max-width: 992px) {
+  .title {
+    margin-bottom: 10px;
+  }
+  .wrap {
+    padding: 5px;
+  }
+}
