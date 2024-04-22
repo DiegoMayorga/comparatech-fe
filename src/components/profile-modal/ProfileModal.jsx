@@ -175,7 +175,7 @@ const ProfileModal = ({ onClose }) => {
     };
 
     fetchData();
-  }, []);
+  });
 
   return (
     <div className="modal" onClick={handleCloseModal}>
