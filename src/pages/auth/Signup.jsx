@@ -9,15 +9,24 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [noCoincidence, setNoCoincidence] = useState(false);
   const [userAlreadyExists, setUserAlreadyExists] = useState(false);
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState("Las contraseñas no coinciden.");
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    setNoCoincidence(false);
+    
     try {
-      if (password !== confirmPassword) {
+
+      if (password.length < 8){
+        setPasswordErrorMessage("La contraseña debe contener mínimo 8 caracteres");
         setNoCoincidence(true);
         return;
-      } else {
-        setNoCoincidence(false);
+      }
+  
+      if (password !== confirmPassword) {
+        setPasswordErrorMessage("Las contraseñas no coinciden.");
+        setNoCoincidence(true);
+        return;
       }
 
       const response = await fetch(
@@ -98,7 +107,7 @@ const SignUp = () => {
             <p></p>
           ) : (
             <p className="no-coincidence-error-text">
-              Las contraseñas no coinciden.
+              {passwordErrorMessage}
             </p>
           )}
           <Button

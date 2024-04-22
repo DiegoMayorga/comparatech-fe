@@ -3,7 +3,7 @@ import { jwtDecode } from "jwt-decode";
 export function validateTokenWithRole(role) {
   const token = localStorage.getItem("token");
 
-  if (token === undefined) {
+  if (token === null) {
     localStorage.clear();
     window.location.href = "/login";
   }
@@ -45,4 +45,20 @@ export function validateExpirationToken(token) {
 
 export function extractEmailFromToken(token) {
   return jwtDecode(token).EMAIL;
+}
+
+export function extractRoleFromToken() {
+  const token = localStorage.getItem("token");
+
+  if (token === null) {
+    localStorage.clear();
+    window.location.href = "/login";
+  }
+
+  if (!token) {
+    localStorage.clear();
+    window.location.href = "/login";
+  }
+
+  return jwtDecode(token).ROLE;
 }

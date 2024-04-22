@@ -28,6 +28,7 @@ const ProfileModal = ({ onClose }) => {
   const [showUpdatePassword, setShowUpdatePassword] = useState(false);
   const [emailExist, setEmailExist] = useState(false);
   const [incorrectPassword, setIncorrectPassword] = useState(false);
+  const [passwordMismatchMessage, setPasswordMismatchMessage] = useState("Las contraseñas no coinciden.");
 
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [email, setEmail] = useState(extractEmailFromToken(token));
@@ -82,6 +83,7 @@ const ProfileModal = ({ onClose }) => {
         setEmailExist(true);
         return;
       }
+
       uResponse.json().then((response) => {
         localStorage.removeItem("token");
         localStorage.setItem("token", response.token);
@@ -101,7 +103,17 @@ const ProfileModal = ({ onClose }) => {
   const handleChangePassword = async (e) => {
     e.preventDefault();
 
+    setIncorrectPassword(false);
+    setPasswordChangeSuccess(false);
+    setPasswordMismatch(false);
+
+    if (newPassword.length < 8) {
+      setPasswordMismatchMessage("La contraseña debe contener mínimo 8 caracteres");
+      setPasswordMismatch(true);
+    }
+    
     if (newPassword !== confirmPassword) {
+      setPasswordMismatchMessage("Las contraseñas no coinciden.");
       setPasswordMismatch(true);
       return;
     }
@@ -127,19 +139,16 @@ const ProfileModal = ({ onClose }) => {
       if (uResponse.status === 403) {
         localStorage.clear();
         window.location.href = "/login";
-      } else if (uResponse.status === 404) {
+      } else if (uResponse.status === 400) {
         setIncorrectPassword(true);
         return;
       } 
 
-      setTimeout(() => {
-        setPasswordChangeSuccess(true);
-        setOldPassword("");
-        setNewPassword("");
-        setConfirmPassword("");
-        setEmail(newEmail);
+      uResponse.json().then(() => {
         setIncorrectPassword(false);
-      }, 1000);
+        setPasswordChangeSuccess(true);
+      });
+
     } catch (error) {
       alert("Hubo  un error al Cambiar la contraseña");
     }
@@ -169,13 +178,15 @@ const ProfileModal = ({ onClose }) => {
 
         const userData = await uResponse.json();
         setCUser(userData.user);
+        setNewUser(userData.user.nombreCompleto);
+        setNewEmail(userData.user.correoElectronico);
       } catch (error) {
         alert("Hubo  un error al recuperar los datos");
       }
     };
 
     fetchData();
-  });
+  }, [email]);
 
   return (
     <div className="modal" onClick={handleCloseModal}>
@@ -290,7 +301,7 @@ const ProfileModal = ({ onClose }) => {
                     <p></p>
                   ) : (
                     <p className="password-error">
-                      Contraseña actual incorrecta.
+                      Credenciales incorrectas.
                     </p>
                   )}
                   <Input
@@ -313,7 +324,7 @@ const ProfileModal = ({ onClose }) => {
                   />
                   {passwordMismatch && (
                     <p className="error-message">
-                      Las contraseñas no coinciden.
+                      {passwordMismatchMessage}
                     </p>
                   )}
                   {passwordChangeSuccess && (

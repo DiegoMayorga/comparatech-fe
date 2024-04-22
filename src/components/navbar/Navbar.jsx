@@ -2,9 +2,15 @@ import { Link } from "react-router-dom";
 import "../../styles/components/navbar/navbar.css";
 import { useState } from "react";
 import ProfileModal from "../profile-modal/ProfileModal";
+import { extractRoleFromToken } from "../../utilities/jwt-utilities";
 
-const Navbar = ({ user, showMyProfile = true }) => {
+const Navbar = ({ user }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [isAuthenticated] = useState(
+    localStorage.getItem("isAuthenticated") || false
+  );
+  const [role] = useState(isAuthenticated === "true" ? extractRoleFromToken() : "");
 
   const handleLogout = () => {
     localStorage.removeItem("isAuthenticated");
@@ -31,11 +37,14 @@ const Navbar = ({ user, showMyProfile = true }) => {
       <div>
         {user ? (
           <ul className="list">
-            {showMyProfile && (
+            {isAuthenticated && role === "CLIENTE" ? (
               <li className="listItem" onClick={openProfileModal}>
                 <p>Mi cuenta</p>
               </li>
+            ) : (
+              <></>
             )}
+
             <li className="listItem" onClick={handleLogout}>
               Cerrar sesión
             </li>
