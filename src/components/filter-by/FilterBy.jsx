@@ -3,16 +3,19 @@ import Card from "../../molecules/card/Card";
 import { useState } from "react";
 import "../../styles/components/filter-by/filter-by.css";
 import Input from "../../atoms/input/Input";
+import { dataOptions } from "../../utilities/filtersBySections";
 
-const FilterBy = ({ onFilteredData }) => {
+const FilterBy = ({ onFilteredData, section }) => {
   const [selectedRAM, setSelectedRAM] = useState(null);
   const [selectedDisco, setSelectedDisco] = useState(null);
+  const [selectedPantalla, setSelectedPantalla] = useState(null);
   const [min, setMin] = useState("");
   const [max, setMax] = useState("");
 
   // Función para manejar cambios en el filtro de RAM
   const handleRadioChangeRAM = (value) => {
     setSelectedRAM(value);
+    setSelectedPantalla(null);
     setSelectedDisco(null); // Desactiva el filtro de disco
     setMin(""); // Desactiva el filtro de precio
     setMax(""); // Desactiva el filtro de precio
@@ -21,6 +24,15 @@ const FilterBy = ({ onFilteredData }) => {
   // Función para manejar cambios en el filtro de disco
   const handleRadioChangeDisco = (value) => {
     setSelectedDisco(value);
+    setSelectedPantalla(null);
+    setSelectedRAM(null); // Desactiva el filtro de RAM
+    setMin(""); // Desactiva el filtro de precio
+    setMax(""); // Desactiva el filtro de precio
+  };
+
+  const handleRadioChangePantalla = (value) => {
+    setSelectedPantalla(value);
+    setSelectedDisco(null);
     setSelectedRAM(null); // Desactiva el filtro de RAM
     setMin(""); // Desactiva el filtro de precio
     setMax(""); // Desactiva el filtro de precio
@@ -34,6 +46,7 @@ const FilterBy = ({ onFilteredData }) => {
     } else if (name === "max") {
       setMax(value);
     }
+    setSelectedPantalla(null);
     setSelectedRAM(null);
     setSelectedDisco(null);
   };
@@ -74,8 +87,19 @@ const FilterBy = ({ onFilteredData }) => {
       onFilteredData(filteredData);
       return;
     }
+    if (selectedPantalla === null) {
+      // Realizar la búsqueda filtrando por pantalla
+      const filteredData = {
+        filterOption: 4,
+        filter: {
+          selectedPantalla: selectedPantalla,
+        },
+      };
+      onFilteredData(filteredData);
+      return;
+    }
     // No se ha seleccionado ningún filtro
-    console.log("No se ha seleccionado ningún filtro.");
+    alert("No se ha seleccionado ningún filtro.");
   };
 
   return (
@@ -88,106 +112,80 @@ const FilterBy = ({ onFilteredData }) => {
       >
         <p>Filtrar por:</p>
         <br />
-        <p>
-          <b>RAM</b>
-        </p>
-        <br />
-        <div className="form-check">
-          <input
-            type="radio"
-            name="ram"
-            value="4"
-            checked={selectedRAM === "4"}
-            onChange={() => handleRadioChangeRAM("4")}
-          />
-          <label>4</label>
-        </div>
-        <div className="form-check">
-          <input
-            type="radio"
-            name="ram"
-            value="6"
-            checked={selectedRAM === "6"}
-            onChange={() => handleRadioChangeRAM("6")}
-          />
-          <label>6</label>
-        </div>
-        <div className="form-check">
-          <input
-            type="radio"
-            name="ram"
-            value="8"
-            checked={selectedRAM === "8"}
-            onChange={() => handleRadioChangeRAM("8")}
-          />
-          <label>8</label>
-        </div>
-        <div className="form-check">
-          <input
-            type="radio"
-            name="ram"
-            value="12"
-            checked={selectedRAM === "12"}
-            onChange={() => handleRadioChangeRAM("12")}
-          />
-          <label>12</label>
-        </div>
-        <div className="form-check">
-          <input
-            type="radio"
-            name="ram"
-            value="16"
-            checked={selectedRAM === "16"}
-            onChange={() => handleRadioChangeRAM("16")}
-          />
-          <label>16</label>
-        </div>
-        <br />
-        <p>
-          <b>DISCO</b>
-        </p>
-        <br />
-        <div className="form-check">
-          <input
-            type="radio"
-            name="disco"
-            value="64"
-            checked={selectedDisco === "64"}
-            onChange={() => handleRadioChangeDisco("64")}
-          />
-          <label>64</label>
-        </div>
-        <div className="form-check">
-          <input
-            type="radio"
-            name="disco"
-            value="128"
-            checked={selectedDisco === "128"}
-            onChange={() => handleRadioChangeDisco("128")}
-          />
-          <label>128</label>
-        </div>
-        <div className="form-check">
-          <input
-            type="radio"
-            name="disco"
-            value="256"
-            checked={selectedDisco === "256"}
-            onChange={() => handleRadioChangeDisco("256")}
-          />
-          <label>256</label>
-        </div>
-        <div className="form-check">
-          <input
-            type="radio"
-            name="disco"
-            value="512"
-            checked={selectedDisco === "512"}
-            onChange={() => handleRadioChangeDisco("512")}
-          />
-          <label>512</label>
-        </div>
-        <br />
+        {section === "smartphone" ||
+        section === "computer" ||
+        section === "tablet" ? (
+          <div>
+            <p>
+              <b>Ram</b>
+            </p>
+            <br />
+            {dataOptions[section][0].options.map((option) => (
+              <div>
+                <div className="form-check">
+                  <input
+                    type="radio"
+                    name="ram"
+                    value={option}
+                    checked={selectedRAM === option}
+                    onChange={() => handleRadioChangeRAM(option)}
+                  />
+                  <label>{option}</label>
+                </div>
+              </div>
+            ))}
+            <br />
+          </div>
+        ) : null}
+        {section === "smartphone" ||
+        section === "computer" ||
+        section === "tablet" ? (
+          <div>
+            <p>
+              <b>Disco</b>
+            </p>
+            <br />
+            {dataOptions[section][1].options.map((option) => (
+              <div>
+                <div className="form-check">
+                  <input
+                    type="radio"
+                    name="disco"
+                    value={option}
+                    checked={selectedDisco === option}
+                    onChange={() => handleRadioChangeDisco(option)}
+                  />
+                  <label>{option}</label>
+                </div>
+              </div>
+            ))}
+            <br />
+          </div>
+        ) : null}
+        {section === "monitor" ? (
+          <div>
+            <p>
+              <b>Tamaño de pantalla</b>
+            </p>
+            <br />
+            {dataOptions[section][0].options.map((option) => (
+              <div>
+                <div className="form-check">
+                  <input
+                    type="radio"
+                    name="pantalla"
+                    value={option}
+                    checked={selectedPantalla === option}
+                    onChange={() => handleRadioChangePantalla(option)}
+                  />
+                  <label>{option}</label>
+                </div>
+              </div>
+            ))}
+            <br />
+          </div>
+        ) : null}
+
         <p>
           <b>Precio</b>
         </p>

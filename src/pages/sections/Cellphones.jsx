@@ -7,7 +7,8 @@ import { validateTokenWithRole } from "../../utilities/jwt-utilities.js";
 import { useEffect, useState } from "react";
 
 const Cellphones = () => {
-  let filterOption = 0;
+  const [filterOption, setFilterOpt] = useState(0);
+  const section = "smartphone";
   const [filter, setFilter] = useState({});
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,15 +19,13 @@ const Cellphones = () => {
 
   // Función para recibir los datos filtrados del componente de filtro
   const handleFilteredData = (data) => {
-    console.log(data);
-    filterOption = data.filterOption;
+    setFilterOpt(data.filterOption);
     setFilter(data.filter);
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log(filterOption);
         var totalProducts = 0;
         const skip = (currentPage - 1) * itemsPerPage;
         if (filterOption === 0) {
@@ -180,7 +179,7 @@ const Cellphones = () => {
         <div className="line" />
       </div>
       <div className="devices">
-        <FilterBy onFilteredData={handleFilteredData} />
+        <FilterBy onFilteredData={handleFilteredData} section={section} />
         <div className="devices-cards">
           {products.map((post) => (
             <CardPost key={post._id} post={post} />

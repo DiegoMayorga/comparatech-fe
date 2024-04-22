@@ -7,12 +7,20 @@ import { useEffect, useState } from "react";
 import { validateTokenWithRole } from "../../utilities/jwt-utilities.js";
 
 const Computers = () => {
+  let filterOption = 0;
+  const section = "computer";
+  const [filter, setFilter] = useState({});
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const itemsPerPage = 6;
 
   validateTokenWithRole("CLIENTE");
+
+  const handleFilteredData = (data) => {
+    filterOption = data.filterOption;
+    setFilter(data.filter);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -98,7 +106,7 @@ const Computers = () => {
         <div className="line" />
       </div>
       <div className="devices">
-        <FilterBy />
+        <FilterBy onFilteredData={handleFilteredData} section={section} />
         <div className="devices-cards">
           {products.map((post) => (
             <CardPost key={post._id} post={post} />
