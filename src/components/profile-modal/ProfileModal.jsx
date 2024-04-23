@@ -110,6 +110,7 @@ const ProfileModal = ({ onClose }) => {
     if (newPassword.length < 8) {
       setPasswordMismatchMessage("La contraseña debe contener mínimo 8 caracteres");
       setPasswordMismatch(true);
+      return;
     }
     
     if (newPassword !== confirmPassword) {
