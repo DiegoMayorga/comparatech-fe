@@ -40,15 +40,19 @@
 }
 
 .postDesc {
-  font-size: 40px;
+  font-size: 35px;
   font-weight: bold;
 }
 
 @media screen and (max-width: 992px) {
   .title {
-    margin-bottom: 10px;
+    font-size: 20px;
+    margin-bottom: 25px;
   }
   .wrap {
-    padding: 5px;
+    padding: 0;
+  }
+  .card {
+    padding: 20px !important;
   }
 }
