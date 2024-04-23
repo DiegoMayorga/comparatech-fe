@@ -8,6 +8,8 @@ import {
   findAllBySection,
   findAllByPriceAndSection,
   findAllByScreenSizeAndSection,
+  findAllByBrandAndSection,
+  findAllByPlatformAndSection,
 } from "../../utilities/findSections.js";
 
 const Monitors = () => {
@@ -50,6 +52,26 @@ const Monitors = () => {
           const pRes = await findAllByScreenSizeAndSection(
             section,
             filter.selectedPantalla,
+            skip,
+            itemsPerPage
+          );
+          totalProducts = pRes.totalProducts;
+          setProducts(pRes.products);
+        }
+        if (filterOption === 5) {
+          const pRes = await findAllByBrandAndSection(
+            section,
+            filter.selectedMarca,
+            skip,
+            itemsPerPage
+          );
+          totalProducts = pRes.totalProducts;
+          setProducts(pRes.products);
+        }
+        if (filterOption === 6) {
+          const pRes = await findAllByPlatformAndSection(
+            section,
+            filter.selectedPlataforma,
             skip,
             itemsPerPage
           );

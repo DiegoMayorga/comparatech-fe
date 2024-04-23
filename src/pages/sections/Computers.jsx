@@ -10,6 +10,8 @@ import {
   findAllByPriceAndSection,
   findAllByRamAndSection,
   findAllByStorageAndSection,
+  findAllByBrandAndSection,
+  findAllByPlatformAndSection,
 } from "../../utilities/findSections.js";
 
 const Computers = () => {
@@ -64,6 +66,26 @@ const Computers = () => {
             section,
             filter.min,
             filter.max,
+            skip,
+            itemsPerPage
+          );
+          totalProducts = pRes.totalProducts;
+          setProducts(pRes.products);
+        }
+        if (filterOption === 5) {
+          const pRes = await findAllByBrandAndSection(
+            section,
+            filter.selectedMarca,
+            skip,
+            itemsPerPage
+          );
+          totalProducts = pRes.totalProducts;
+          setProducts(pRes.products);
+        }
+        if (filterOption === 6) {
+          const pRes = await findAllByPlatformAndSection(
+            section,
+            filter.selectedPlataforma,
             skip,
             itemsPerPage
           );

@@ -10,6 +10,8 @@ import {
   findAllByPriceAndSection,
   findAllByRamAndSection,
   findAllByStorageAndSection,
+  findAllByBrandAndSection,
+  findAllByPlatformAndSection,
 } from "../../utilities/findSections.js";
 
 const Cellphones = () => {
@@ -70,6 +72,26 @@ const Cellphones = () => {
           totalProducts = pRes.totalProducts;
           setProducts(pRes.products);
         }
+        if (filterOption === 5) {
+          const pRes = await findAllByBrandAndSection(
+            section,
+            filter.selectedMarca,
+            skip,
+            itemsPerPage
+          );
+          totalProducts = pRes.totalProducts;
+          setProducts(pRes.products);
+        }
+        if (filterOption === 6) {
+          const pRes = await findAllByPlatformAndSection(
+            section,
+            filter.selectedPlataforma,
+            skip,
+            itemsPerPage
+          );
+          totalProducts = pRes.totalProducts;
+          setProducts(pRes.products);
+        }
 
         const calculatedTotalPages = Math.ceil(totalProducts / itemsPerPage);
         setTotalPages(Math.max(calculatedTotalPages, 1));
@@ -115,7 +137,7 @@ const Cellphones = () => {
         </button>
       );
     }
-    
+
     return pageButtons;
   };
 

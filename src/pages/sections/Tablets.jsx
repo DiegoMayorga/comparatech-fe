@@ -5,11 +5,13 @@ import ProductFilter from "../../components/product-filter/ProductFilter";
 import FilterBy from "../../components/filter-by/FilterBy";
 import CardPost from "../../components/card-post/CardPost";
 import {
-    findAllBySection,
-    findAllByPriceAndSection,
-    findAllByRamAndSection,
-    findAllByStorageAndSection,
-  } from "../../utilities/findSections.js";
+  findAllBySection,
+  findAllByPriceAndSection,
+  findAllByRamAndSection,
+  findAllByStorageAndSection,
+  findAllByBrandAndSection,
+  findAllByPlatformAndSection,
+} from "../../utilities/findSections.js";
 
 const Tablets = () => {
   const [filterOption, setFilterOpt] = useState(0);
@@ -62,6 +64,26 @@ const Tablets = () => {
             section,
             filter.min,
             filter.max,
+            skip,
+            itemsPerPage
+          );
+          totalProducts = pRes.totalProducts;
+          setProducts(pRes.products);
+        }
+        if (filterOption === 5) {
+          const pRes = await findAllByBrandAndSection(
+            section,
+            filter.selectedMarca,
+            skip,
+            itemsPerPage
+          );
+          totalProducts = pRes.totalProducts;
+          setProducts(pRes.products);
+        }
+        if (filterOption === 6) {
+          const pRes = await findAllByPlatformAndSection(
+            section,
+            filter.selectedPlataforma,
             skip,
             itemsPerPage
           );
