@@ -87,7 +87,7 @@ const FilterBy = ({ onFilteredData, section }) => {
       onFilteredData(filteredData);
       return;
     }
-    if (selectedPantalla === null) {
+    if (selectedPantalla !== null) {
       // Realizar la búsqueda filtrando por pantalla
       const filteredData = {
         filterOption: 4,
@@ -117,7 +117,7 @@ const FilterBy = ({ onFilteredData, section }) => {
         section === "tablet" ? (
           <div>
             <p>
-              <b>Ram</b>
+              <b>Ram (GB)</b>
             </p>
             <br />
             {dataOptions[section][0].options.map((option) => (
@@ -142,7 +142,7 @@ const FilterBy = ({ onFilteredData, section }) => {
         section === "tablet" ? (
           <div>
             <p>
-              <b>Disco</b>
+              <b>Disco (GB)</b>
             </p>
             <br />
             {dataOptions[section][1].options.map((option) => (

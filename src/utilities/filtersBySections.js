@@ -3,11 +3,11 @@ export const dataOptions = {
     {
       filter: "RAM",
       value: "ram",
-      options: [4, 6, 8, 12],
+      options: ["4", "6", "8", "12"],
     },
     {
       filter: "DISCO",
-      options: [64, 128, 256, 512],
+      options: ["64", "128", "256", "512"],
     },
   ],
   computer: [
@@ -15,31 +15,31 @@ export const dataOptions = {
       filter: "RAM",
       value: "ram",
 
-      options: [8, 12, 16, 32],
+      options: ["8", "12", "16", "32"],
     },
     {
       filter: "DISCO",
       value: "disco",
-      options: [256, 512, 1024],
+      options: ["256", "512", "1 TB"],
     },
   ],
   monitor: [
     {
       filter: "Tamaño de pantalla",
       value: "pantalla",
-      options: [24, 27, 32],
+      options: ["24", "27", "32"],
     },
   ],
   tablet: [
     {
       filter: "RAM",
       value: "ram",
-      options: [2, 4, 6, 8],
+      options: ["2", "4", "6", "8"],
     },
     {
       filter: "DISCO",
       value: "disco",
-      options: [32, 64, 128, 256],
+      options: ["32", "64", "128", "256"],
     },
   ],
   other: [],
