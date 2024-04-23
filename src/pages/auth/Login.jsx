@@ -85,7 +85,7 @@ const Login = () => {
           <a href="http://localhost:3000/signup">
             <Button text="Registrarse" margin={"10px 0 0 0"} width={"244px"} />
           </a>
-          <a className="forgot-pw" href="http://localhost:3000/forgot-password">
+          <a className="forgot-pw" href="/forgot-password">
             ¿Olvidaste tu contraseña?
           </a>
         </div>
