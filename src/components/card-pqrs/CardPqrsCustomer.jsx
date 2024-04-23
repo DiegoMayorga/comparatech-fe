@@ -39,7 +39,7 @@ const CardPqrsCustomer = ({ pqrs }) => {
       <p className={"card-pqrs-text"}>{pqrs.incidencia}</p>
       <h1 className={"card-pqrs-title"}>Fecha Registro:</h1>
       <p className={"card-pqrs-text"}>{pqrs.fechaRegistro}</p>
-      <h1 className={"card-pqrs-title"}>Fecha Actulización</h1>
+      <h1 className={"card-pqrs-title"}>Fecha Actualización</h1>
       <p className={"card-pqrs-text"}>{updatePqrs}</p>
     </Card>
   );

@@ -106,7 +106,7 @@ const FilterBy = ({ onFilteredData, section }) => {
     <div className="filter-by">
       <Card
         margin={"50px 0 0 100px"}
-        width={"90px"}
+        width={"120px"}
         padding={"30px"}
         height={"100%"}
       >

@@ -18,7 +18,7 @@ const SignUp = () => {
     try {
 
       if (password.length < 8){
-        setPasswordErrorMessage("La contraseña debe contener mínimo 8 caracteres");
+        setPasswordErrorMessage("La contraseña debe tener mínimo 8 caracteres");
         setNoCoincidence(true);
         return;
       }
