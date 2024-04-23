@@ -82,7 +82,7 @@ const Login = () => {
             )}
             <Button text="Iniciar sesión" width={"244px"} />
           </form>
-          <a href="http://localhost:3000/signup">
+          <a href="/signup">
             <Button text="Registrarse" margin={"10px 0 0 0"} width={"244px"} />
           </a>
           <a className="forgot-pw" href="/forgot-password">
